@@ -1,0 +1,6 @@
+/.godot/
+/预览/
+/Play.cmd
+/export_credentials.cfg
+.env
+.env.*

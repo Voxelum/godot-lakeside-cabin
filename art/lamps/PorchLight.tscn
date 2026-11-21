@@ -1,0 +1,74 @@
+[gd_scene format=3]
+[sub_resource type="StandardMaterial3D" id="Iron"]
+albedo_color = Color(0.20,0.25,0.26,1)
+roughness = 0.90
+[sub_resource type="StandardMaterial3D" id="Enamel"]
+albedo_color = Color(0.32,0.52,0.48,1)
+roughness = 0.74
+[sub_resource type="StandardMaterial3D" id="Bronze"]
+albedo_color = Color(0.72,0.52,0.28,1)
+roughness = 0.76
+[sub_resource type="StandardMaterial3D" id="Bulb"]
+resource_local_to_scene = true
+albedo_color = Color(0.97,0.87,0.65,1)
+emission_enabled = true
+emission = Color(1,0.86,0.67,1)
+emission_energy_multiplier = 1.14
+[sub_resource type="BoxMesh" id="Plate"]
+size = Vector3(0.18,0.34,0.075)
+material = SubResource("Iron")
+[sub_resource type="BoxMesh" id="Arm"]
+size = Vector3(0.077,0.077,0.42)
+material = SubResource("Bronze")
+[sub_resource type="CylinderMesh" id="Bell"]
+top_radius = 0.10
+bottom_radius = 0.235
+height = 0.31
+radial_segments = 10
+rings = 0
+material = SubResource("Enamel")
+[sub_resource type="CylinderMesh" id="Lip"]
+top_radius = 0.238
+bottom_radius = 0.243
+height = 0.055
+radial_segments = 10
+rings = 0
+material = SubResource("Bronze")
+[sub_resource type="SphereMesh" id="Lens"]
+radius = 0.171
+height = 0.093
+radial_segments = 10
+rings = 4
+[node name="PorchLight" type="Node3D"]
+[node name="WallPlate" type="MeshInstance3D" parent="."]
+mesh = SubResource("Plate")
+[node name="CrankedArm" type="MeshInstance3D" parent="."]
+position = Vector3(0,0.04,0.2)
+mesh = SubResource("Arm")
+[node name="Swivel" type="Node3D" parent="."]
+position = Vector3(0,0.02,0.41)
+rotation_degrees = Vector3(-43,-157,0)
+[node name="EnamelHood" type="MeshInstance3D" parent="Swivel"]
+rotation_degrees = Vector3(90,0,0)
+mesh = SubResource("Bell")
+[node name="Lip" type="MeshInstance3D" parent="Swivel"]
+position = Vector3(0,0,-0.16)
+rotation_degrees = Vector3(90,0,0)
+mesh = SubResource("Lip")
+[node name="Optic" type="MeshInstance3D" parent="Swivel" groups=["night_glow"]]
+position = Vector3(0,0,-0.183)
+rotation_degrees = Vector3(90,0,0)
+mesh = SubResource("Lens")
+material_override = SubResource("Bulb")
+cast_shadow = 0
+[node name="DoorstepWash" type="SpotLight3D" parent="Swivel" groups=["night_spot"]]
+position = Vector3(0,0,-0.245)
+light_color = Color(1,0.89,0.67,1)
+light_energy = 4.1
+spot_range = 6.8
+spot_attenuation = 1.18
+spot_angle = 33.0
+spot_angle_attenuation = 1.26
+shadow_enabled = true
+shadow_bias = 0.12
+shadow_normal_bias = 1.15

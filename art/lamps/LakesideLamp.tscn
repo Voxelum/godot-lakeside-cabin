@@ -1,0 +1,125 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Bronze"]
+albedo_color = Color(0.22,0.27,0.27,1)
+roughness = 0.82
+[sub_resource type="StandardMaterial3D" id="Patina"]
+albedo_color = Color(0.28,0.46,0.42,1)
+roughness = 0.81
+[sub_resource type="StandardMaterial3D" id="Brass"]
+albedo_color = Color(0.67,0.44,0.22,1)
+roughness = 0.8
+[sub_resource type="StandardMaterial3D" id="Stone"]
+albedo_color = Color(0.64,0.62,0.48,1)
+roughness = 1.0
+[sub_resource type="StandardMaterial3D" id="AmberGlass"]
+resource_local_to_scene = true
+albedo_color = Color(0.94,0.78,0.45,1)
+roughness = 0.6
+emission_enabled = true
+emission = Color(1,0.72,0.36,1)
+emission_energy_multiplier = 1.38
+[sub_resource type="CylinderMesh" id="Socle"]
+top_radius = 0.22
+bottom_radius = 0.32
+height = 0.26
+radial_segments = 8
+rings = 0
+material = SubResource("Stone")
+[sub_resource type="CylinderMesh" id="Spindle"]
+top_radius = 0.054
+bottom_radius = 0.083
+height = 2.10
+radial_segments = 8
+rings = 0
+material = SubResource("Bronze")
+[sub_resource type="CylinderMesh" id="Ring"]
+top_radius = 0.097
+bottom_radius = 0.097
+height = 0.085
+radial_segments = 8
+rings = 0
+material = SubResource("Brass")
+[sub_resource type="BoxMesh" id="Hook"]
+size = Vector3(0.67,0.075,0.088)
+material = SubResource("Bronze")
+[sub_resource type="BoxMesh" id="Strut"]
+size = Vector3(0.41,0.056,0.068)
+material = SubResource("Bronze")
+[sub_resource type="CylinderMesh" id="Cap"]
+top_radius = 0.064
+bottom_radius = 0.273
+height = 0.18
+radial_segments = 6
+rings = 0
+material = SubResource("Patina")
+[sub_resource type="CylinderMesh" id="Globe"]
+top_radius = 0.187
+bottom_radius = 0.119
+height = 0.37
+radial_segments = 6
+rings = 0
+[sub_resource type="CylinderMesh" id="Base"]
+top_radius = 0.149
+bottom_radius = 0.089
+height = 0.105
+radial_segments = 6
+rings = 0
+material = SubResource("Brass")
+[sub_resource type="BoxMesh" id="Bar"]
+size = Vector3(0.028,0.36,0.028)
+material = SubResource("Bronze")
+[sub_resource type="CylinderShape3D" id="Foot"]
+height = 1.8
+radius = 0.17
+[node name="LakesideLamp" type="StaticBody3D"]
+[node name="Foundation" type="MeshInstance3D" parent="."]
+position = Vector3(0,0.13,0)
+mesh = SubResource("Socle")
+[node name="Spindle" type="MeshInstance3D" parent="."]
+position = Vector3(0,1.25,0)
+mesh = SubResource("Spindle")
+[node name="NeckRing" type="MeshInstance3D" parent="."]
+position = Vector3(0,2.14,0)
+mesh = SubResource("Ring")
+[node name="FootRing" type="MeshInstance3D" parent="."]
+position = Vector3(0,0.405,0)
+scale = Vector3(1.22,1.16,1.22)
+mesh = SubResource("Ring")
+[node name="Crook" type="MeshInstance3D" parent="."]
+position = Vector3(0.25,2.255,0)
+rotation_degrees = Vector3(0,0,4)
+mesh = SubResource("Hook")
+[node name="Brace" type="MeshInstance3D" parent="."]
+position = Vector3(0.16,2.135,0)
+rotation_degrees = Vector3(0,0,31)
+mesh = SubResource("Strut")
+[node name="CopperCap" type="MeshInstance3D" parent="."]
+position = Vector3(0.53,2.155,0)
+mesh = SubResource("Cap")
+[node name="AmberGlass" type="MeshInstance3D" parent="." groups=["night_glow"]]
+position = Vector3(0.53,1.894,0)
+mesh = SubResource("Globe")
+cast_shadow = 0
+material_override = SubResource("AmberGlass")
+[node name="Lattice1" type="MeshInstance3D" parent="."]
+position = Vector3(0.48,1.89,0.143)
+rotation_degrees = Vector3(9,0,2)
+mesh = SubResource("Bar")
+[node name="Lattice2" type="MeshInstance3D" parent="."]
+position = Vector3(0.674,1.89,0.047)
+rotation_degrees = Vector3(2,0,-8)
+mesh = SubResource("Bar")
+[node name="Catch" type="MeshInstance3D" parent="."]
+position = Vector3(0.53,1.67,0)
+mesh = SubResource("Base")
+[node name="PondLight" type="OmniLight3D" parent="." groups=["night_omni"]]
+position = Vector3(0.57,1.74,0.12)
+light_color = Color(1,0.79,0.50,1)
+light_energy = 3.15
+omni_range = 5.1
+omni_attenuation = 1.22
+shadow_enabled = false
+[node name="Footprint" type="CollisionShape3D" parent="."]
+position = Vector3(0,0.9,0)
+shape = SubResource("Foot")

@@ -1,0 +1,987 @@
+[gd_scene load_steps=89 format=3]
+
+[ext_resource type="Script" path="res://art/wayfarer/wayfarer_pose.gd" id="1_pose"]
+
+[sub_resource type="StandardMaterial3D" id="M_skin"]
+albedo_color = Color(0.84, 0.49, 0.3, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_nose"]
+albedo_color = Color(0.94, 0.56, 0.35, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_blush"]
+albedo_color = Color(0.72, 0.29, 0.26, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_hair"]
+albedo_color = Color(0.14, 0.075, 0.105, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_hat"]
+albedo_color = Color(0.24, 0.23, 0.43, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_brim"]
+albedo_color = Color(0.36, 0.32, 0.56, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_band"]
+albedo_color = Color(0.49, 0.34, 0.57, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_cloak"]
+albedo_color = Color(0.38, 0.19, 0.41, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_lining"]
+albedo_color = Color(0.27, 0.12, 0.32, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_trim"]
+albedo_color = Color(0.54, 0.32, 0.53, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_scarf"]
+albedo_color = Color(0.96, 0.29, 0.1, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_fold"]
+albedo_color = Color(0.72, 0.14, 0.08, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_gold"]
+albedo_color = Color(0.92, 0.65, 0.27, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_pants"]
+albedo_color = Color(0.18, 0.19, 0.3, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_bootA"]
+albedo_color = Color(0.37, 0.23, 0.16, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_bootB"]
+albedo_color = Color(0.23, 0.38, 0.38, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_sole"]
+albedo_color = Color(0.13, 0.11, 0.14, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_pack"]
+albedo_color = Color(0.51, 0.34, 0.23, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_flap"]
+albedo_color = Color(0.68, 0.46, 0.31, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_eye"]
+albedo_color = Color(0.105, 0.075, 0.12, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="M_glint"]
+albedo_color = Color(0.93, 0.84, 0.68, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_1"]
+material = SubResource("M_lining")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_2"]
+material = SubResource("M_lining")
+top_radius = 0.405
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_3"]
+material = SubResource("M_cloak")
+top_radius = 0.315
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_4"]
+material = SubResource("M_cloak")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_5"]
+material = SubResource("M_trim")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_6"]
+material = SubResource("M_cloak")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_7"]
+material = SubResource("M_trim")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_8"]
+material = SubResource("M_skin")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_9"]
+material = SubResource("M_nose")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_10"]
+material = SubResource("M_pants")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_11"]
+material = SubResource("M_bootA")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_12"]
+material = SubResource("M_bootA")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_13"]
+material = SubResource("M_bootA")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_14"]
+material = SubResource("M_sole")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_15"]
+material = SubResource("M_gold")
+size = Vector3(1, 1, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_16"]
+material = SubResource("M_trim")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_17"]
+material = SubResource("M_cloak")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_18"]
+material = SubResource("M_trim")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_19"]
+material = SubResource("M_skin")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_20"]
+material = SubResource("M_nose")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_21"]
+material = SubResource("M_pants")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_22"]
+material = SubResource("M_bootB")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_23"]
+material = SubResource("M_bootB")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_24"]
+material = SubResource("M_bootB")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_25"]
+material = SubResource("M_sole")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_26"]
+material = SubResource("M_gold")
+size = Vector3(1, 1, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_27"]
+material = SubResource("M_pack")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_28"]
+material = SubResource("M_flap")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_29"]
+material = SubResource("M_bootA")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_30"]
+material = SubResource("M_gold")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_31"]
+material = SubResource("M_bootB")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_32"]
+material = SubResource("M_flap")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_33"]
+material = SubResource("M_flap")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_34"]
+material = SubResource("M_fold")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_35"]
+material = SubResource("M_scarf")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_36"]
+material = SubResource("M_scarf")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_37"]
+material = SubResource("M_scarf")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_38"]
+material = SubResource("M_fold")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_39"]
+material = SubResource("M_gold")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_40"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_41"]
+material = SubResource("M_skin")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_42"]
+material = SubResource("M_skin")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_43"]
+material = SubResource("M_nose")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_44"]
+material = SubResource("M_blush")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_45"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_46"]
+material = SubResource("M_eye")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_47"]
+material = SubResource("M_glint")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_48"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_49"]
+material = SubResource("M_blush")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_50"]
+material = SubResource("M_nose")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_51"]
+material = SubResource("M_blush")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_52"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_53"]
+material = SubResource("M_eye")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_54"]
+material = SubResource("M_glint")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_55"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_56"]
+material = SubResource("M_blush")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_57"]
+material = SubResource("M_nose")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_58"]
+material = SubResource("M_nose")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_59"]
+material = SubResource("M_bootA")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_60"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="Mesh_61"]
+material = SubResource("M_hair")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_62"]
+material = SubResource("M_brim")
+top_radius = 0.48
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_63"]
+material = SubResource("M_hat")
+top_radius = 0.375
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_64"]
+material = SubResource("M_hat")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_65"]
+material = SubResource("M_band")
+top_radius = 0.47
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 14
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_66"]
+material = SubResource("M_gold")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[node name="Wayfarer3D" type="Node3D"]
+script = ExtResource("1_pose")
+
+[node name="Facing" type="Node3D" parent="."]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0.22689, 0)
+scale = Vector3(0.955, 0.955, 0.955)
+
+[node name="Torso" type="Node3D" parent="Facing"]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+
+[node name="Tunic" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.8, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.55, 0.49, 0.36)
+mesh = SubResource("Mesh_1")
+
+[node name="CapeHem" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.727, -0.035)
+rotation = Vector3(0.14, 0, 0)
+scale = Vector3(0.75, 0.25, 0.49)
+mesh = SubResource("Mesh_2")
+
+[node name="CapeDrape" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.856, -0.025)
+rotation = Vector3(0.14, 0, 0)
+scale = Vector3(0.76, 0.46, 0.49)
+mesh = SubResource("Mesh_3")
+
+[node name="RoundedShoulders" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 1.005, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.73, 0.27, 0.46)
+mesh = SubResource("Mesh_4")
+
+[node name="CapeFoldLeft" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(-0.2, 0.828, 0.176)
+rotation = Vector3(0.03, 0, -0.19)
+scale = Vector3(0.095, 0.32, 0.075)
+mesh = SubResource("Mesh_5")
+
+[node name="LeftArm" type="Node3D" parent="Facing/Torso"]
+position = Vector3(-0.33, 0.978, 0.015)
+rotation = Vector3(0, 0, 0)
+
+[node name="Sleeve" type="MeshInstance3D" parent="Facing/Torso/LeftArm"]
+position = Vector3(-0.048, -0.13, 0)
+rotation = Vector3(0, 0, -0.23)
+scale = Vector3(0.209, 0.36, 0.225)
+mesh = SubResource("Mesh_6")
+
+[node name="Cuff" type="MeshInstance3D" parent="Facing/Torso/LeftArm"]
+position = Vector3(-0.075, -0.245, 0.02)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.15, 0.106, 0.157)
+mesh = SubResource("Mesh_7")
+
+[node name="Mitten" type="MeshInstance3D" parent="Facing/Torso/LeftArm"]
+position = Vector3(-0.078, -0.315, 0.026)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.126, 0.148, 0.135)
+mesh = SubResource("Mesh_8")
+
+[node name="Thumb" type="MeshInstance3D" parent="Facing/Torso/LeftArm"]
+position = Vector3(-0.032, -0.29, 0.072)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.063, 0.076, 0.07)
+mesh = SubResource("Mesh_9")
+
+[node name="LeftLeg" type="Node3D" parent="Facing"]
+position = Vector3(-0.185, 0.65, 0)
+rotation = Vector3(0, 0, 0)
+
+[node name="Trouser" type="MeshInstance3D" parent="Facing/LeftLeg"]
+position = Vector3(0, -0.182, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.216, 0.45, 0.238)
+mesh = SubResource("Mesh_10")
+
+[node name="BootShaft" type="MeshInstance3D" parent="Facing/LeftLeg"]
+position = Vector3(0, -0.463, 0.019)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.231, 0.285, 0.246)
+mesh = SubResource("Mesh_11")
+
+[node name="BootCuff" type="MeshInstance3D" parent="Facing/LeftLeg"]
+position = Vector3(0, -0.36, 0.019)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.246, 0.118, 0.254)
+mesh = SubResource("Mesh_12")
+
+[node name="RoundedToe" type="MeshInstance3D" parent="Facing/LeftLeg"]
+position = Vector3(0, -0.554, 0.086)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.25, 0.177, 0.379)
+mesh = SubResource("Mesh_13")
+
+[node name="Outsole" type="MeshInstance3D" parent="Facing/LeftLeg"]
+position = Vector3(0, -0.602, 0.084)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.255, 0.096, 0.381)
+mesh = SubResource("Mesh_14")
+
+[node name="BootBuckle" type="MeshInstance3D" parent="Facing/LeftLeg"]
+position = Vector3(-0.085, -0.408, 0.128)
+rotation = Vector3(0, -0.25, 0)
+scale = Vector3(0.062, 0.07, 0.041)
+mesh = SubResource("Mesh_15")
+
+[node name="CapeFoldRight" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0.2, 0.828, 0.176)
+rotation = Vector3(0.03, 0, 0.19)
+scale = Vector3(0.095, 0.32, 0.075)
+mesh = SubResource("Mesh_16")
+
+[node name="RightArm" type="Node3D" parent="Facing/Torso"]
+position = Vector3(0.33, 0.978, 0.015)
+rotation = Vector3(0, 0, 0)
+
+[node name="Sleeve" type="MeshInstance3D" parent="Facing/Torso/RightArm"]
+position = Vector3(0.048, -0.13, 0)
+rotation = Vector3(0, 0, 0.23)
+scale = Vector3(0.209, 0.36, 0.225)
+mesh = SubResource("Mesh_17")
+
+[node name="Cuff" type="MeshInstance3D" parent="Facing/Torso/RightArm"]
+position = Vector3(0.075, -0.245, 0.02)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.15, 0.106, 0.157)
+mesh = SubResource("Mesh_18")
+
+[node name="Mitten" type="MeshInstance3D" parent="Facing/Torso/RightArm"]
+position = Vector3(0.078, -0.315, 0.026)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.126, 0.148, 0.135)
+mesh = SubResource("Mesh_19")
+
+[node name="Thumb" type="MeshInstance3D" parent="Facing/Torso/RightArm"]
+position = Vector3(0.032, -0.29, 0.072)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.063, 0.076, 0.07)
+mesh = SubResource("Mesh_20")
+
+[node name="RightLeg" type="Node3D" parent="Facing"]
+position = Vector3(0.185, 0.65, 0)
+rotation = Vector3(0, 0, 0)
+
+[node name="Trouser" type="MeshInstance3D" parent="Facing/RightLeg"]
+position = Vector3(0, -0.182, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.216, 0.45, 0.238)
+mesh = SubResource("Mesh_21")
+
+[node name="BootShaft" type="MeshInstance3D" parent="Facing/RightLeg"]
+position = Vector3(0, -0.463, 0.019)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.231, 0.285, 0.246)
+mesh = SubResource("Mesh_22")
+
+[node name="BootCuff" type="MeshInstance3D" parent="Facing/RightLeg"]
+position = Vector3(0, -0.36, 0.019)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.246, 0.118, 0.254)
+mesh = SubResource("Mesh_23")
+
+[node name="RoundedToe" type="MeshInstance3D" parent="Facing/RightLeg"]
+position = Vector3(0, -0.554, 0.086)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.25, 0.177, 0.379)
+mesh = SubResource("Mesh_24")
+
+[node name="Outsole" type="MeshInstance3D" parent="Facing/RightLeg"]
+position = Vector3(0, -0.602, 0.084)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.255, 0.096, 0.381)
+mesh = SubResource("Mesh_25")
+
+[node name="BootBuckle" type="MeshInstance3D" parent="Facing/RightLeg"]
+position = Vector3(0.085, -0.408, 0.128)
+rotation = Vector3(0, 0.25, 0)
+scale = Vector3(0.062, 0.07, 0.041)
+mesh = SubResource("Mesh_26")
+
+[node name="LeatherPack" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.861, -0.311)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.463, 0.482, 0.321)
+mesh = SubResource("Mesh_27")
+
+[node name="PackFlap" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.996, -0.4)
+rotation = Vector3(0.2, 0, 0)
+scale = Vector3(0.431, 0.236, 0.205)
+mesh = SubResource("Mesh_28")
+
+[node name="PackClosure" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.885, -0.468)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.089, 0.179, 0.048)
+mesh = SubResource("Mesh_29")
+
+[node name="PackStud" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.85, -0.494)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.065, 0.063, 0.029)
+mesh = SubResource("Mesh_30")
+
+[node name="Bedroll" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 0.649, -0.326)
+rotation = Vector3(0, 0, 1.5708)
+scale = Vector3(0.178, 0.486, 0.191)
+mesh = SubResource("Mesh_31")
+
+[node name="PackStrapLeft" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(-0.225, 0.956, 0.184)
+rotation = Vector3(-0.16, 0, -0.035)
+scale = Vector3(0.064, 0.293, 0.059)
+mesh = SubResource("Mesh_32")
+
+[node name="PackStrapRight" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0.225, 0.956, 0.184)
+rotation = Vector3(-0.16, 0, 0.035)
+scale = Vector3(0.064, 0.293, 0.059)
+mesh = SubResource("Mesh_33")
+
+[node name="ScarfShadow" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0, 1.104, 0.018)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.56, 0.184, 0.491)
+mesh = SubResource("Mesh_34")
+
+[node name="ScarfWrap" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0.025, 1.137, 0.041)
+rotation = Vector3(0, 0, 0.13)
+scale = Vector3(0.57, 0.156, 0.5)
+mesh = SubResource("Mesh_35")
+
+[node name="ScarfKnot" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(0.204, 1.093, 0.218)
+rotation = Vector3(0, 0, -0.35)
+scale = Vector3(0.237, 0.196, 0.185)
+mesh = SubResource("Mesh_36")
+
+[node name="ScarfTail" type="Node3D" parent="Facing/Torso"]
+position = Vector3(0.216, 1.075, 0.256)
+rotation = Vector3(0, 0, 0)
+
+[node name="HangingScarf" type="MeshInstance3D" parent="Facing/Torso/ScarfTail"]
+position = Vector3(0.061, -0.133, 0.01)
+rotation = Vector3(0.1, 0, 0.32)
+scale = Vector3(0.167, 0.345, 0.098)
+mesh = SubResource("Mesh_37")
+
+[node name="ScarfTip" type="MeshInstance3D" parent="Facing/Torso/ScarfTail"]
+position = Vector3(0.107, -0.258, -0.002)
+rotation = Vector3(0.1, 0, 0.32)
+scale = Vector3(0.157, 0.081, 0.099)
+mesh = SubResource("Mesh_38")
+
+[node name="Brooch" type="MeshInstance3D" parent="Facing/Torso"]
+position = Vector3(-0.198, 1.034, 0.22)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.101, 0.103, 0.057)
+mesh = SubResource("Mesh_39")
+
+[node name="Head" type="Node3D" parent="Facing/Torso"]
+position = Vector3(0, 1.378, 0.015)
+rotation = Vector3(0, 0, 0)
+
+[node name="HairVolume" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0, 0.027, -0.048)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.61, 0.62, 0.542)
+mesh = SubResource("Mesh_40")
+
+[node name="Face" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0, -0.024, 0.083)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.529, 0.487, 0.449)
+mesh = SubResource("Mesh_41")
+
+[node name="Jaw" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0, -0.137, 0.109)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.412, 0.276, 0.373)
+mesh = SubResource("Mesh_42")
+
+[node name="EarLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.268, -0.053, 0.062)
+rotation = Vector3(0, 0, -0.31)
+scale = Vector3(0.131, 0.186, 0.139)
+mesh = SubResource("Mesh_43")
+
+[node name="InnerEarLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.299, -0.055, 0.111)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.061, 0.096, 0.041)
+mesh = SubResource("Mesh_44")
+
+[node name="SideLockLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.241, 0.062, 0.081)
+rotation = Vector3(0, 0, -0.23)
+scale = Vector3(0.102, 0.29, 0.2)
+mesh = SubResource("Mesh_45")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.111, -0.024, 0.287)
+rotation = Vector3(0, -0.24, 0)
+scale = Vector3(0.067, 0.083, 0.045)
+mesh = SubResource("Mesh_46")
+
+[node name="EyeGlintLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.122, -0.01, 0.31)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.018, 0.021, 0.01)
+mesh = SubResource("Mesh_47")
+
+[node name="BrowLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.114, 0.041, 0.278)
+rotation = Vector3(0, -0.22, -0.11)
+scale = Vector3(0.097, 0.03, 0.039)
+mesh = SubResource("Mesh_48")
+
+[node name="CheekLeft" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.174, -0.086, 0.263)
+rotation = Vector3(0, -0.45, 0)
+scale = Vector3(0.084, 0.042, 0.035)
+mesh = SubResource("Mesh_49")
+
+[node name="EarRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.268, -0.053, 0.062)
+rotation = Vector3(0, 0, 0.31)
+scale = Vector3(0.131, 0.186, 0.139)
+mesh = SubResource("Mesh_50")
+
+[node name="InnerEarRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.299, -0.055, 0.111)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.061, 0.096, 0.041)
+mesh = SubResource("Mesh_51")
+
+[node name="SideLockRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.241, 0.062, 0.081)
+rotation = Vector3(0, 0, 0.23)
+scale = Vector3(0.102, 0.29, 0.2)
+mesh = SubResource("Mesh_52")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.111, -0.024, 0.287)
+rotation = Vector3(0, 0.24, 0)
+scale = Vector3(0.067, 0.083, 0.045)
+mesh = SubResource("Mesh_53")
+
+[node name="EyeGlintRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.1, -0.01, 0.31)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.018, 0.021, 0.01)
+mesh = SubResource("Mesh_54")
+
+[node name="BrowRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.114, 0.041, 0.278)
+rotation = Vector3(0, 0.22, 0.11)
+scale = Vector3(0.097, 0.03, 0.039)
+mesh = SubResource("Mesh_55")
+
+[node name="CheekRight" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0.174, -0.086, 0.263)
+rotation = Vector3(0, 0.45, 0)
+scale = Vector3(0.084, 0.042, 0.035)
+mesh = SubResource("Mesh_56")
+
+[node name="NoseBridge" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0, -0.061, 0.306)
+rotation = Vector3(-0.16, 0, 0)
+scale = Vector3(0.096, 0.125, 0.097)
+mesh = SubResource("Mesh_57")
+
+[node name="NoseTip" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0, -0.095, 0.332)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.107, 0.066, 0.094)
+mesh = SubResource("Mesh_58")
+
+[node name="Smile" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(0, -0.154, 0.284)
+rotation = Vector3(0, 0, 0.08)
+scale = Vector3(0.086, 0.022, 0.042)
+mesh = SubResource("Mesh_59")
+
+[node name="SweptFringe" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.087, 0.125, 0.213)
+rotation = Vector3(0, -0.13, -0.33)
+scale = Vector3(0.331, 0.129, 0.19)
+mesh = SubResource("Mesh_60")
+
+[node name="FringeTip" type="MeshInstance3D" parent="Facing/Torso/Head"]
+position = Vector3(-0.173, 0.094, 0.225)
+rotation = Vector3(0, -0.18, -0.6)
+scale = Vector3(0.141, 0.134, 0.138)
+mesh = SubResource("Mesh_61")
+
+[node name="TiltedCap" type="Node3D" parent="Facing/Torso/Head"]
+position = Vector3(0.007, 0.215, -0.04)
+rotation = Vector3(-0.095, 0, -0.107)
+
+[node name="Brim" type="MeshInstance3D" parent="Facing/Torso/Head/TiltedCap"]
+position = Vector3(0, 0, 0.054)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.726, 0.079, 0.675)
+mesh = SubResource("Mesh_62")
+
+[node name="Crown" type="MeshInstance3D" parent="Facing/Torso/Head/TiltedCap"]
+position = Vector3(0, 0.099, -0.039)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.565, 0.257, 0.518)
+mesh = SubResource("Mesh_63")
+
+[node name="CrownTop" type="MeshInstance3D" parent="Facing/Torso/Head/TiltedCap"]
+position = Vector3(0, 0.218, -0.039)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.435, 0.068, 0.397)
+mesh = SubResource("Mesh_64")
+
+[node name="Hatband" type="MeshInstance3D" parent="Facing/Torso/Head/TiltedCap"]
+position = Vector3(0, 0.049, -0.039)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.57, 0.073, 0.53)
+mesh = SubResource("Mesh_65")
+
+[node name="HatPin" type="MeshInstance3D" parent="Facing/Torso/Head/TiltedCap"]
+position = Vector3(-0.162, 0.049, 0.186)
+rotation = Vector3(0, -0.36, 0)
+scale = Vector3(0.072, 0.075, 0.035)
+mesh = SubResource("Mesh_66")
