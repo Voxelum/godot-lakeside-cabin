@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://art/wildlife/forest_life.gd" id="1"]
+
+[node name="ForestLife" type="Node3D"]
+script = ExtResource("1")
+
+[node name="SwiftWest" type="Node3D" parent="."]
+[node name="SwiftNorth" type="Node3D" parent="."]
+[node name="Hare" type="Node3D" parent="."]
+[node name="WestOakFireflies" type="Marker3D" parent="."]
+position = Vector3(-4.49, 1.0, 6.61)
+[node name="BackMapleFireflies" type="Marker3D" parent="."]
+position = Vector3(-7.23, 1.18, 0.65)

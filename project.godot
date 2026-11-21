@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="林边小屋 · 池畔昼夜"
+config/name="林边小屋 V2 · 走进小屋"
 run/main_scene="res://Main.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="Shadow/RowansRest-Almanac"
+config/custom_user_dir_name="Shadow/RowansRest-Threshold"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]

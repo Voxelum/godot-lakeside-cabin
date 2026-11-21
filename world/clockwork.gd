@@ -6,7 +6,7 @@ extends Node
 var hour := 14.0
 var daylight := 1.0
 var sundown := 0.0
-var halted := false
+var halted := true
 var points_on := true
 var spots_on := true
 var show_dial := true
@@ -62,9 +62,9 @@ func _process(delta: float) -> void:
 
 func handle_key(key:Key) -> bool:
 	match key:
-		KEY_1,KEY_KP_1: hour=14.0
-		KEY_2,KEY_KP_2: hour=17.85
-		KEY_3,KEY_KP_3: hour=22.0
+		KEY_1,KEY_KP_1: hour=14.0; halted=true
+		KEY_2,KEY_KP_2: hour=16.75; halted=true
+		KEY_3,KEY_KP_3: hour=18.66667; halted=true
 		KEY_4,KEY_KP_4: hour=6.15
 		KEY_P: halted=not halted
 		KEY_H: show_dial=not show_dial

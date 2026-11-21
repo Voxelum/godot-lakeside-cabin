@@ -1,0 +1,50 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://art/sunbreak/sunbreak.gd" id="Rig"]
+[ext_resource type="Shader" path="res://art/sunbreak/dust_volume.gdshader" id="Volume"]
+[sub_resource type="ShaderMaterial" id="Amber"]
+render_priority = 1
+shader = ExtResource("Volume")
+[sub_resource type="BoxMesh" id="Bound"]
+size = Vector3(2,1,2)
+[node name="Sunbreak" type="Node3D"]
+script = ExtResource("Rig")
+[node name="Oak_SouthCleft" type="Marker3D" parent="."]
+position = Vector3(-6.48,4.58,6.94)
+metadata/radii = Vector2(0.68,0.50)
+metadata/density = 0.28
+[node name="Dust" type="MeshInstance3D" parent="Oak_SouthCleft"]
+visible = false
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Bound")
+material_override = SubResource("Amber")
+[node name="Oak_Fork" type="Marker3D" parent="."]
+position = Vector3(-6.42,4.36,5.32)
+metadata/radii = Vector2(0.41,0.30)
+metadata/density = 0.39
+[node name="Dust" type="MeshInstance3D" parent="Oak_Fork"]
+visible = false
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Bound")
+material_override = SubResource("Amber")
+[node name="Oak_Filament" type="Marker3D" parent="."]
+position = Vector3(-6.75,4.02,7.46)
+metadata/radii = Vector2(0.22,0.19)
+metadata/density = 0.29
+[node name="Dust" type="MeshInstance3D" parent="Oak_Filament"]
+visible = false
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Bound")
+material_override = SubResource("Amber")
+[node name="Maple_BetweenBoughs" type="Marker3D" parent="."]
+position = Vector3(-7.26,4.17,1.04)
+metadata/radii = Vector2(0.57,0.42)
+metadata/density = 0.26
+[node name="Dust" type="MeshInstance3D" parent="Maple_BetweenBoughs"]
+visible = false
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Bound")
+material_override = SubResource("Amber")

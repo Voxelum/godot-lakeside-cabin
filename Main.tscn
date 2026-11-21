@@ -3,9 +3,16 @@
 [ext_resource type="Script" path="res://scripts/pixel_window.gd" id="1"]
 [ext_resource type="PackedScene" path="res://world/Clearing.tscn" id="2"]
 [ext_resource type="Script" path="res://scripts/sundial.gd" id="3"]
+[ext_resource type="PackedScene" path="res://world/Interior.tscn" id="Interior"]
+[ext_resource type="Shader" path="res://scripts/door_iris.gdshader" id="Iris"]
+[ext_resource type="PackedScene" path="res://world/Walker.tscn" id="Walker"]
 
 [sub_resource type="ViewportTexture" id="WindowView"]
 viewport_path = NodePath("Pixels")
+
+[sub_resource type="ShaderMaterial" id="Shutter"]
+resource_local_to_scene = true
+shader = ExtResource("Iris")
 
 [node name="RowansRest" type="Control"]
 layout_mode = 3
@@ -22,7 +29,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0.055, 0.11, 0.114, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="Pixels" type="SubViewport" parent="."]
 own_world_3d = true
@@ -36,7 +43,19 @@ render_target_update_mode = 4
 position = Vector2(6,6)
 script = ExtResource("3")
 
+[node name="RoomPixels" type="SubViewport" parent="."]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(480,270)
+render_target_update_mode = 0
+
+[node name="Interior" parent="RoomPixels" instance=ExtResource("Interior")]
+
+[node name="Guest" parent="RoomPixels" instance=ExtResource("Walker")]
+position = Vector3(-1,0.005,2.12)
+
 [node name="Screen" type="TextureRect" parent="."]
+material = SubResource("Shutter")
 texture_filter = 1
 layout_mode = 0
 offset_right = 960.0

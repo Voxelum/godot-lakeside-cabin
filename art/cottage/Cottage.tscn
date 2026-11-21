@@ -1,5 +1,8 @@
 [gd_scene format=4]
 
+[sub_resource type="ConvexPolygonShape3D" id="StoopRamp"]
+points = PackedVector3Array(-1.35,-0.03,2.20, 0.45,-0.03,2.20, -1.35,-0.03,3.12, 0.45,-0.03,3.12, -1.35,0.234,2.20, 0.45,0.234,2.20, -1.35,0.234,2.64, 0.45,0.234,2.64, -1.35,0.071,3.12, 0.45,0.071,3.12)
+
 [sub_resource type="BoxShape3D" id="Footprint"]
 size = Vector3(6.1, 3.1, 4.5)
 
@@ -2234,6 +2237,15 @@ size = Vector3(0.024, 0.154, 0.36)
 
 [node name="Cottage" type="StaticBody3D" unique_id=245822860]
 
+[node name="LandingSupport" type="CollisionShape3D" parent="."]
+shape = SubResource("StoopRamp")
+
+[node name="DoorAnchor" type="Marker3D" parent="."]
+position = Vector3(-0.45, 0.232, 2.68)
+
+[node name="Entry" type="Marker3D" parent="."]
+position = Vector3(-0.45, 0.09, 3.65)
+
 [node name="HouseFootprint" type="CollisionShape3D" parent="." unique_id=479663051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
 shape = SubResource("Footprint")
@@ -3461,3 +3473,243 @@ mesh = SubResource("Mesh349")
 [node name="Proud_Return_351" type="MeshInstance3D" parent="Chimney" unique_id=1636860403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.612, 5.16, -1.41)
 mesh = SubResource("Mesh351")
+
+[node name="North_Kitchen_Window" type="Node3D" parent="."]
+position = Vector3(1.76, 0, 0)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="Casing_189" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.74, 2.23741)
+mesh = SubResource("Mesh189")
+
+[node name="Amber_Frame_190" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.74, 2.3071)
+mesh = SubResource("Mesh190")
+
+[node name="Glazing_Recess_191" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.74, 2.37477)
+mesh = SubResource("Mesh191")
+
+[node name="Wavy_Glass_192" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5378, 1.54406, 2.40204)
+mesh = SubResource("Mesh192")
+
+[node name="Wavy_Glass_193" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5378, 1.93594, 2.40204)
+mesh = SubResource("Mesh193")
+
+[node name="Wavy_Glass_194" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9822, 1.54406, 2.40204)
+mesh = SubResource("Mesh194")
+
+[node name="Wavy_Glass_195" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9822, 1.93594, 2.40204)
+mesh = SubResource("Mesh195")
+
+[node name="Cross_Muntin_196" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.74, 2.42628)
+mesh = SubResource("Mesh196")
+
+[node name="Center_Muntin_197" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.74, 2.42628)
+mesh = SubResource("Mesh197")
+
+[node name="Sage_Shutter_198" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02876, 1.74, 2.297)
+mesh = SubResource("Mesh198")
+
+[node name="Shutter_Intaglio_199" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93483, 1.74, 2.3778)
+mesh = SubResource("Mesh199")
+
+[node name="Shutter_Intaglio_200" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02876, 1.74, 2.3778)
+mesh = SubResource("Mesh200")
+
+[node name="Shutter_Intaglio_201" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.12269, 1.74, 2.3778)
+mesh = SubResource("Mesh201")
+
+[node name="Shutter_Hinge_Rail_202" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02876, 1.41983, 2.40002)
+mesh = SubResource("Mesh202")
+
+[node name="Shutter_Hinge_Rail_203" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02876, 2.06017, 2.40002)
+mesh = SubResource("Mesh203")
+
+[node name="Sage_Shutter_204" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49124, 1.74, 2.297)
+mesh = SubResource("Mesh204")
+
+[node name="Shutter_Intaglio_205" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.39731, 1.74, 2.3778)
+mesh = SubResource("Mesh205")
+
+[node name="Shutter_Intaglio_206" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49124, 1.74, 2.3778)
+mesh = SubResource("Mesh206")
+
+[node name="Shutter_Intaglio_207" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.58517, 1.74, 2.3778)
+mesh = SubResource("Mesh207")
+
+[node name="Shutter_Hinge_Rail_208" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49124, 1.41983, 2.40002)
+mesh = SubResource("Mesh208")
+
+[node name="Shutter_Hinge_Rail_209" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49124, 2.06017, 2.40002)
+mesh = SubResource("Mesh209")
+
+[node name="Oak_Sill_210" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.15723, 2.36366)
+mesh = SubResource("Mesh210")
+
+[node name="Window_Box_212" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.02896, 2.42224)
+mesh = SubResource("Mesh212")
+
+[node name="Window_Box_Lip_214" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 1.10875, 2.43335)
+mesh = SubResource("Mesh214")
+
+[node name="Leaf_Clump_216" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2651, 1.1946, 2.499)
+mesh = SubResource("Mesh216")
+
+[node name="Petal_Clump_218" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2651, 1.27641, 2.57576)
+mesh = SubResource("Mesh218")
+
+[node name="Leaf_Clump_220" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4267, 1.21791, 2.499)
+mesh = SubResource("Mesh220")
+
+[node name="Leaf_Clump_222" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5883, 1.15245, 2.499)
+mesh = SubResource("Mesh222")
+
+[node name="Petal_Clump_224" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5883, 1.23426, 2.57576)
+mesh = SubResource("Mesh224")
+
+[node name="Leaf_Clump_225" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7499, 1.2475, 2.499)
+mesh = SubResource("Mesh225")
+
+[node name="Petal_Clump_226" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7499, 1.32931, 2.57576)
+mesh = SubResource("Mesh226")
+
+[node name="Leaf_Clump_227" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9115, 1.1411, 2.499)
+mesh = SubResource("Mesh227")
+
+[node name="Leaf_Clump_228" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0731, 1.23844, 2.499)
+mesh = SubResource("Mesh228")
+
+[node name="Petal_Clump_229" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0731, 1.32025, 2.57576)
+mesh = SubResource("Mesh229")
+
+[node name="Leaf_Clump_230" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2347, 1.16883, 2.499)
+mesh = SubResource("Mesh230")
+
+[node name="Petal_Clump_231" type="MeshInstance3D" parent="North_Kitchen_Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2347, 1.25064, 2.57576)
+mesh = SubResource("Mesh231")
+
+[node name="West_Small_Light" type="Node3D" parent="."]
+position = Vector3(-0.79, 0, 2.62)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="Casing_158" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27, 1.75, 2.22265)
+mesh = SubResource("Mesh158")
+
+[node name="Amber_Frame_160" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27, 1.75, 2.2675)
+mesh = SubResource("Mesh160")
+
+[node name="Glazing_Recess_162" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27, 1.75, 2.31105)
+mesh = SubResource("Mesh162")
+
+[node name="Wavy_Glass_164" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.413, 1.6239, 2.3286)
+mesh = SubResource("Mesh164")
+
+[node name="Wavy_Glass_166" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.413, 1.8761, 2.3286)
+mesh = SubResource("Mesh166")
+
+[node name="Wavy_Glass_167" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.127, 1.6239, 2.3286)
+mesh = SubResource("Mesh167")
+
+[node name="Wavy_Glass_168" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.127, 1.8761, 2.3286)
+mesh = SubResource("Mesh168")
+
+[node name="Cross_Muntin_170" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27, 1.75, 2.3442)
+mesh = SubResource("Mesh170")
+
+[node name="Center_Muntin_171" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27, 1.75, 2.3442)
+mesh = SubResource("Mesh171")
+
+[node name="Sage_Shutter_173" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7406, 1.75, 2.261)
+mesh = SubResource("Mesh173")
+
+[node name="Shutter_Intaglio_175" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.80105, 1.75, 2.313)
+mesh = SubResource("Mesh175")
+
+[node name="Shutter_Intaglio_176" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7406, 1.75, 2.313)
+mesh = SubResource("Mesh176")
+
+[node name="Shutter_Intaglio_177" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68015, 1.75, 2.313)
+mesh = SubResource("Mesh177")
+
+[node name="Shutter_Hinge_Rail_179" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7406, 1.54395, 2.3273)
+mesh = SubResource("Mesh179")
+
+[node name="Shutter_Hinge_Rail_180" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7406, 1.95605, 2.3273)
+mesh = SubResource("Mesh180")
+
+[node name="Sage_Shutter_181" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7994, 1.75, 2.261)
+mesh = SubResource("Mesh181")
+
+[node name="Shutter_Intaglio_182" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85985, 1.75, 2.313)
+mesh = SubResource("Mesh182")
+
+[node name="Shutter_Intaglio_183" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7994, 1.75, 2.313)
+mesh = SubResource("Mesh183")
+
+[node name="Shutter_Intaglio_184" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73895, 1.75, 2.313)
+mesh = SubResource("Mesh184")
+
+[node name="Shutter_Hinge_Rail_185" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7994, 1.54395, 2.3273)
+mesh = SubResource("Mesh185")
+
+[node name="Shutter_Hinge_Rail_186" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7994, 1.95605, 2.3273)
+mesh = SubResource("Mesh186")
+
+[node name="Oak_Sill_188" type="MeshInstance3D" parent="West_Small_Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27, 1.37495, 2.3039)
+mesh = SubResource("Mesh188")
