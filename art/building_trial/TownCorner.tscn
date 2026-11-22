@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://art/building_trial/trial_site.gd" id="1"]
+[ext_resource type="PackedScene" path="res://art/building_trial/BuildingLot.tscn" id="2"]
+
+[sub_resource type="Environment" id="DayAir"]
+resource_local_to_scene = true
+background_mode = 1
+background_color = Color(0.52, 0.73, 0.76, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.77, 0.82, 0.87, 1)
+ambient_light_energy = 0.69
+reflected_light_source = 1
+
+[node name="TownCorner" type="Node3D"]
+script = ExtResource("1")
+setting = 1
+wide_focus = Vector3(-0.15, 2.83, -0.91)
+
+[node name="Air" type="WorldEnvironment" parent="."]
+environment = SubResource("DayAir")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-52, -34, 0)
+shadow_enabled = true
+shadow_bias = 0.13
+shadow_normal_bias = 1.1
+directional_shadow_mode = 0
+directional_shadow_max_distance = 36.0
+
+[node name="Camera" type="Camera3D" parent="."]
+projection = 1
+size = 13.4
+near = 0.2
+far = 72.0
+current = true
+
+[node name="ScaleSpawn" type="Marker3D" parent="."]
+position = Vector3(3.46, 0.015, 1.53)
+
+[node name="Lots" type="Node3D" parent="."]
+
+[node name="CrookedLoft" parent="Lots" instance=ExtResource("2")]
+position = Vector3(-6.98, 0, -2.05)
+lot_id = &"trial.town.crooked_loft"
+archetype = 1
+parcel = Vector2(3.58, 4.46)
+threshold_rise = 0.20
+appearance_seed = 77193
+roof_lock = 3
+palette_lock = 1
+chimney_lock = 3
+entry_lock = 2
+shutters_lock = 2
+
+[node name="AlleyLoft" parent="Lots" instance=ExtResource("2")]
+position = Vector3(-2.95, 0, -4.57)
+lot_id = &"trial.town.alley_loft"
+archetype = 1
+parcel = Vector2(4.02, 4.81)
+street_face = 1
+threshold_rise = 0.31
+appearance_seed = 32808
+body_lock = 1
+roof_lock = 4
+palette_lock = 2
+chimney_lock = 1
+entry_lock = 1
+
+[node name="BakersCorner" parent="Lots" instance=ExtResource("2")]
+position = Vector3(5.58, 0, -2.84)
+lot_id = &"trial.town.bakers_corner"
+archetype = 2
+parcel = Vector2(5.72, 4.88)
+threshold_rise = 0.17
+appearance_seed = 1073
+body_lock = 1
+roof_lock = 2
+palette_lock = 1
+chimney_lock = 2
+
+[node name="Links" type="Node3D" parent="."]
+
+[node name="CrookedLoft" type="Marker3D" parent="Links"]
+position = Vector3(-6.98, 0, 1.61)
+
+[node name="AlleyLoft" type="Marker3D" parent="Links"]
+position = Vector3(0.56, 0, -3.76)
+
+[node name="BakersCorner" type="Marker3D" parent="Links"]
+position = Vector3(6.84, 0, 1.73)

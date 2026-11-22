@@ -1,0 +1,98 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://art/monster_trial/monster_trial.gd" id="Trial"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Slime.tscn" id="Slime"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Goblin.tscn" id="Goblin"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Wolf.tscn" id="Wolf"]
+
+[sub_resource type="Environment" id="Air"]
+resource_local_to_scene = true
+background_mode = 1
+background_color = Color(0.5, 0.72, 0.77, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.78, 0.84, 0.9, 1)
+ambient_light_energy = 0.69
+reflected_light_source = 1
+
+[node name="MonsterTrial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("Trial")
+
+[node name="Matte" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.017, 0.020, 0.019, 1)
+
+[node name="Pixels" type="SubViewport" parent="."]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(480, 270)
+render_target_update_mode = 4
+
+[node name="World" type="Node3D" parent="Pixels"]
+
+[node name="Air" type="WorldEnvironment" parent="Pixels/World"]
+environment = SubResource("Air")
+
+[node name="Sun" type="DirectionalLight3D" parent="Pixels/World"]
+shadow_enabled = true
+shadow_bias = 0.12
+shadow_normal_bias = 1.3
+directional_shadow_mode = 0
+directional_shadow_max_distance = 49.0
+
+[node name="Moon" type="DirectionalLight3D" parent="Pixels/World"]
+visible = false
+light_color = Color(0.553, 0.682, 0.941, 1)
+shadow_enabled = true
+shadow_bias = 0.12
+shadow_normal_bias = 1.3
+directional_shadow_mode = 0
+directional_shadow_max_distance = 49.0
+
+[node name="Camera" type="Camera3D" parent="Pixels/World"]
+projection = 1
+size = 13.4
+near = 0.2
+far = 72.0
+current = true
+
+[node name="Set" type="Node3D" parent="Pixels/World"]
+rotation_degrees = Vector3(0, 30, 0)
+
+[node name="Subjects" type="Node3D" parent="Pixels/World"]
+rotation_degrees = Vector3(0, 30, 0)
+
+[node name="Slime" parent="Pixels/World/Subjects" instance=ExtResource("Slime")]
+position = Vector3(-3.57, 0, 0.04)
+rotation_degrees = Vector3(0, 17, 0)
+
+[node name="Goblin" parent="Pixels/World/Subjects" instance=ExtResource("Goblin")]
+position = Vector3(0, 0, -0.08)
+rotation_degrees = Vector3(0, -24, 0)
+
+[node name="Wolf" parent="Pixels/World/Subjects" instance=ExtResource("Wolf")]
+position = Vector3(3.39, 0, 0.09)
+rotation_degrees = Vector3(0, -63, 0)
+
+[node name="Notes" type="Control" parent="Pixels"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Screen" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 0

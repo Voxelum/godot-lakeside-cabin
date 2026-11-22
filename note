@@ -1,0 +1,292 @@
+<body>
+<div class="wrap">
+<header class="hero">
+<p class="kicker">设计对谈纪要 · 自制 RPG</p>
+<h1>RPG 世界模拟与叙事设计纪要</h1>
+<p class="lede">从道具与战斗的取舍，聊到元素、属性、经济与世界推演，再落到叙事基调。基础框架已收敛，少数取舍保持开放。</p>
+</header>
+<div class="part">
+<div class="part-head">
+<span class="pn">01</span>
+<div class="pt"><h2>战斗与道具</h2><p>让消耗品被用掉，而不是被囤着</p></div>
+</div>
+<section class="module">
+<h3>让玩家舍得用道具 <span class="tag tg-ok">共识</span></h3>
+<p>消耗品的死穴是<b>被囤着</b>。设计目标只有一条：让玩家<b>主动用</b>——前提是<b>获取别太难</b>，太金贵就永远舍不得。</p>
+<figure class="dg-fig" data-visual-id="beer-bottle-flow" data-visual-relation="同一消耗品多条转化路径：喝空加料成燃烧瓶、摔碎成低耐久武器；获取容易促成主动使用" data-visual-source="从酒馆拿到啤酒瓶子…做个燃烧瓶…碎了变成耐久度比较低的武器…获取不要难，要不然你拿到了还是不舍得用" data-visual-title="酒馆啤酒瓶的转化路径" data-visual-type="流程示意图">
+<svg aria-label="啤酒瓶转化路径图" class="dg" role="img" viewBox="0 0 420 268">
+<defs><marker id="arw1" markerHeight="7" markerWidth="7" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10"><path d="M0,0L10,5L0,10Z" fill="var(--edge)"></path></marker></defs>
+<rect class="nb-acc" height="58" rx="12" width="184" x="118" y="18"></rect>
+<text class="lbl" font-size="16" text-anchor="middle" x="210" y="43">啤酒瓶子</text>
+<text class="sub" font-size="11.5" text-anchor="middle" x="210" y="62">从酒馆拿到</text>
+<path class="edge" d="M150,76 L150,178" marker-end="url(#arw1)"></path>
+<path class="edge" d="M270,76 L270,178" marker-end="url(#arw1)"></path>
+<text class="sub" font-size="12.5" text-anchor="end" x="142" y="132">喝掉或倒空</text>
+<text class="sub" font-size="12.5" text-anchor="start" x="278" y="132">摔碎</text>
+<rect class="nb" height="62" rx="12" width="160" x="24" y="184"></rect>
+<text class="lbl" font-size="16" text-anchor="middle" x="104" y="210">燃烧瓶</text>
+<text class="sub" font-size="11.5" text-anchor="middle" x="104" y="230">瓶里再加其他东西</text>
+<rect class="nb" height="62" rx="12" width="160" x="236" y="184"></rect>
+<text class="lbl" font-size="16" text-anchor="middle" x="316" y="210">低耐久武器</text>
+<text class="sub" font-size="11.5" text-anchor="middle" x="316" y="230">摔碎后的凑合版</text>
+</svg>
+<figcaption>随手一例：一件道具的多种下场——喝、倒、加料、摔碎，都能接上后续用途。</figcaption>
+</figure>
+</section>
+<section class="module">
+<h3>药水分层：两条路线 <span class="tag tg-pend">未决</span></h3>
+<p>常见痛点：<b>高级药太珍贵，玩家一直囤着不用</b>。两条解法方向一致——让低级药成为日常。</p>
+<figure data-visual-id="potion-tier-options" data-visual-relation="两条分层路线都为减少囤积：只设低级或低级合成高级；基本盘为红蓝药" data-visual-source="要么只有低级…像DOTA那样低级的可以直接合出来高级的…就是红蓝药…低级的没有数值增益，只是减少携带重量" data-visual-title="药水分层的两条路线" data-visual-type="方案对照">
+<div class="opt-grid" data-grid="">
+<div class="opt"><span class="opt-k">路线 A</span><b>只设低级药</b><p>低级药没有数值增益，只减少携带重量</p></div>
+<div class="opt"><span class="opt-k">路线 B</span><b>低级合成高级</b><p>DOTA 式：低级药直接合出高级或强效版</p></div>
+</div>
+<figcaption>基本盘：红蓝药、体力药一类的基础消耗品。</figcaption>
+</figure>
+</section>
+<section class="module">
+<h3>即时制下的道具困境 <span class="tag tg-acc">倾向即时制</span></h3>
+<figure data-visual-id="combat-mode-items" data-visual-relation="回合制被否，即时制下道具易闲置，用魂式必备品独立槽位补救；无伤玩家以无伤为奖励" data-visual-source="不想做回合制…即时的情况下大部分会选择莽过去…魂游的血瓶就很好…单独给他一个槽…无伤嘛，就对他自己的奖励" data-visual-title="战斗模式与道具补救" data-visual-type="决策流程图">
+<div class="vflow">
+<div class="vstep off"><div class="vh"><b>回合制</b><span class="tag tg-warn">不想做</span></div><p>原本的好处：战斗中能从容考虑道具怎么用——方向已排除。</p></div>
+<div class="varr">↓ 倾向即时制</div>
+<div class="vstep"><div class="vh"><b>即时制</b><span class="tag tg-acc">倾向</span></div><p>代价：节奏快，玩家多半什么都不用、直接莽过去。</p></div>
+<div class="varr">↓ 补救</div>
+<div class="vstep ok"><div class="vh"><b>必备品独立槽位</b><span class="tag tg-ok">定案</span></div><p>像魂系血瓶：只有一个选项、可以升级、槽位常驻一定看得见——于是会主动用。</p></div>
+</div>
+</figure>
+<p><b>无伤玩家是例外</b>：动作游戏里玩家总想靠操作打无伤——那时道具确实没用。没关系，<b>无伤本身就是他的奖励</b>。另一条出路是提前准备：想好带什么、做好带进战斗；是否成立，对谈里也没完全确定。</p>
+</section>
+</div>
+<div class="part">
+<div class="part-head">
+<span class="pn">02</span>
+<div class="pt"><h2>元素与世界观</h2><p>四系元素、低魔基调与天选主角</p></div>
+</div>
+<section class="module">
+<h3>四元素组合定案 <span class="tag tg-ok">定案</span></h3>
+<figure class="dg-fig" data-visual-id="element-magic-map" data-visual-relation="四元素定案：水火组合、雷引燃、风扩散但组合弱；土木因直接改地形被砍" data-visual-source="水能跟火…雷其实就是能着火…土跟木直接改变地形了…这4个其实就够了" data-visual-title="四元素定案与组合关系" data-visual-type="元素关系图">
+<svg aria-label="四元素关系图" class="dg" role="img" viewBox="0 0 420 372">
+<defs><marker id="arw2" markerHeight="7" markerWidth="7" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10"><path d="M0,0L10,5L0,10Z" fill="var(--edge)"></path></marker></defs>
+<line class="edge" x1="168" x2="252" y1="84" y2="84"></line>
+<text class="acc-t" font-size="13" font-weight="650" text-anchor="middle" x="210" y="72">组合</text>
+<path class="edge" d="M261,198 L158,110" marker-end="url(#arw2)"></path>
+<text class="sub" font-size="13" text-anchor="middle" x="224" y="150">引燃</text>
+<circle class="nb-acc" cx="128" cy="84" r="40"></circle>
+<text class="lbl acc-t" font-size="19" text-anchor="middle" x="128" y="91">火</text>
+<text class="sub" font-size="12.5" text-anchor="middle" x="128" y="146">打出 · 附魔</text>
+<circle class="nb" cx="292" cy="84" r="40"></circle>
+<text class="lbl" font-size="19" text-anchor="middle" x="292" y="91">水</text>
+<text class="sub" font-size="12.5" text-anchor="middle" x="292" y="146">与火组合</text>
+<circle class="nb" cx="292" cy="224" r="40"></circle>
+<text class="lbl" font-size="19" text-anchor="middle" x="292" y="231">雷</text>
+<text class="sub" font-size="12.5" text-anchor="middle" x="292" y="282">能引燃起火</text>
+<circle class="nb" cx="128" cy="224" r="40" stroke-dasharray="4 4"></circle>
+<text class="lbl" font-size="19" text-anchor="middle" x="128" y="231">风</text>
+<text class="sub" font-size="12.5" text-anchor="middle" x="128" y="282">扩散 · 加速</text>
+<text class="sub" font-size="11.5" text-anchor="middle" x="128" y="300">与其他三系组合弱</text>
+<rect fill="var(--warn-soft)" height="44" rx="10" stroke="var(--warn)" stroke-dasharray="5 4" stroke-width="1.2" width="392" x="14" y="318"></rect>
+<text class="warn-t" font-size="14" font-weight="700" text-anchor="start" x="34" y="345">✕ 土 · 木</text>
+<text class="warn-t" font-size="12.5" text-anchor="start" x="122" y="345">直接改变地形，模拟难以闭环——不做</text>
+</svg>
+</figure>
+<p>思路是<b>收敛</b>：想借鉴 Magicka 那类元素组合玩法，但它<b>组合太多</b>——先四系跑起来，宁少勿多。</p>
+<div class="insight"><span class="ins-k">洞察</span>砍掉土、木，是同一条底线：改变地形<b>不直观</b>——“明明很强”，玩家却用不起来，只会问“为啥不用它盖房子”；这类机制也会让世界模拟<b>难以闭环</b>。</div>
+</section>
+<section class="module">
+<h3>低魔世界与天选主角 <span class="tag tg-ok">定案</span></h3>
+<p>世界基调：<b>架空、低魔</b>——有一点元素力与自然能力，这类 RPG 世界观大家接受度高；开局也可以做成<b>异世界转生</b>。</p>
+<figure data-visual-id="worldview-options" data-visual-relation="低魔架空基调下元素力归属：众生皆有 vs 天选之人，采纳后者（原神式主角）" data-visual-source="主角是天选之人…像原神了…主角没有神之眼但是也可以用到所有的元素力…这种可以" data-visual-title="世界观两条路线与主角定位" data-visual-type="方案对照">
+<div class="opt-grid" data-grid="">
+<div class="opt"><span class="opt-k">路线 A · 未采纳</span><b>元素力众生皆有</b><p>人人都可能有一点——讨论后被放下</p></div>
+<div class="opt picked"><span class="opt-k">路线 B · 采纳</span><b>天选之人</b><p>只有主角与极少数人拥有元素力。类比原神：少数人有神之眼，主角没有神之眼，却能驾驭全部元素。</p></div>
+</div>
+</figure>
+<p>表面科技力低，但存在科技产物，只是<b>实现方式不同</b>。而且一旦有魔法类设定，很多东西都能自圆其说。</p>
+<p class="mut">怪物先走印象中的经典款：史莱姆、哥布林这类验证过有效的。</p>
+</section>
+</div>
+<div class="part">
+<div class="part-head">
+<span class="pn">03</span>
+<div class="pt"><h2>世界模拟骨架</h2><p>无等级、小规模、轻经济、按天推演</p></div>
+</div>
+<section class="module">
+<h3>去掉等级：用进废退 <span class="tag tg-ok">共识</span></h3>
+<p>方向：<b>无等级、只留属性</b>——《Kenshi》已验证这条路，对谈中也类比了《太吾绘卷》。“用年龄替代等级”试想过，作罢：总有人不想“变”。</p>
+<figure class="dg-fig" data-visual-id="attr-use-it-or-lose-it" data-visual-relation="行为塑造属性：挨打长体力、打人长力量、长期不用退化，等级被移除" data-visual-source="你挨打会增加体力，然后你打人会增加力量…时间长你不用了…要做一些事情去保持…没等级有属性" data-visual-title="Kenshi 式属性成长规则" data-visual-type="规则示意图">
+<svg aria-label="属性成长规则图" class="dg" role="img" viewBox="0 0 420 236">
+<defs>
+<marker id="arw3" markerHeight="7" markerWidth="7" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10"><path d="M0,0L10,5L0,10Z" fill="var(--edge)"></path></marker>
+<marker id="arw3w" markerHeight="7" markerWidth="7" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10"><path d="M0,0L10,5L0,10Z" fill="var(--warn)"></path></marker>
+</defs>
+<text class="sub" font-size="12.5" text-anchor="middle" x="100" y="20">你做的事</text>
+<text class="sub" font-size="12.5" text-anchor="middle" x="329" y="20">属性变化</text>
+<rect class="nb" height="46" rx="10" width="152" x="24" y="36"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="100" y="65">挨打</text>
+<path class="edge" d="M176,59 L258,59" marker-end="url(#arw3)"></path>
+<rect class="nb-acc" height="46" rx="10" width="134" x="262" y="36"></rect>
+<text class="lbl acc-t" font-size="15" text-anchor="middle" x="329" y="65">体力 ↑</text>
+<rect class="nb" height="46" rx="10" width="152" x="24" y="102"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="100" y="131">打人</text>
+<path class="edge" d="M176,125 L258,125" marker-end="url(#arw3)"></path>
+<rect class="nb-acc" height="46" rx="10" width="134" x="262" y="102"></rect>
+<text class="lbl acc-t" font-size="15" text-anchor="middle" x="329" y="131">力量 ↑</text>
+<rect class="nb-warn" height="46" rx="10" width="152" x="24" y="168"></rect>
+<text class="warn-t" font-size="15" font-weight="650" text-anchor="middle" x="100" y="197">长期不用</text>
+<path class="edge-w" d="M176,191 L258,191" marker-end="url(#arw3w)"></path>
+<rect class="nb-warn" height="46" rx="10" width="134" x="262" y="168"></rect>
+<text class="warn-t" font-size="15" font-weight="650" text-anchor="middle" x="329" y="197">对应属性 ↓</text>
+</svg>
+<figcaption>不发属性点、不做分配：做了什么，什么就长。</figcaption>
+</figure>
+<div class="insight"><span class="ins-k">一句概括</span>“It's your life，这不是一个 game。”——对谈里给这套成长逻辑的注脚。</div>
+</section>
+<section class="module">
+<h3>第一季：小而闭环 <span class="tag tg-ok">共识</span></h3>
+<p>先交付<b>一套能闭环的第一季</b>，骨架就用最经典的“勇者讨魔王”。模拟可以<b>分地区</b>进行——这是规模可控的前提。</p>
+<figure class="dg-fig" data-visual-id="world-scale-season1" data-visual-relation="第一季约5–6处地区跑通闭环；对照Kenshi地图大量空置，规模以10个地区为上限" data-visual-source="一个人类的城…四五个地方…再加上一个敌对阵营…相当于第一季的内容…144个阵营…有很大的地方是非常空" data-visual-title="第一季的世界构成与 Kenshi 对照" data-visual-type="规模示意图">
+<svg aria-label="第一季规模构成图" class="dg" role="img" viewBox="0 0 420 284">
+<rect class="dash-box" height="200" rx="14" width="396" x="12" y="40"></rect>
+<text class="lbl" font-size="14" text-anchor="middle" x="210" y="64">第一季：一套能闭环的规模</text>
+<rect class="nb" height="50" rx="10" width="168" x="30" y="84"></rect>
+<text class="lbl" font-size="14.5" text-anchor="middle" x="114" y="114">人类城 ×1</text>
+<rect class="nb" height="50" rx="10" width="168" x="222" y="84"></rect>
+<text class="lbl" font-size="14.5" text-anchor="middle" x="306" y="114">人类村落 ×几</text>
+<rect class="nb" height="50" rx="10" width="168" x="30" y="152"></rect>
+<text class="lbl" font-size="14.5" text-anchor="middle" x="114" y="182">外族聚居地 ×几</text>
+<rect class="nb-warn" height="50" rx="10" width="168" x="222" y="152"></rect>
+<text class="warn-t" font-size="14.5" font-weight="650" text-anchor="middle" x="306" y="182">敌对阵营 ×1</text>
+<text class="sub" font-size="15" text-anchor="middle" x="210" y="114">＋</text>
+<text class="sub" font-size="15" text-anchor="middle" x="210" y="182">＋</text>
+<text class="sub" font-size="12.5" text-anchor="middle" x="210" y="268">城、村、外族合计约 4–5 处 ＋ 敌对阵营 → 约 5–6 处</text>
+</svg>
+<figcaption>构成示意，非地理比例。</figcaption>
+</figure>
+<p class="mut">对照 <b>Kenshi</b>：阵营极多（对谈中提到 144 个），地图很大，中部却大片空置，有效据点约 5 片——大而空不划算。规模 <b>10 个地区以内</b>都可接受。</p>
+<p class="mut">真正有难度的大型城市<b>做一个就够</b>；只有几座地标建筑的“大城市”是反面做法，正面参考是 <b>GTA6 的路人自然度</b>。</p>
+</section>
+<section class="module">
+<h3>基本经济：资源与运输 <span class="tag tg-ok">共识</span></h3>
+<p>最小闭环：<b>有资源 ＋ 资源送得到</b>，交易就成立——<b>运输是第一前提</b>。</p>
+<figure class="dg-fig" data-visual-id="basic-economy-flow" data-visual-relation="资源经运输到城镇，功能建筑吸引路人、经过恢复数值；断运则衰落，物价随多寡浮动" data-visual-source="transportation是最重要…路人走过的地方添加某种值…多的时候便宜寡的时候贵…把这个东西给干了，可能它是关键节点" data-visual-title="基础经济模拟：资源·运输·路人" data-visual-type="机制示意图">
+<svg aria-label="基础经济循环图" class="dg" role="img" viewBox="0 0 460 300">
+<defs><marker id="arw5" markerHeight="7" markerWidth="7" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10"><path d="M0,0L10,5L0,10Z" fill="var(--edge)"></path></marker></defs>
+<rect class="nb" height="54" rx="10" width="118" x="16" y="30"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="75" y="53">资源点</text>
+<text class="sub" font-size="11" text-anchor="middle" x="75" y="72">有什么资源</text>
+<path class="edge" d="M134,57 L278,57" marker-end="url(#arw5)"></path>
+<text class="acc-t" font-size="13" font-weight="650" text-anchor="middle" x="206" y="44">运输（最关键）</text>
+<rect class="nb" height="54" rx="10" width="118" x="286" y="30"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="345" y="53">城镇</text>
+<text class="sub" font-size="11" text-anchor="middle" x="345" y="72">含功能建筑</text>
+<path class="edge" d="M322,84 L322,144" marker-end="url(#arw5)"></path>
+<text class="sub" font-size="12.5" text-anchor="end" x="312" y="120">吸引特定路人</text>
+<path class="edge" d="M368,150 L368,88" marker-end="url(#arw5)"></path>
+<text class="sub" font-size="12" text-anchor="start" x="378" y="112">经过恢复数值</text>
+<text class="sub" font-size="10.5" text-anchor="start" x="378" y="128">金钱 · 饥饿</text>
+<rect class="nb" height="54" rx="10" width="118" x="286" y="150"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="345" y="173">特定路人</text>
+<text class="sub" font-size="11" text-anchor="middle" x="345" y="192">沿路流动</text>
+<rect fill="var(--warn-soft)" height="54" rx="10" stroke="var(--warn)" stroke-dasharray="5 4" stroke-width="1.2" width="428" x="16" y="236"></rect>
+<text class="warn-t" font-size="13" font-weight="700" text-anchor="start" x="34" y="258">玩家毁掉关键节点、运输被断</text>
+<text class="warn-t" font-size="12" text-anchor="start" x="34" y="277">→ 对应区域逐渐衰落</text>
+</svg>
+</figure>
+<p>物价只做<b>多寡</b>：多则贱、寡则贵。整体定位：<b>玩家不介入时世界保持常态，玩家介入是唯一变量</b>。</p>
+<p class="mut">技术上倾向 <b>2D</b>：经济容易模拟，也避开了地形破坏问题。若带经营背景，<b>生产力设定不能太强</b>——先想清楚系统要模拟到哪一层。</p>
+</section>
+<section class="module">
+<h3>按“天”结算推演 <span class="tag tg-ok">定案</span></h3>
+<p>无论叙事怎么选，<b>“过天”一定得有</b>——AI 推演世界，也需要一个统一时刻把账算清。</p>
+<figure class="dg-fig" data-visual-id="day-settlement-tick" data-visual-relation="以天为单位结算：汇总玩家行为与世界delta，AI统一推演后进入新的一天" data-visual-source="就算靠AI去推演…也需要有一个时刻去算一下，今天总结一下你今天做的事情，算一下加上你的delta之外这个空间的变化" data-visual-title="以天为单位的推演结算" data-visual-type="机制示意图">
+<svg aria-label="过天结算流程图" class="dg" role="img" viewBox="0 0 420 252">
+<defs><marker id="arw6" markerHeight="7" markerWidth="7" orient="auto" refX="8.5" refY="5" viewBox="0 0 10 10"><path d="M0,0L10,5L0,10Z" fill="var(--edge)"></path></marker></defs>
+<rect class="nb" height="54" rx="12" width="336" x="42" y="20"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="210" y="52">一天结束 · 统一结算时刻</text>
+<path class="edge" d="M210,74 L210,90" marker-end="url(#arw6)"></path>
+<rect class="nb" height="68" rx="12" width="336" x="42" y="94"></rect>
+<text class="lbl" font-size="15" text-anchor="middle" x="210" y="120">汇总玩家今日行为</text>
+<text class="sub" font-size="12" text-anchor="middle" x="210" y="142">＋ 世界自身的变化（delta）</text>
+<path class="edge" d="M210,162 L210,178" marker-end="url(#arw6)"></path>
+<rect class="nb-acc" height="54" rx="12" width="336" x="42" y="182"></rect>
+<text class="lbl acc-t" font-size="15" text-anchor="middle" x="210" y="214">AI 统一推演，世界进入新的一天</text>
+<path class="edge" d="M378,209 H400 V47 H384" marker-end="url(#arw6)" stroke-dasharray="5 4"></path>
+<text class="sub" font-size="11.5" text-anchor="middle" transform="rotate(-90 392 128)" x="392" y="128">循环</text>
+</svg>
+<figcaption>推演以天为单位批处理，不必逐帧算。</figcaption>
+</figure>
+</section>
+</div>
+<div class="part">
+<div class="part-head">
+<span class="pn">04</span>
+<div class="pt"><h2>叙事与玩家体验</h2><p>铺垫成记忆点，反转造震撼，推演要约束</p></div>
+</div>
+<section class="module">
+<h3>双世界与入侵主线 <span class="tag tg-acc">倾向</span></h3>
+<p>设想里有能担任 <b>DM 的 AI</b>。原则：不管玩家在不在乎剧情，<b>剧情都得做</b>——铺垫拉长，后期收束成几个<b>记忆点</b>，让参与感爆发。</p>
+<figure data-visual-id="dual-world-cycle" data-visual-relation="前期双线并行、中期NPC铺垫，后期亚空间入侵现实，经NPC异常引出主线" data-visual-source="白天正常的上班…睡着了以后就进宫殿…亚空间慢慢开始入侵现实…卖酒的那个老板感觉有点怪" data-visual-title="双世界节奏与后期交融" data-visual-type="时间线">
+<div class="phases" data-grid="">
+<div class="phase"><span class="ph-k">前期</span><b>两条线并行</b><p>白天过日常、挣钱营生；夜晚入睡进入另一侧打怪。</p></div>
+<div class="phase"><span class="ph-k">中期</span><b>NPC 铺垫</b><p>和镇上的人建立交集、跑支线，攒熟悉感。</p></div>
+<div class="phase"><span class="ph-k">后期</span><b>亚空间渗入现实</b><p>卖酒老板先不对劲，全镇慢慢变味；主线转入解决入侵。</p></div>
+</div>
+</figure>
+<div class="case"><b>参考 · 原神火之国</b>：前期与 NPC 建立交集、跑支线；深渊入侵时全民抗战，选择自东向西进攻——未被选择方向的 NPC 就会死。长铺垫换来关键节点的参与感。</div>
+<p class="mut">最初设想是现代都市＋入睡入梦（P5 式），后期梦境与现实交融；放进架空世界，可表述为“只有做梦时才打怪”→ 亚空间渗入现实。</p>
+<p class="mut">成立前提：双世界必须是<b>世界内合理的机制</b>，不能只是叙事包装。</p>
+</section>
+<section class="module">
+<h3>剧本基调：自由 vs 代入 <span class="tag tg-pend">未决</span></h3>
+<figure data-visual-id="script-tone" data-visual-relation="传统=世界之外的自由 vs 深度代入=成为角色；主播要节目效果，普通玩家是内心的镜子" data-visual-source="你感觉你是在世界之外…剧情要有点意思…主播他会追求很多节目效果…展现出是他内心的一个镜子" data-visual-title="剧本基调光谱与玩家差异" data-visual-type="对照图">
+<div class="spec" data-grid="">
+<div class="spec-end"><span class="spec-k">传统剧本</span><p>玩家在世界之外：想干什么干什么，看世界按自己的动作发展——GTA 式的自由。</p></div>
+<div class="spec-axis"><span>基调未决</span></div>
+<div class="spec-end"><span class="spec-k">深度代入</span><p>真正成为这个角色：剧情本身必须“有点意思”，否则撑不住。</p></div>
+</div>
+</figure>
+<p>共识是<b>不想太传统</b>，“魔族卷土重来”式的旧套要避开。点名参考 <b>FMS（附魔星）解说的《灭世》</b>：埋藏信息、走向非传统，值得一看。</p>
+<p>玩家差异也在考虑内：<b>主播追求节目效果</b>，什么都干得出来；<b>一般玩家的玩法是内心的镜子</b>——《荒野大镖客》里多数人玩得很代入。反面提醒：GTA6 的主角剧情让人代入太深，做坏事有负罪感、就没那么爽。</p>
+<div class="insight"><span class="ins-k">提示</span>代入越深，玩家越受“这个人会怎么做”约束——自由感与负罪感此消彼长，选基调就是在两者间定位。</div>
+</section>
+<section class="module">
+<h3>认知反转与 Meta <span class="tag tg-acc">参考</span></h3>
+<p>点名喜欢的叙事手法：<b>前期认知在后期被推翻</b>；另外还想加一定“不过分”的 <b>Meta 元素</b>。</p>
+<figure data-visual-id="cognition-reversal" data-visual-relation="前期认知后期推翻：EXP即处决点、LV即爱、丘丘人身世、蔑视共生解读" data-visual-source="exp…实际上那个东西叫做execution point…LV…指的是love…丘丘人…被诅咒才变成…蔑视…共生关系" data-visual-title="三作的认知反转对照" data-visual-type="对照矩阵">
+<div class="rev">
+<div class="rev-row"><div class="rev-h"><b>Undertale</b></div>
+<p><i class="klabel kl-was">前期</i>打怪得 EXP、升 LV，看似经典 RPG</p>
+<p><i class="klabel kl-now">反转</i><b>EXP 是 Execution Point（处决点），LV 是 Love</b></p></div>
+<div class="rev-row"><div class="rev-h"><b>原神</b></div>
+<p><i class="klabel kl-was">前期</i>丘丘人只是普通杂兵</p>
+<p><i class="klabel kl-now">反转</i><b>它们是被诅咒而变的国家遗民</b>——主角还曾在那个国家生活</p></div>
+<div class="rev-row"><div class="rev-h"><b>Scorn（蔑视）</b></div>
+<p><i class="klabel kl-was">前期</i>眼前的存在是怪物</p>
+<p><i class="klabel kl-now">解读</i><b>角色之间其实是共生关系</b></p></div>
+</div>
+<figcaption>反转的力道：重新定义玩家前期做过的事。</figcaption>
+</figure>
+</section>
+<section class="module">
+<h3>机制与故事的关系 <span class="tag tg-ok">共识</span></h3>
+<p>前提判断：玩法想“独一无二”<b>已经很难</b>，“会讲故事”如今也不稀缺——所以<b>基础玩法打底，靠故事把世界串起来</b>。</p>
+<figure data-visual-id="mechanic-story-loop" data-visual-relation="设计点作种子，AI推演出不同故事，机制约束保证不离谱；越界即出戏" data-visual-source="类似于种子一样…从一个起点…推演…难就难在怎么让它发展不离谱…超越了这个机制…AI出戏了" data-visual-title="种子、推演与机制约束" data-visual-type="机制流程图">
+<div class="ms">
+<div class="ms-step">设计点作为<b>种子</b>埋进世界——起点是“想传达什么”</div>
+<div class="ms-arr">↓</div>
+<div class="ms-step">AI 推演出各自不同的故事</div>
+<div class="ms-arr">↓</div>
+<div class="ms-step gate">机制约束把关：越出机制＝出戏、不闭环</div>
+</div>
+<figcaption>种子从“想传达什么”出发；机制约束保证推演可信。</figcaption>
+</figure>
+<p>机制与故事<b>不冲突</b>：有人为故事玩——COD 单机就不太管机制；有人为机制自由玩，太框住的游戏玩一次就通关。好机制让游戏能<b>反复倒饬</b>，不是体验一次就结束。</p>
+<p>AI 时代<b>机制可以被复制</b>，同一套机制能讲出很多故事。真正的难点：让“讲不同故事”本身成为机制，以及<b>让推演不离谱</b>——玩家一旦觉得越出了机制，就会觉得不闭环、<b>出戏</b>。</p>
+<p class="mut">目前基础规则已收敛，“没有很离谱的东西”；改变地形类机制也因此再次被否——闭环成本太高。</p>
+</section>
+</div>
+</div>
+<template id="share-cover"><svg height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><rect fill="#f5f4fa" height="512" width="512"></rect><circle cx="256" cy="256" fill="none" r="150" stroke="#ddd9f3" stroke-width="3"></circle><line stroke="#e2def6" stroke-width="2.5" x1="256" x2="362" y1="256" y2="150"></line><line stroke="#e2def6" stroke-width="2.5" x1="256" x2="150" y1="256" y2="150"></line><line stroke="#e2def6" stroke-width="2.5" x1="256" x2="150" y1="256" y2="362"></line><line stroke="#e2def6" stroke-width="2.5" x1="256" x2="362" y1="256" y2="362"></line><circle cx="256" cy="256" fill="#6153d6" r="88"></circle><circle cx="226" cy="224" fill="#ffffff" opacity="0.16" r="24"></circle><circle cx="362" cy="150" fill="#6153d6" r="27"></circle><circle cx="150" cy="150" fill="#8b7ff0" r="27"></circle><circle cx="150" cy="362" fill="#b2a8ff" r="27"></circle><circle cx="362" cy="362" fill="#4a3fb0" r="27"></circle></svg></template>
+
+</body>
