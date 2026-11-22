@@ -24,6 +24,8 @@ func _ready() -> void:
 	for mesh: MeshInstance3D in field.get_node("Cottage").find_children("*Course*", "MeshInstance3D", true, false): sources.append(mesh)
 	for tree_name in ["WestOak", "EastOak", "BackMaple", "NorthMaple", "FrameOak"]:
 		for mesh: MeshInstance3D in field.get_node(tree_name).find_children("*", "MeshInstance3D", true, false): sources.append(mesh)
+	for mesh: MeshInstance3D in get_tree().get_nodes_in_group(&"clearing_extension_occluder"):
+		if field.is_ancestor_of(mesh): sources.append(mesh)
 	process_priority = 15
 
 func _process(dt: float) -> void:

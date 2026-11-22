@@ -26,6 +26,19 @@ void fragment(){
  float d=min(bank(drift,vec2(-6.35,6.4),vec2(3.65,2.12),.42),bank(drift,vec2(8.50,-1.85),vec2(3.22,1.94),.30));
  d=min(d,bank(drift,vec2(-7.9,-.45),vec2(3.8,2.15),-.38)); d=min(d,bank(drift,vec2(2.0,-8.4),vec2(3.52,2.6),.5));
  d=min(d,bank(drift,vec2(-2.8,-4.0),vec2(3.58,1.05),-.11));
+ // The same pigmented shade pools continue along the surveyed south lane.
+ // World XZ, not tile UVs: the dry grade join keeps the exact same wash.
+ if (place.y>16.0) {
+   d=min(d,bank(drift,vec2(-1.6,21.8),vec2(3.8,3.2),.36));
+   d=min(d,bank(drift,vec2(10.2,17.8),vec2(5.1,1.9),-.11));
+   d=min(d,bank(drift,vec2(10.1,34.9),vec2(4.1,4.0),-.27));
+   d=min(d,bank(drift,vec2(19.2,42.9),vec2(3.6,4.0),.55));
+   d=min(d,bank(drift,vec2(5.6,47.5),vec2(5.2,4.6),.42));
+   d=min(d,bank(drift,vec2(22.0,52.8),vec2(3.6,4.4),.15));
+   d=min(d,bank(drift,vec2(10.0,58.4),vec2(5.1,3.6),-.21));
+   d=min(d,bank(drift,vec2(14.8,69.8),vec2(5.4,3.3),-.61));
+   d=min(d,bank(drift,vec2(29.4,80.8),vec2(7.5,2.7),.12));
+ }
  float edge=d+.58*(wash(p*.77+2.5)-.5)+.33*(wash(p*2.80)-.5);
  float warm=.60*wash(p*.235+2.6)+.25*wash(p*.77)+.15*wash(p*1.72);
  vec3 c=mix(lawn.rgb,straw.rgb,step(.54,warm));c=mix(verge.rgb,c,step(.335,warm));

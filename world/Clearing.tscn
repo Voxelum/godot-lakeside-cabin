@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/sightline.gd" id="Sight"]
 [ext_resource type="PackedScene" path="res://art/sunbreak/Sunbreak.tscn" id="Beams"]
 [ext_resource type="PackedScene" path="res://art/wildlife/ForestLife.tscn" id="Life"]
+[ext_resource type="PackedScene" path="res://world/outskirts/Outskirts.tscn" id="Outskirts"]
 
 [sub_resource type="Environment" id="Air"]
 resource_local_to_scene = true
@@ -29,6 +30,10 @@ reflected_light_source = 1
 size = Vector3(0.6, 4, 21)
 [sub_resource type="BoxShape3D" id="VergeZ"]
 size = Vector3(24, 4, 0.6)
+[sub_resource type="BoxShape3D" id="NearWest"]
+size = Vector3(4, 4, 0.6)
+[sub_resource type="BoxShape3D" id="NearEast"]
+size = Vector3(15.25, 4, 0.6)
 
 [node name="Clearing" type="Node3D"]
 [node name="Air" type="WorldEnvironment" parent="."]
@@ -122,9 +127,14 @@ shape = SubResource("VergeX")
 [node name="Far" type="CollisionShape3D" parent="InFrame"]
 position = Vector3(0, 0, -10.0)
 shape = SubResource("VergeZ")
-[node name="Near" type="CollisionShape3D" parent="InFrame"]
-position = Vector3(0, 0, 9.2)
-shape = SubResource("VergeZ")
+; Open only the existing low stone lane; the old pool-facing edge stays closed.
+[node name="NearWest" type="CollisionShape3D" parent="InFrame"]
+position = Vector3(-10, 0, 9.2)
+shape = SubResource("NearWest")
+[node name="NearEast" type="CollisionShape3D" parent="InFrame"]
+position = Vector3(4.375, 0, 9.2)
+shape = SubResource("NearEast")
+[node name="Outskirts" parent="." instance=ExtResource("Outskirts")]
 [node name="ForestLife" parent="." instance=ExtResource("Life")]
 [node name="Sunbreak" parent="." instance=ExtResource("Beams")]
 [node name="Sightline" type="Node" parent="."]

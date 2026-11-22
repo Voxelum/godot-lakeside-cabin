@@ -53,7 +53,14 @@ func road() -> void:
 		while x<8.65:
 			seeds.append(Vector2(x+rng.randf_range(-.21,.21),z+rng.randf_range(-.205,.205)));x+=rng.randf_range(.9,1.48)
 		z+=rng.randf_range(.72,.99);row+=1
-	var tile_count:=0;var palette:Array[Color]=[Color("d9c9a7"),Color("cdbea0"),Color("ded0b2"),Color("d7c5a3"),Color("cabc9e"),Color("d8c8ab")]
+	flagstones(seeds)
+
+# Shared cut stone brush. Keep the original lane defaults and the original draw
+# order; another bake can keep a sparser section or use shallower dressed stone.
+func flagstones(seeds: PackedVector2Array, min_high := .067, max_high := .101, foot := .021, bevel := .033, keep := Callable(), colors: Array[Color] = []) -> void:
+	var tile_count:=0
+	var palette:Array[Color] = [Color("d9c9a7"),Color("cdbea0"),Color("ded0b2"),Color("d7c5a3"),Color("cabc9e"),Color("d8c8ab")]
+	if not colors.is_empty(): palette = colors
 	var tiles=Brush.new()
 	for s in seeds:
 		var cell:=PackedVector2Array([s+Vector2(-2,-2),s+Vector2(2,-2),s+Vector2(2,2),s+Vector2(-2,2)])
@@ -63,16 +70,18 @@ func road() -> void:
 		for part in parts:
 			if part.size()<3 or area(part)<.082:continue
 			var center:=Vector2.ZERO;for p:Vector2 in part:center+=p
-			center/=part.size();var contraction:=rng.randf_range(.060,.146);var inset:=PackedVector2Array()
+			center/=part.size()
+			if keep.is_valid() and not keep.call(center): continue
+			var contraction:=rng.randf_range(.060,.146);var inset:=PackedVector2Array()
 			for i in part.size():
 				var a:Vector2=part[i].lerp(center,contraction);var prev:Vector2=part[(i-1+part.size())%part.size()].lerp(center,contraction);var next:Vector2=part[(i+1)%part.size()].lerp(center,contraction);var cut:=rng.randf_range(.035,.135)
 				inset.append(a.move_toward(prev,minf(cut,a.distance_to(prev)*.23)));inset.append(a.move_toward(next,minf(cut*.82,a.distance_to(next)*.23)))
-			var h:=rng.randf_range(.067,.101);var col:Color=palette[rng.randi()%palette.size()];var lip:=PackedVector2Array()
+			var h:=rng.randf_range(min_high,max_high);var col:Color=palette[rng.randi()%palette.size()];var lip:=PackedVector2Array()
 			for point in inset:lip.append(point.move_toward(center,minf(.049,point.distance_to(center)*.12)))
 			polygon(tiles,lip,h,col)
 			for j in inset.size():
 				var j2: int=(j+1)%inset.size();var a:=inset[j];var b:=inset[j2];var outside:Vector2=((a+b)*.5-center).normalized();var bevel_color:=col.lightened(.095) if outside.dot(Vector2(-.65,.76))>.28 else col.darkened(.06)
-				tiles.quad(at(a,.021),at(b,.021),at(b,h-.033),at(a,h-.033),at(outside,0),col.darkened(.17));tiles.quad(at(a,h-.033),at(b,h-.033),at(lip[j2],h),at(lip[j],h),at(outside,.9).normalized(),bevel_color)
+				tiles.quad(at(a,foot),at(b,foot),at(b,h-bevel),at(a,h-bevel),at(outside,0),col.darkened(.17));tiles.quad(at(a,h-bevel),at(b,h-bevel),at(lip[j2],h),at(lip[j],h),at(outside,.9).normalized(),bevel_color)
 			tile_count+=1
 	put(tiles.bake("Handcut_Flagstones_%03d"%tile_count,ink))
 # Terrace overrides this for the actual pool; the legacy scene is unchanged.

@@ -1,0 +1,114 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/overland_demo/overland_demo.gd" id="View"]
+[ext_resource type="Script" path="res://world/overland_demo/overland_map.gd" id="Map"]
+[ext_resource type="Script" path="res://world/overland_demo/overland_camera.gd" id="Camera"]
+[ext_resource type="PackedScene" path="res://world/Walker.tscn" id="Walker"]
+[ext_resource type="PackedScene" path="res://art/cottage/Cottage.tscn" id="Cottage"]
+[ext_resource type="Script" path="res://world/overland_demo/specimen.gd" id="Specimen"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Slime.tscn" id="Slime"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Goblin.tscn" id="Goblin"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Wolf.tscn" id="Wolf"]
+
+[sub_resource type="Environment" id="DayAir"]
+background_mode = 1
+background_color = Color(0.52, 0.73, 0.76, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.77, 0.82, 0.87, 1)
+ambient_light_energy = 0.69
+reflected_light_source = 1
+
+[node name="Overland" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("View")
+
+[node name="Matte" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.025, 0.032, 0.029, 1)
+
+[node name="Pixels" type="SubViewport" parent="."]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(480, 270)
+render_target_update_mode = 4
+
+[node name="Trail" type="Node3D" parent="Pixels"]
+script = ExtResource("Map")
+
+[node name="Air" type="WorldEnvironment" parent="Pixels/Trail"]
+environment = SubResource("DayAir")
+
+[node name="Sun" type="DirectionalLight3D" parent="Pixels/Trail"]
+rotation_degrees = Vector3(-52, -34, 0)
+light_color = Color(1, 0.953, 0.84, 1)
+light_energy = 1.03
+shadow_enabled = true
+shadow_bias = 0.13
+shadow_normal_bias = 1.15
+directional_shadow_mode = 0
+directional_shadow_max_distance = 39.0
+
+[node name="Cottage" parent="Pixels/Trail" instance=ExtResource("Cottage")]
+position = Vector3(-65.5, 0, 6.6)
+
+[node name="Traveler" parent="Pixels/Trail" instance=ExtResource("Walker")]
+position = Vector3(-69, 0.015, 12.35)
+
+[node name="Camera" type="Camera3D" parent="Pixels/Trail"]
+projection = 1
+size = 13.4
+near = 0.2
+far = 52.0
+current = true
+script = ExtResource("Camera")
+
+[node name="Specimens" type="Node3D" parent="Pixels/Trail"]
+
+[node name="SlimeGlade" type="Node3D" parent="Pixels/Trail/Specimens"]
+position = Vector3(-10.8, 0.004, -6.4)
+script = ExtResource("Specimen")
+caption = "史莱姆 · 回弹"
+signature = &"rebound"
+phase_offset = 0.55
+radius = 0.45
+
+[node name="Slime" parent="Pixels/Trail/Specimens/SlimeGlade" instance=ExtResource("Slime")]
+rotation_degrees = Vector3(0, 32, 0)
+
+[node name="GoblinCamp" type="Node3D" parent="Pixels/Trail/Specimens"]
+position = Vector3(5.4, 0.004, -15.1)
+script = ExtResource("Specimen")
+caption = "哥布林 · 挥棒"
+signature = &"feint"
+phase_offset = 2.45
+radius = 0.48
+
+[node name="Goblin" parent="Pixels/Trail/Specimens/GoblinCamp" instance=ExtResource("Goblin")]
+rotation_degrees = Vector3(0, 24, 0)
+
+[node name="WolfVerge" type="Node3D" parent="Pixels/Trail/Specimens"]
+position = Vector3(22.8, 0.004, -11.2)
+script = ExtResource("Specimen")
+caption = "狼 · 低伏前扑"
+signature = &"pounce"
+phase_offset = 4.35
+radius = 0.58
+
+[node name="Wolf" parent="Pixels/Trail/Specimens/WolfVerge" instance=ExtResource("Wolf")]
+rotation_degrees = Vector3(0, 80, 0)
+
+[node name="Notes" type="Control" parent="Pixels"]
+mouse_filter = 2
+
+[node name="Screen" type="TextureRect" parent="."]
+texture_filter = 1
+mouse_filter = 2
+expand_mode = 1

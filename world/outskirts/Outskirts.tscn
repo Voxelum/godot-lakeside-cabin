@@ -1,0 +1,268 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/outskirts/outskirts.gd" id="Site"]
+[ext_resource type="Script" path="res://world/outskirts/outskirts_lot.gd" id="Lot"]
+[ext_resource type="Script" path="res://world/outskirts/outskirts_specimen.gd" id="Specimen"]
+[ext_resource type="PackedScene" path="res://art/terrace/SouthVerge.tscn" id="Verge"]
+[ext_resource type="PackedScene" path="res://art/woods/WaysideOak.tscn" id="Oak"]
+[ext_resource type="PackedScene" path="res://art/woods/CoppiceMaple.tscn" id="Maple"]
+[ext_resource type="PackedScene" path="res://art/lamps/LakesideLamp.tscn" id="Lamp"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Slime.tscn" id="Slime"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Goblin.tscn" id="Goblin"]
+[ext_resource type="PackedScene" path="res://art/monster_trial/Wolf.tscn" id="Wolf"]
+
+[node name="Outskirts" type="Node3D"]
+script = ExtResource("Site")
+
+[node name="SouthVerge" parent="." instance=ExtResource("Verge")]
+
+[node name="Lots" type="Node3D" parent="."]
+
+[node name="LimeHouse" type="Node3D" parent="Lots"]
+position = Vector3(7.10, 0, 17.68)
+rotation_degrees = Vector3(0, -11, 0)
+script = ExtResource("Lot")
+lot_id = &"clearing.wellside.lime_house"
+parcel = Vector2(6.6, 4.52)
+body_lock = 1
+appearance_seed = 91408
+roof_lock = 1
+chimney_lock = 2
+entry_lock = 1
+shutters_lock = 2
+field_inks = PackedStringArray("dfc6a4", "664334", "9f503a", "3e7065", "a59680")
+
+[node name="OrchardHouse" type="Node3D" parent="Lots"]
+position = Vector3(13.45, 0, 20.34)
+rotation_degrees = Vector3(0, -13, 0)
+script = ExtResource("Lot")
+lot_id = &"clearing.wellside.orchard_house"
+parcel = Vector2(5.58, 4.25)
+threshold_rise = 0.21
+appearance_seed = 607321
+roof_lock = 2
+chimney_lock = 3
+entry_lock = 3
+shutters_lock = 2
+field_inks = PackedStringArray("c9bb93", "6b4c39", "807a58", "4e7460", "9a9079")
+
+[node name="HayBarn" type="Node3D" parent="Lots"]
+position = Vector3(19.72, 0, 21.05)
+rotation_degrees = Vector3(0, -10, 0)
+script = ExtResource("Lot")
+lot_id = &"clearing.wellside.hay_barn"
+archetype = 3
+parcel = Vector2(7.29, 4.97)
+threshold_rise = 0.13
+body_lock = 1
+appearance_seed = 49199
+roof_lock = 5
+wing_lock = 2
+field_inks = PackedStringArray("9c7951", "5d4231", "876b4d", "677257", "a1957b")
+
+[node name="CopperLoft" type="Node3D" parent="Lots"]
+position = Vector3(23.62, 0.27, 66.87)
+rotation_degrees = Vector3(0, -9, 0)
+script = ExtResource("Lot")
+lot_id = &"clearing.stone_street.copper_loft"
+archetype = 1
+parcel = Vector2(3.60, 4.49)
+threshold_rise = 0.18
+appearance_seed = 77193
+roof_lock = 3
+chimney_lock = 3
+entry_lock = 2
+shutters_lock = 2
+field_inks = PackedStringArray("d8bb9c", "644435", "92533e", "416b68", "a09182")
+
+[node name="SillHouse" type="Node3D" parent="Lots"]
+position = Vector3(29.08, 0.27, 67.92)
+rotation_degrees = Vector3(0, 5, 0)
+script = ExtResource("Lot")
+lot_id = &"clearing.stone_street.sill_house"
+archetype = 1
+parcel = Vector2(4.01, 4.83)
+threshold_rise = 0.25
+body_lock = 1
+appearance_seed = 32808
+roof_lock = 4
+chimney_lock = 1
+entry_lock = 1
+shutters_lock = 2
+field_inks = PackedStringArray("cebf9e", "5f4b39", "777b70", "53694d", "a6a18c")
+
+[node name="Bakery" type="Node3D" parent="Lots"]
+position = Vector3(34.56, 0.27, 68.93)
+rotation_degrees = Vector3(0, 3, 0)
+script = ExtResource("Lot")
+lot_id = &"clearing.stone_street.bakery"
+archetype = 2
+parcel = Vector2(5.31, 4.29)
+threshold_rise = 0.17
+appearance_seed = 1073
+roof_lock = 2
+chimney_lock = 2
+field_inks = PackedStringArray("dec8a4", "684b39", "9d5541", "9a6346", "a39a87")
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="GateOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(-3.27, 0, 18.54)
+rotation_degrees = Vector3(0, 136, 0)
+scale = Vector3(0.94, 0.94, 0.94)
+
+[node name="FarmMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(15.65, 0, 16.56)
+rotation_degrees = Vector3(0, -76, 0)
+scale = Vector3(0.78, 0.78, 0.78)
+
+[node name="OrchardMargin" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(1.40, 0, 24.79)
+rotation_degrees = Vector3(0, -25, 0)
+scale = Vector3(0.71, 0.71, 0.71)
+
+[node name="OuterMeadowOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(-7.8, 0, 26.1)
+rotation_degrees = Vector3(0, -139, 0)
+scale = Vector3(1.02, 1.02, 1.02)
+
+[node name="BarnFieldOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(25.70, 0, 26.47)
+rotation_degrees = Vector3(0, -16, 0)
+scale = Vector3(0.87, 0.87, 0.87)
+
+[node name="MeadowCoppice" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(6.65, 0, 29.91)
+rotation_degrees = Vector3(0, -130, 0)
+scale = Vector3(0.88, 0.88, 0.88)
+
+[node name="SlimeShade" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(10.47, 0, 33.72)
+rotation_degrees = Vector3(0, 41, 0)
+scale = Vector3(1.07, 1.07, 1.07)
+
+[node name="GladeBack" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(5.32, 0, 36.13)
+rotation_degrees = Vector3(0, 67, 0)
+scale = Vector3(0.85, 0.85, 0.85)
+
+[node name="CoppiceFork" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(23.84, 0, 37.38)
+rotation_degrees = Vector3(0, 130, 0)
+scale = Vector3(0.84, 0.84, 0.84)
+
+[node name="HeatherOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(10.28, 0, 39.84)
+rotation_degrees = Vector3(0, 98, 0)
+scale = Vector3(0.92, 0.92, 0.92)
+
+[node name="SaddleMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(18.64, 0, 42.37)
+rotation_degrees = Vector3(0, 12, 0)
+scale = Vector3(0.73, 0.73, 0.73)
+
+[node name="FernBenchOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(5.91, 0, 43.59)
+rotation_degrees = Vector3(0, -97, 0)
+scale = Vector3(1.02, 1.02, 1.02)
+
+[node name="FernBenchMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(5.22, 0, 48.16)
+rotation_degrees = Vector3(0, -35, 0)
+scale = Vector3(0.77, 0.77, 0.77)
+
+[node name="BrackenShoulder" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(21.57, 0, 48.84)
+rotation_degrees = Vector3(0, 111, 0)
+scale = Vector3(1.08, 1.08, 1.08)
+
+[node name="CreeklessGullyTree" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(8.13, 0, 52.13)
+rotation_degrees = Vector3(0, 170, 0)
+scale = Vector3(0.88, 0.88, 0.88)
+
+[node name="RockyGladeOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(8.40, 0, 57.42)
+rotation_degrees = Vector3(0, 12, 0)
+scale = Vector3(1.04, 1.04, 1.04)
+
+[node name="RockyGladeMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(9.56, 0, 61.06)
+rotation_degrees = Vector3(0, -60, 0)
+scale = Vector3(0.81, 0.81, 0.81)
+
+[node name="TownRiseOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(23.39, 0, 58.24)
+rotation_degrees = Vector3(0, -144, 0)
+scale = Vector3(1.05, 1.05, 1.05)
+
+[node name="TownRiseMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(21.03, 0, 63.53)
+rotation_degrees = Vector3(0, 146, 0)
+scale = Vector3(0.76, 0.76, 0.76)
+
+[node name="StoneShoulderMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(14.55, 0, 69.25)
+rotation_degrees = Vector3(0, 40, 0)
+scale = Vector3(1.04, 1.04, 1.04)
+
+[node name="BakerBackOak" parent="Trees" instance=ExtResource("Oak")]
+position = Vector3(38.85, 0, 64.23)
+rotation_degrees = Vector3(0, 50, 0)
+scale = Vector3(0.91, 0.91, 0.91)
+
+[node name="StreetEndMaple" parent="Trees" instance=ExtResource("Maple")]
+position = Vector3(37.78, 0, 79.68)
+rotation_degrees = Vector3(0, -70, 0)
+scale = Vector3(0.81, 0.81, 0.81)
+
+[node name="Lanterns" type="Node3D" parent="."]
+
+[node name="WellLamp" parent="Lanterns" instance=ExtResource("Lamp")]
+position = Vector3(10.95, 0, 25.60)
+rotation_degrees = Vector3(0, 36, 0)
+
+[node name="FernBendLamp" parent="Lanterns" instance=ExtResource("Lamp")]
+position = Vector3(11.62, 0, 44.28)
+rotation_degrees = Vector3(0, 136, 0)
+
+[node name="RiseLamp" parent="Lanterns" instance=ExtResource("Lamp")]
+position = Vector3(15.06, 0, 56.53)
+rotation_degrees = Vector3(0, 115, 0)
+
+[node name="TownMouthLamp" parent="Lanterns" instance=ExtResource("Lamp")]
+position = Vector3(21.21, 0.27, 70.90)
+rotation_degrees = Vector3(0, 65, 0)
+
+[node name="BakeryLamp" parent="Lanterns" instance=ExtResource("Lamp")]
+position = Vector3(32.10, 0.27, 72.62)
+rotation_degrees = Vector3(0, -26, 0)
+
+[node name="Habitats" type="Node3D" parent="."]
+
+[node name="ReedSlime" type="Node3D" parent="Habitats"]
+position = Vector3(14.72, 0, 36.22)
+script = ExtResource("Specimen")
+
+[node name="Slime" parent="Habitats/ReedSlime" instance=ExtResource("Slime")]
+rotation_degrees = Vector3(0, 34, 0)
+
+[node name="FernGoblin" type="Node3D" parent="Habitats"]
+position = Vector3(8.78, 0, 45.23)
+script = ExtResource("Specimen")
+species = 1
+phase_offset = 2.45
+step_radius = 0.46
+
+[node name="Goblin" parent="Habitats/FernGoblin" instance=ExtResource("Goblin")]
+rotation_degrees = Vector3(0, 52, 0)
+
+[node name="StoneWolf" type="Node3D" parent="Habitats"]
+position = Vector3(12.64, 0, 57.57)
+script = ExtResource("Specimen")
+species = 2
+phase_offset = 4.32
+step_radius = 0.52
+
+[node name="Wolf" parent="Habitats/StoneWolf" instance=ExtResource("Wolf")]
+rotation_degrees = Vector3(0, 94, 0)

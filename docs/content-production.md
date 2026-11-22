@@ -1,6 +1,45 @@
 # 城镇、村庄与幻想怪物：素材扩充讨论稿
 
-[返回系统总览](../SYSTEMS.md)。本页是制作建议，不是功能承诺。
+[返回系统总览](../SYSTEMS.md)。前半页记录当前主地图续建与验证；后半页仍是内容制作建议，不是功能承诺。
+
+## 当前扩图方向：继续在 F5 原地图上走
+
+仍从 [Main.tscn](../Main.tscn) 按 **F5**，进入原来的 [Clearing](../world/Clearing.tscn)。无存档时从原石路出生；**背向小屋，沿脚下米白石路朝默认画面左下走**，过旧路口，石板渐疏后沿车辙拐向井边村。不要从温室一侧试图穿过池塘。WASD／方向键、Shift 跑和滚轮缩放均沿用原操作。
+
+1. **池畔石路 → 井边村。** 过木路牌，沿车辙经过井、菜地和两间农舍，到谷仓外转入林路。
+2. **林间兽径。** 按路侧木牌的刻痕顺序，在开阔肩地停下看 **史莱姆回弹、哥布林试探挥棒、狼低伏前扑**。它们会轮播待机、走动与招牌动作，不是交互或战斗目标；没有追逐、命中、掉落或存档项。
+3. **石街镇 → 面包铺。** 土路渐铺成灰暖石街，从窄面镇屋之间可进出横巷，沿主街到条纹棚下的面包铺，再到回程路牌。新建筑的门台能走上去，门是外景；原小屋仍可过门进入室内。原出生点至镇尾的道路中心线约 **95 m**，可用同一角色原路走回；室外途中无黑场、切场或存档重置。
+
+**地形和外观。** 原出生、小屋、池塘倒影和泥岸、温室、`BanksideRise` 地形烘焙／石路、原树木与昼夜都留在原位；只开原近侧边界中与石路相交的一段。先利用原 Meadow 的南侧平缓草地，才在 `z=40` 接 [SouthVerge](../art/terrace/SouthVerge.tscn) 的坡地和连续碰撞。新路用原切石烘焙笔刷、草地世界坐标色块、蕨草花簇与橡树／槭树；接触点是旧石路变碎石车道，不另铺一张草平面盖原坡。村、镇只复用建筑试产的结构和门台，重新配湖畔赭瓦、石灰墙、老木及青绿门板；三只复用剪影／动作，重调釉色、皮肤和毛色。路灯复用岸灯，随原时钟点亮；无独立舞台光、镜头或第二玩家状态。
+
+### 实际窗口验证
+
+Windows / Godot **4.7.2** / GL Compatibility / RTX 4090。直接运行工程默认入口（与编辑器 F5 同一入口），分别以原生 **480×270**、**320×180** 窗口通过启动检查。以下移动使用脚本注入实际镜头相对输入，经 `Walker` 物理步，不是设点传送，也不是人工实体按键。
+
+- [`clearing_route_checks.gd`](../tests/clearing_route_checks.gd)：两档均 **32/32**。包括居住地之间往返、两侧坡地接缝、三个观察点、镇巷、六个门台及挡门／终点围栏；接缝处 0 次离地；仅在离开一处农舍门台侧边时，有 5 帧短暂离地，未卡住。最大单步约 7.4 cm。F5/F9 能还原新街上的位置，背包、已取地面物与地区库存一致；普通步行不写盘。
+- [`shore_checks.gd`](../tests/shore_checks.gd) 与 [`pond_render_checks.gd`](../tests/pond_render_checks.gd)：0 失败。旧温室侧可沿岸走、可爬回石路，冲向池面时 **0 帧进水**；原岸带约 **0.40–1.18 m**，白天、薄暮和夜间的抽样均检测到实际倒影贡献。
+- [`play_checks.gd`](../tests/play_checks.gd)：窗体验证 `door-write`、`door-read`、`regions`、`table-menu` 均 0 失败；走过原门槛仍按原顺序执行黑场，行囊、取空状态和保存／重开保留。使用隔离测试槽，没有改玩家存档或改键配置。
+- [`clearing_render_checks.gd`](../tests/clearing_render_checks.gd)：两档均 0 失败；在 F5 实际取景下抽样六栋外壳及三种魔物的待机、移动和招牌帧。薄暮初版的狼容易融进背景，补了原型岸灯作为石坡路灯并重调色后，三只在这两档、昼／暮样本中，至少 **64%** 的剪影像素与同站位背景在一个 sRGB 通道上相差 ≥ 0.09。只证明这些抽样未被遮没，不代表连续移动或全部时段。
+
+### 同机位对照与截图
+
+以下是原生 `Pixels` 的实渲染输出，合图不缩放。改动前的基线摄于接入续建前；对照使用同一站位、镜头和时刻。
+
+- [原出生点／池岸同机位](previews/clearing-expansion/01-original-before-after.png)：左为改动前、右为改动后；从上到下为出生、14:00 池岸、18:40 池岸。出生帧的差异限于底部 26 像素高的前景带，不要求池水动画逐像素相同。
+- [旧石路出口两侧同机位](previews/clearing-expansion/02-lane-before-after.png)：左为改动前、右为改动后；上排在旧路一侧，下排在延长段一侧。
+- [烘焙地形接缝两侧](previews/clearing-expansion/03-grade-join.png)：左为旧 Meadow 一侧，右为 `z=40` 后的新坡地一侧，沿同一条林路。
+- [井边村与石街镇](previews/clearing-expansion/04-settlements.png)：左村、右镇，上白天、下薄暮。
+- [魔物 480 档](previews/clearing-expansion/05-habitats.png)／[320 档](previews/clearing-expansion/06-habitats-320.png)：从左到右为史莱姆、哥布林、狼，上白天、下薄暮；从玩家能走到的肩地取招牌动作关键帧。
+
+执行工具不能回显远端 PNG，未声称肉眼美术验收。请在工程内打开这些图和 F5 连续巡视，重点看旧坡到新路的色调、经过村镇时的前后景遮挡、三只魔物在移动中的轮廓。此轮不涉及流式加载、动态水位或正式遭遇系统。
+
+复跑：`godot --path . --disable-vsync --fixed-fps 60 --script res://tests/clearing_route_checks.gd`；把脚本换成 `clearing_render_checks.gd`，在 `--` 后加 `--output=<新的绝对目录>` 可实拍，另加 `--320` 取小档。只需重建新增地形时运行 `godot --headless --path . --script res://source/bake_clearing_outskirts.gd`；默认生成编号副本，不覆盖原 `BanksideRise`，也不覆盖已经存在的 `SouthVerge`。
+
+## F6 历史试产（保留资产，不是扩图路线）
+
+- [独立《从木屋到石街镇》](../world/overland_demo/Overland.tscn) — 旧整合预览，[说明和截图](../world/overland_demo/README.md)仅作历史参考。这张独立地图不是在原小屋处向外扩建，不再作为继续做主地图的方向。
+- [建筑试产：村路／城镇街角](../art/building_trial/BuildingPreview.tscn) — 保留用于看原型和门台，见[试产说明与预览图](../art/building_trial/README.md)。
+- [魔物试产：林间图鉴](../art/monster_trial/MonsterTrial.tscn) — 保留用于单独查看动作，见[试产说明与预览图](../art/monster_trial/README.md)。
 
 ## 建筑：先确定用途，再生成外观
 
