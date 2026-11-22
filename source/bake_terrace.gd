@@ -3,12 +3,29 @@ extends "bake_land.gd"
 const Profile = preload("res://art/terrace/terrain_profile.gd")
 const DEST := "res://art/terrace/BanksideRise.tscn"
 var drape := false
+const PoolScene = preload("res://art/pool/ReflectingPool.tscn")
+const SHORE_TEXEL := .0625 # m per texel; independent of the terrain grid
+var shore := PackedVector2Array()
+var shore_area := Rect2()
+var lift_cache := {}
 
 func _initialize() -> void:
 	rng.seed = 502143
 	land.name = "BanksideRise"
 	ink.shader = load(DIR + "pigments.gdshader")
 	ink.resource_name = "Dry pigments | stone and wildflowers"
+	# Same polygon as the baked water perimeter, not the approximate terrain-profile trace.
+	var pool := PoolScene.instantiate() as Node3D
+	var edge: CollisionPolygon3D = pool.get_node("PoolBarrier/Shoreline")
+	var to_land := pool.transform * (edge.get_parent() as Node3D).transform * edge.transform
+	for p in edge.polygon:
+		var q := to_land * Vector3(p.x,p.y,0)
+		shore.append(Vector2(q.x,q.z))
+	var bounds := Rect2(shore[0],Vector2.ZERO)
+	for p in shore:
+		bounds = bounds.expand(p)
+	shore_area = bounds.grow(1.45)
+	pool.free()
 	drape = true
 	road(); foliage_patches(); markers(); stone_herbs()
 	drape = false
@@ -49,7 +66,7 @@ func put(n: Node) -> void:
 			if paved:
 				pave_tri(b, p[0],p[1],p[2], normals[ids[k]], colors[ids[k]])
 			else:
-				for j in 3: p[j].y += Profile.soil(p[j].x,p[j].z)
+				for j in 3: p[j].y += surface(p[j].x,p[j].z)
 				b.tri(p[0],p[1],p[2],normals[ids[k]],normals[ids[k+1]],normals[ids[k+2]],colors[ids[k]],colors[ids[k+1]],colors[ids[k+2]])
 		var old: String = n.mesh.resource_name
 		var m: MeshInstance3D = b.bake(old, ink)
@@ -72,12 +89,12 @@ func pave_tri(b, a: Vector3, d: Vector3, c: Vector3, n: Vector3, pigment: Color)
 		pave_tri(b,c,a,d,n,pigment)
 	else:
 		var center := (a+d+c)/3.0
-		var dx := (Profile.soil(center.x+.0125,center.z)-Profile.soil(center.x-.0125,center.z))*40.0
-		var dz := (Profile.soil(center.x,center.z+.0125)-Profile.soil(center.x,center.z-.0125))*40.0
+		var dx := (surface(center.x+.0125,center.z)-surface(center.x-.0125,center.z))*40.0
+		var dz := (surface(center.x,center.z+.0125)-surface(center.x,center.z-.0125))*40.0
 		b.flat(lift(a), lift(d), lift(c), Vector3(n.x-dx*n.y,n.y,n.z-dz*n.y), pigment)
 
 func lift(p: Vector3) -> Vector3:
-	return p + Vector3.UP * Profile.soil(p.x,p.z)
+	return p + Vector3.UP * surface(p.x,p.z)
 
 func support(x: float, z: float) -> float:
 	var y := Profile.soil(x,z)
@@ -89,16 +106,103 @@ func support(x: float, z: float) -> float:
 		dist2 = minf(dist2,p.distance_squared_to(Geometry2D.get_closest_point_to_segment(p, outline[i], outline[(i+1)%outline.size()])))
 	return y + .075 * smoothstep(0,.22,sqrt(dist2))
 
+# The pool-side profile drops too quickly for Walker's 45-degree floor limit.
+# Extend inland support toward the dry bank with a shallow envelope (rise/run
+# 0.94), blended only around the glasshouse-to-lantern shore. Sample chiefly
+# inland (-X/-Z); never cut below the original soil or flagstone support.
+# Keep the water barrier and wet side unchanged.
+func sample_raise(x: float, z: float) -> float:
+	var p := Vector2(x,z)
+	if x < 3.25 or x > 7.25 or z < 1.25 or z > 4.65 or Geometry2D.is_point_in_polygon(p,shore):
+		return 0.0
+	var distance := 1.0
+	for i in shore.size():
+		distance = minf(distance,p.distance_to(Geometry2D.get_closest_point_to_segment(p,shore[i],shore[(i+1)%shore.size()])))
+	if distance <= .125: return 0.0
+	return (walking_support(x,z)-support(x,z)) * smoothstep(.125,.27,distance)
+
+func grid_raise(i: int, j: int) -> float:
+	var key := Vector2i(i,j)
+	if not lift_cache.has(key):
+		lift_cache[key] = sample_raise(i*.125,j*.125)
+	return lift_cache[key]
+
+func surface(x: float, z: float) -> float:
+	return Profile.soil(x,z) + terrace_raise(x,z)
+
+func terrace_raise(x: float, z: float) -> float:
+	if x < 3.125 or x > 7.375 or z < 1.125 or z > 4.775: return 0.0
+	var i := floori(x*8.0); var j := floori(z*8.0)
+	var u := x*8.0-i; var v := z*8.0-j
+	var a := grid_raise(i,j); var c := grid_raise(i+1,j+1)
+	if u >= v:
+		return a*(1-u) + grid_raise(i+1,j)*(u-v) + c*v
+	return a*(1-v) + grid_raise(i,j+1)*(v-u) + c*u
+
+func walking_support(x: float, z: float) -> float:
+	var y := support(x,z)
+	if x < 3.25 or x > 7.25 or z < 1.25 or z > 4.65:
+		return y
+	var weight := smoothstep(3.25,4.0,x) * (1.0-smoothstep(7.0,7.25,x))
+	weight *= smoothstep(1.25,1.65,z) * (1.0-smoothstep(4.05,4.65,z))
+	var grade := y
+	for dx in range(-9,3):
+		for dz in range(-9,3):
+			var offset := Vector2(dx,dz) * .125
+			if offset.length_squared() <= 1.3 * 1.3:
+				grade = maxf(grade, support(x + offset.x,z + offset.y) - offset.length() * .94)
+	return lerpf(y,grade,weight)
+
 func grid(a: float,b: float) -> PackedFloat32Array:
 	var result := PackedFloat32Array([-40., a-2., a-1.])
 	for i in range(roundi((b-a)*8)+1): result.append(a+i*.125)
 	result.append_array(PackedFloat32Array([b+1.,b+2.,40.]))
 	return result
 
+# R: signed distance to the water. G: signed distance minus the wandering
+# outer bank width. Positive is land/outside in both channels.
+func shore_distances(p: Vector2) -> Vector2:
+	var distance2 := INF
+	var rim := Vector2.ZERO
+	for i in shore.size():
+		var q := Geometry2D.get_closest_point_to_segment(p,shore[i],shore[(i+1)%shore.size()])
+		var d := p.distance_squared_to(q)
+		if d < distance2:
+			distance2 = d
+			rim = q
+	var distance := sqrt(distance2)
+	if Geometry2D.is_point_in_polygon(p,shore): distance = -distance
+	# Vary the exposed apron along the bank, independent of paved grade.
+	var width := .72 + .26*sin(rim.dot(Vector2(.90,.77))) + .15*sin(rim.dot(Vector2(2.15,-1.48)))
+	# Smaller irregularities are shared in terrain space, not painted as
+	# separate segment-shaped strips.
+	width += .085*sin(p.dot(Vector2(4.10,3.09)))
+	return Vector2(distance,distance-width)
+
+func allows_shore_plant(p: Vector2, radius: float) -> bool:
+	if not shore_area.grow(radius).has_point(p): return true
+	if shore_distances(p).y < .09: return false
+	for i in 8:
+		if shore_distances(p + Vector2.from_angle(TAU*i/8.0)*radius*1.1).y < .09:
+			return false
+	return true
+
+func shore_texture() -> ImageTexture:
+	var pixels := Vector2i((shore_area.size/SHORE_TEXEL).ceil())
+	var image := Image.create_empty(pixels.x,pixels.y,false,Image.FORMAT_RG8)
+	for y in pixels.y:
+		for x in pixels.x:
+			var p := shore_area.position + (Vector2(x,y)+Vector2(.5,.5))/Vector2(pixels)*shore_area.size
+			var d := shore_distances(p)
+			image.set_pixel(x,y,Color(clampf(.5+d.x/.64,0,1),clampf(.5+d.y/.32,0,1),0))
+	return ImageTexture.create_from_image(image)
+
 func meadow() -> void:
 	var turf := ShaderMaterial.new()
 	turf.shader = load(DIR + "meadow.gdshader")
 	turf.resource_name = "Meadow | terrace pigments"
+	turf.set_shader_parameter("shore_field",shore_texture())
+	turf.set_shader_parameter("shore_rect",Vector4(shore_area.position.x,shore_area.position.y,shore_area.size.x,shore_area.size.y))
 	var xs := grid(-6., 8.)
 	var zs := grid(-8.,17.)
 	var st := SurfaceTool.new()
@@ -110,8 +214,8 @@ func meadow() -> void:
 	for j in zs.size():
 		for i in xs.size():
 			var x := xs[i]; var z := zs[j]; var k := j*xs.size()+i
-			ground[k] = Vector3(x, Profile.soil(x,z), z)
-			walk[k] = Vector3(x, support(x,z), z)
+			ground[k] = Vector3(x, surface(x,z), z)
+			walk[k] = Vector3(x, support(x,z) + terrace_raise(x,z), z)
 	for j in zs.size()-1:
 		for i in xs.size()-1:
 			var k := j*xs.size()+i
@@ -134,7 +238,7 @@ func meadow() -> void:
 func rock(label: String, p: Vector2, s: Vector3, turn: float) -> void:
 	var b = Brush.new()
 	var verts := PackedVector3Array()
-	var base := Profile.soil(p.x,p.y)
+	var base := surface(p.x,p.y)
 	var lower := PackedVector3Array()
 	var rim := PackedVector3Array()
 	var top := PackedVector3Array()
@@ -142,7 +246,7 @@ func rock(label: String, p: Vector2, s: Vector3, turn: float) -> void:
 	for i in n:
 		var a := TAU*i/n + rng.randf_range(-.14,.14)
 		var o := (Vector3(cos(a)*s.x,0,sin(a)*s.z)*rng.randf_range(.78,1.06)).rotated(Vector3.UP,turn)
-		var depth := Profile.soil(p.x+o.x,p.y+o.z)-base
+		var depth := surface(p.x+o.x,p.y+o.z)-base
 		lower.append(o + Vector3.UP * (minf(-.11,depth-.08)))
 		rim.append(o*rng.randf_range(.88,1.02) + Vector3.UP*(s.y*rng.randf_range(.27,.54)))
 		top.append(o*rng.randf_range(.36,.79) + Vector3.UP*(s.y*rng.randf_range(.70,.96)))
@@ -182,7 +286,7 @@ func chip(b,a:Vector3,d:Vector3,c:Vector3,outside:Vector3,col:Color) -> void:
 # scarp, a narrow bedding seam and a low, buried upslope shoulder.
 func stratum(label: String, p: Vector2, length: float, relief: float) -> void:
 	var b = Brush.new()
-	var base := Profile.soil(p.x,p.y)
+	var base := surface(p.x,p.y)
 	var points := PackedVector3Array()
 	var stations := [-.55,-.39,-.07,.23,.49]
 	var noses := [.08,.32,.38,.28,.13]
@@ -191,8 +295,8 @@ func stratum(label: String, p: Vector2, length: float, relief: float) -> void:
 		var z: float = stations[i]*length
 		var x: float = noses[i]
 		var r: float = levels[i]*relief
-		var grade := Profile.soil(p.x+x,p.y+z)-base
-		var tucked := Profile.soil(p.x-.60,p.y+z)-base
+		var grade := surface(p.x+x,p.y+z)-base
+		var tucked := surface(p.x-.60,p.y+z)-base
 		points.append(Vector3(x-.10,grade-.105,z))
 		points.append(Vector3(x,grade+r*.36,z))
 		points.append(Vector3(x-.045,grade+r*.46,z+.023))

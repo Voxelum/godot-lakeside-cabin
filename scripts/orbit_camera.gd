@@ -11,7 +11,7 @@ var frozen := false
 var focus := Vector3.ZERO
 var aim := Vector3.ZERO
 var dragging := false
-var press_position := Vector2.ZERO
+# Rotation is an explicit development chord; zoom remains a normal player control.
 const RADIUS := 23.0
 
 func _ready() -> void:
@@ -50,28 +50,37 @@ func end_drag() -> void:
 	dragging = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func camera_input(event: InputEvent, fitted: Rect2, scale_factor: float) -> bool:
+func drag_input(event: InputEvent, fitted: Rect2, scale_factor: float) -> bool:
 	if frozen: return false
+	var key := event as InputEventKey
+	if dragging and key and key.keycode == KEY_CTRL and not key.pressed:
+		end_drag()
+		return true
 	var button := event as InputEventMouseButton
-	if button:
-		if button.button_index == MOUSE_BUTTON_RIGHT:
-			if button.pressed and fitted.has_point(button.position):
-				press_position = button.position
-				dragging = true
-				Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-				return true
-			elif not button.pressed and dragging:
-				end_drag()
-				return true
-		if button.pressed and (dragging or fitted.has_point(button.position)) and button.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
-			zoom_step = clampi(zoom_step+(-1 if button.button_index==MOUSE_BUTTON_WHEEL_UP else 1),0,sizes.size()-1)
-			size = sizes[zoom_step]
-			_apply()
+	if button and button.button_index == MOUSE_BUTTON_LEFT:
+		if button.pressed and button.ctrl_pressed and fitted.has_point(button.position):
+			dragging = true
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+			return true
+		if dragging and not button.pressed:
+			end_drag()
 			return true
 	var motion := event as InputEventMouseMotion
-	if motion and dragging:
-		yaw_degrees = wrapf(yaw_degrees-motion.relative.x*0.58/scale_factor,-180.0,180.0)
-		pitch_degrees = clampf(pitch_degrees+motion.relative.y*0.38/scale_factor,29.0,49.0)
-		_apply()
+	if dragging and motion:
+		if motion.ctrl_pressed:
+			yaw_degrees = wrapf(yaw_degrees-motion.relative.x*0.58/scale_factor,-180.0,180.0)
+			pitch_degrees = clampf(pitch_degrees+motion.relative.y*0.38/scale_factor,29.0,49.0)
+			_apply()
+		else:
+			end_drag()
 		return true
 	return false
+
+func zoom_input(event: InputEvent, fitted: Rect2) -> bool:
+	var button := event as InputEventMouseButton
+	if frozen or not button or not button.pressed or not fitted.has_point(button.position): return false
+	if button.button_index not in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]: return false
+	zoom_step = clampi(zoom_step+(-1 if button.button_index==MOUSE_BUTTON_WHEEL_UP else 1),0,sizes.size()-1)
+	size = sizes[zoom_step]
+	_apply()
+	return true

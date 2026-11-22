@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="310" height="180" viewBox="0 0 310 180">
+  <defs>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="88%" y2="100%"><stop stop-color="#c39150"/><stop offset=".12" stop-color="#ecd2a1"/><stop offset=".36" stop-color="#f5dfb2"/><stop offset=".61" stop-color="#ead0a0"/><stop offset=".84" stop-color="#e3c18b"/><stop offset="1" stop-color="#bd8c54"/></linearGradient>
+    <radialGradient id="bloom" cx="43%" cy="46%" r="62%"><stop stop-color="#fff0c8" stop-opacity=".5"/><stop offset=".8" stop-color="#fff1c9" stop-opacity=".12"/><stop offset="1" stop-color="#ac7743" stop-opacity=".17"/></radialGradient>
+    <linearGradient id="turn" x1="0%" y1="0%" x2="86%" y2="100%"><stop stop-color="#fff2c8"/><stop offset=".45" stop-color="#d7b57e"/><stop offset=".8" stop-color="#b88950"/><stop offset="1" stop-color="#eed3a5"/></linearGradient>
+    <!-- One perimeter for face, thickness and contact shadow. The negative space is unpainted. -->
+    <path id="hide" d="M 18,5.1 Q 24,3.8 30,4.9 L 37,4.5 41,5.3 Q 53,3.7 62,3.2 L 67,3.7 72,3.1 75,5.1 78,4.5 Q 88,6.7 98,6.4 L 105,7.3 112,6.9 119,7.7 124,6.8 129,7.6 134,10.6 137,9.7 140,12.5 143.5,7.8 147,7.2 Q 160,8.1 170,5.7 L 178,5.9 184,4.3 190,4.8 Q 204,2.6 218,3.8 L 226,2.7 233,3.4 238,2.9 243,4.6 Q 254,5.7 264,3.9 L 272,4.6 277,3.3 283,4.3 289,4 294,6.2 301,11.4 305.5,16.8 304.4,22 305.2,27 303.5,32 304,37 Q 303.2,44 301.2,50 L 302.1,55.4 299.4,60 300.4,65 294.3,69.6 297.3,70.2 296.4,72.3 301.1,71.8 Q 300.5,82.3 303.2,88.1 L 303,95.5 304.9,100 304,105 305.4,111.5 Q 307,120 306.2,126 L 307.2,131 305.6,134.7 306,140 303.4,145.8 303.7,150 302.8,155.2 304.2,161.1 302.7,165 303.1,168.4 297.4,170.3 294.8,173.5 Q 285.4,174.8 277.7,173.2 L 270,173.8 264.5,172.5 257,173.1 Q 244.5,172.2 235.8,175.2 L 230.2,174.6 224,176 219,174.8 213.8,175.2 209.2,171.4 207.8,172.3 204.6,167.1 202.1,170.4 199.7,169.6 196.1,172.7 Q 186,173.9 175,172 L 166.7,172.5 159.3,170.7 154.1,171.3 Q 139,168.5 126.4,169.5 L 118,168.7 111.7,170.1 104,169.6 99,171.4 90.1,171 84.8,172.5 79.5,171.7 73.4,173.5 Q 63.4,174.5 53.6,173.6 L 47,175.1 42.2,173.8 34.9,174 30.7,171.8 25.9,172 22.1,169 17.1,168 12.1,163.4 10,159.3 6.4,157.2 7,152.1 4.5,147.5 Q 5.8,138.5 4.1,132.2 L 4.8,125.5 3.5,121.6 4.2,115.1 6.9,110 6.1,105 9.7,100 8.9,97.7 14.1,93.1 9.5,94.2 10.1,90.7 7.3,89.6 Q 8.6,80 6.2,71.8 L 7,65.4 5.5,60.6 5.8,54 Q 4.8,46 3.7,40.3 L 4.4,34.6 2.9,29.4 4.1,25 3.6,20.1 7.1,17.8 7.2,14.6 10.9,13.3 12.2,9.4 16.4,9 Z"/>
+  </defs>
+  <use xlink:href="#hide" transform="translate(0.7 2.1)" fill="#442f24" opacity=".35"/>
+  <use xlink:href="#hide" transform="translate(0.1 1.1)" fill="#937043"/>
+  <use xlink:href="#hide" fill="url(#skin)" stroke="#946f46" stroke-width=".8" stroke-linejoin="round"/>
+  <use xlink:href="#hide" fill="url(#bloom)"/>
+  <!-- Uneven bevels stop at real breaks; never outline the page with an inset box. -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M17 9.5l3-3.4q5-1 10-.2l7-.5m10 .3 15-1.6m17 1.9q13 2.2 24 1.5m45.5.7q12 0 20-1.7m22.5-1.6 18.4-1.1m22.3.8 5.5-.8 6.1 1.7m23.7-.4 6.2.2" stroke="#fff0ca" stroke-width="1.15" opacity=".82"/>
+    <path d="M5 29.6l.9 4.4-1 5.6m2.1 16.8.1 4 1.2 5.1-.7 6.2m.2 36.8-2.5 7.1.3 6.3m.8 17.4.4 7.5" stroke="#ffe3ad" stroke-width="1.1"/>
+    <path d="M302.8 33l-.6 8-2.4 9.3.6 4.9m-1.1 21.4.6 7.9 2 5.3m2.1 39.9-1.2 4 .2 6.3m-10.1 30.8-7.2 1.3-7.7-.4m-44.2 1.2-7.4.8m-31-1.9-10.2.6-13.3-1.1m-57.8-.5-13.9 1.6m-40.6 1.2-7.4-.6" stroke="#b38752" stroke-width="1.1" opacity=".68"/>
+  </g>
+  <!-- A lifted dog-ear, an abraded heel and a few exposed fibres in the tears. -->
+  <path d="M291 5.8q4.5 8 1.8 15.8l11.6-5.2-5.5-5.3z" fill="#765230" opacity=".28"/>
+  <path d="M290.2 5.4q5.6 7.3 2.1 14.1 6-2.7 12-3.2l-5.8-5.9-4.7-3.1z" fill="url(#turn)" stroke="#ab8557" stroke-width=".7"/>
+  <path d="M291.7 7.4q4 6.4 1.7 10.1l7-2.1" fill="none" stroke="#ffe9b9" stroke-width=".9"/>
+  <path d="M7.8 154.3q5.9 4.7 10.7 4.4l3 9.6-4-1.5-5.2-4.7z" fill="url(#turn)"/>
+  <g fill="none" stroke="#956f49" stroke-linecap="round" opacity=".5" stroke-width=".7">
+    <path d="M139.5 12.7l-.6 2.4 1.1 2.3m-3.1-5.8-3.7-2.6m162.7 60.5-4.8 2.4-1.8 3.6m-84.5 93.4-1.3-3.8-3.2-3.7M13.5 93.4l4.9-4.7m-1.6 70.4 9.6-3.9 4.7-4.3"/>
+  </g>
+  <g fill="none" stroke="#fff0c8" stroke-linecap="round" opacity=".75" stroke-width=".8">
+    <path d="M140.8 12.6l1.6-2.9m-132 84.2 4.2-1.3m280.7-23 4.8-3.4m-96.5 101.6-2.1 3.6m-185.2-10.5 4.5 4.3"/>
+  </g>
+  <!-- Faint worn crease and scattered grain: kept away from a continuous frame. -->
+  <path d="M253 8q-4 15-5 24t-7 22q3-15 5.3-24.6zM22 140l19-12 19.4-6.7-18.1 9z" fill="#ac8258" opacity=".11"/>
+  <g fill="none" stroke="#906537" opacity=".16" stroke-width=".65" stroke-linecap="round">
+    <path d="M22 18l7-1m3-1.2 4-.5m18 5 9 1m32-9.3 6 .5m24 9 7-1m23-3 4 .6m22-3 8-.7m26.4-2.8 4.3.8m35.4 3.1 6-.6m13.8 11.2 6 1.2M12 36l6-.5m79-2.2 8.9.7m24 9.3 5.5-1.1m43-12 8.2 1.2m81 6.2 7-.6m10 12 6-.8M19.4 66l6 .9m31-10.6 7.4.6m67 6.4 4-.5m82 .7 7.2-1.1m57 18.3 7-.4M24.8 90.1l8.2-2.4m46 3.5 5 .4m66-5.6 9.2-1.1m76 13 6.3-.5m32-6 5.1-.9M18 119l7.1-1.6m57-5.3 8.4-.8m40.1 2.6 5.4 1.1m57-8.8 9.1.5m80 8.5 6-1.6M25 144l6-1m35.3 6 8.5.8m48-10.4 5-.2m94 3 9-.8m47 6.4 6.8-.2M50 165l8 .7m19-3.6 5-1m17.5-1.4 7 .4m34-3.6 9.1 1.6m67 4.8 4.1-.8m29-1.2 6.8.9m14-1.5 5.8-1"/>
+  </g>
+</svg>

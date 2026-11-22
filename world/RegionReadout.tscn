@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/region_readout.gd" id="Readout"]
+[ext_resource type="Theme" path="res://scripts/ui/parchment_theme.tres" id="PaperTheme"]
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.42, 0.30, 0.19, 1)
+[sub_resource type="BoxMesh" id="Tray"]
+material = SubResource("Wood")
+size = Vector3(0.65, 0.16, 0.46)
+[sub_resource type="StandardMaterial3D" id="Ochre"]
+albedo_color = Color(0.92, 0.69, 0.32, 1)
+[sub_resource type="SphereMesh" id="Sample"]
+material = SubResource("Ochre")
+radius = 0.15
+height = 0.20
+radial_segments = 6
+rings = 2
+
+[node name="RegionReadout" type="Node3D"]
+script = ExtResource("Readout")
+[node name="Tray" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.08, 0)
+mesh = SubResource("Tray")
+[node name="Sample" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.25, 0)
+mesh = SubResource("Sample")
+
+; The count belongs to this view in the outdoor SubViewport (under the door shutter).
+[node name="Tag" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -4.0
+offset_right = -4.0
+offset_top = 4.0
+grow_horizontal = 0
+mouse_filter = 2
+theme = ExtResource("PaperTheme")
+theme_type_variation = &"PaperTag"
+[node name="Stock" type="Label" parent="Tag"]
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.224, 0.145, 0.106, 1)
+theme_override_font_sizes/font_size = 10

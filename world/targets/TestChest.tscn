@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/interaction/stack_target.gd" id="Stack"]
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.41, 0.23, 0.12, 1)
+[sub_resource type="StandardMaterial3D" id="Brass"]
+albedo_color = Color(0.83, 0.64, 0.31, 1)
+[sub_resource type="StandardMaterial3D" id="Inside"]
+albedo_color = Color(0.16, 0.10, 0.07, 1)
+[sub_resource type="BoxMesh" id="Case"]
+material = SubResource("Wood")
+size = Vector3(0.82, 0.41, 0.52)
+[sub_resource type="BoxMesh" id="Inset"]
+material = SubResource("Inside")
+size = Vector3(0.73, 0.012, 0.44)
+[sub_resource type="BoxMesh" id="Lid"]
+material = SubResource("Wood")
+size = Vector3(0.86, 0.12, 0.56)
+[sub_resource type="BoxMesh" id="Band"]
+material = SubResource("Brass")
+size = Vector3(0.066, 0.135, 0.57)
+
+[sub_resource type="StandardMaterial3D" id="SampleAmber"]
+albedo_color = Color(0.92, 0.66, 0.27, 1)
+roughness = 0.68
+[sub_resource type="BoxMesh" id="SampleContents"]
+material = SubResource("SampleAmber")
+size = Vector3(0.28, 0.15, 0.18)
+
+[node name="TestChest" type="Node3D" groups=["test_stack_source"]]
+script = ExtResource("Stack")
+is_pickup = false
+contents_mesh = SubResource("SampleContents")
+
+[node name="Case" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.205, 0)
+mesh = SubResource("Case")
+[node name="Inset" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.41, 0)
+mesh = SubResource("Inset")
+[node name="LidHinge" type="Node3D" parent="."]
+position = Vector3(0, 0.42, -0.26)
+[node name="Lid" type="MeshInstance3D" parent="LidHinge"]
+position = Vector3(0, 0.055, 0.26)
+mesh = SubResource("Lid")
+[node name="BandL" type="MeshInstance3D" parent="LidHinge"]
+position = Vector3(-0.24, 0.055, 0.26)
+mesh = SubResource("Band")
+[node name="BandR" type="MeshInstance3D" parent="LidHinge"]
+position = Vector3(0.24, 0.055, 0.26)
+mesh = SubResource("Band")

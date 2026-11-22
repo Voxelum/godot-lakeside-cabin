@@ -3,6 +3,8 @@ extends Control
 ## water reflections, physics or HUD into the destination. Both cameras persist.
 @export_enum("320 × 180", "480 × 270") var resolution_preset: int = 1
 @export_range(0.25, 1.5, 0.05) var iris_seconds := 0.62
+@export var developer_camera := false
+@onready var session = $Session
 @onready var field: SubViewport = $Pixels
 @onready var room: SubViewport = $RoomPixels
 @onready var field_actor = $Pixels/Clearing/Traveler
@@ -29,9 +31,11 @@ func _ready() -> void:
 	get_window().min_size = base
 	resized.connect(_fit)
 	_fit()
-	room_actor.locked = true
+	developer_camera = developer_camera or "--dev-camera" in OS.get_cmdline_user_args()
 	field_actor.stepped.connect(_watch_threshold.bind(false))
 	room_actor.stepped.connect(_watch_threshold.bind(true))
+	session.start()
+	sync_control()
 
 func _fit() -> void:
 	var base := Vector2(field.size)
@@ -40,7 +44,8 @@ func _fit() -> void:
 	$Screen.position = ((size - $Screen.size) * 0.5).floor()
 
 func _watch_threshold(previous: Vector3, current: Vector3, in_room: bool) -> void:
-	if crossing or in_room != indoors: return
+	if crossing or in_room != indoors or session.is_modal(): return
+	session.stepped(current)
 	var marker := room_door if in_room else field_door
 	var a := marker.to_local(previous)
 	var b := marker.to_local(current)
@@ -63,12 +68,26 @@ func _radius(value: float) -> void:
 	iris_radius = value
 	shutter.set_shader_parameter(&"radius_px", value)
 
+func active_actor():
+	return room_actor if indoors else field_actor
+
+func sync_control(settle := false) -> void:
+	var blocked: bool = crossing or session.is_modal()
+	field_actor.locked = blocked or indoors
+	room_actor.locked = blocked or not indoors
+	if settle: active_actor().settle_input()
+	if blocked or indoors: orbit.end_drag()
+	orbit.frozen = blocked or indoors
+	$FieldHUD.visible = not crossing and not $BindingPanel.visible and not $SettingsBook.opened
+	$SettingsBook.launcher.visible = not blocked
+	var fast_key := InputEventKey.new()
+	fast_key.physical_keycode = KEY_T
+	fast_key.keycode = KEY_T if DisplayServer.get_name() == "headless" else DisplayServer.keyboard_get_keycode_from_physical(KEY_T)
+	$Pixels/Clearing/Almanac.allow_fast_key = not blocked and not session.is_mapped(fast_key)
+
 func _trip() -> void:
 	crossing = true
-	field_actor.locked = true
-	room_actor.locked = true
-	orbit.end_drag()
-	orbit.frozen = true
+	sync_control()
 	shutter_phase = "close"
 	var far_radius := _locate_iris()
 	_radius(far_radius)
@@ -81,27 +100,8 @@ func _trip() -> void:
 	# Radius zero has actually been presented before any world/actor changes.
 	await RenderingServer.frame_post_draw
 	await get_tree().create_timer(0.09).timeout
-	indoors = not indoors
-	for ambience in [$Pixels/Clearing/Sunbreak, $Pixels/Clearing/ForestLife, $Pixels/Clearing/Almanac]:
-		ambience.process_mode = Node.PROCESS_MODE_DISABLED if indoors else Node.PROCESS_MODE_INHERIT
-	var arrival = room_actor if indoors else field_actor
-	var mark := room_entry if indoors else field_entry
-	arrival.global_position = mark.global_position
-	# Ground a new arrival under the shutter (including the outdoor paving).
-	var foot: Vector3 = mark.global_position
-	var query := PhysicsRayQueryParameters3D.create(foot+Vector3.UP*0.32,foot-Vector3.UP*0.38)
-	query.exclude = [arrival.get_rid()]
-	var hit: Dictionary = arrival.get_world_3d().direct_space_state.intersect_ray(query)
-	if not hit.is_empty(): arrival.global_position.y = hit.position.y + 0.002
-	arrival.velocity = Vector3.ZERO
-	arrival.reset_physics_interpolation()
-	if arrival.artwork.has_method(&"reset_pose"):
-		arrival.artwork.reset_pose(Vector3.FORWARD if indoors else Vector3.BACK)
-	if not indoors: orbit.align_at_subject()
-	field.render_target_update_mode = SubViewport.UPDATE_DISABLED if indoors else SubViewport.UPDATE_ALWAYS
-	$Pixels/Clearing/Pool/MirrorViewport.render_target_update_mode = field.render_target_update_mode
-	room.render_target_update_mode = SubViewport.UPDATE_ALWAYS if indoors else SubViewport.UPDATE_DISABLED
-	$Screen.texture = room.get_texture() if indoors else field.get_texture()
+	var mark := field_entry if indoors else room_entry
+	show_place(not indoors, mark.global_position, true)
 	shutter_phase = "black_destination"
 	far_radius = _locate_iris()
 	# Destination and reflection pass must have rendered before the reveal.
@@ -113,23 +113,42 @@ func _trip() -> void:
 	opening.tween_method(_radius, 0.0, far_radius, iris_seconds)
 	await opening.finished
 	shutter.set_shader_parameter(&"shutter", false)
-	arrival.settle_input()
-	arrival.locked = false
-	orbit.frozen = indoors
 	crossing = false
 	shutter_phase = "idle"
+	sync_control(true)
+
+func show_place(in_room: bool, foot: Vector3, snap_to_entry: bool) -> void:
+	indoors = in_room
+	for ambience in [$Pixels/Clearing/Sunbreak, $Pixels/Clearing/ForestLife, $Pixels/Clearing/Almanac]:
+		ambience.process_mode = Node.PROCESS_MODE_DISABLED if indoors else Node.PROCESS_MODE_INHERIT
+	var arrival = active_actor()
+	arrival.global_position = foot
+	if snap_to_entry:
+		# Door arrivals ground under the shutter; loading keeps the saved feet.
+		var query := PhysicsRayQueryParameters3D.create(foot+Vector3.UP*0.32,foot-Vector3.UP*0.38)
+		query.exclude = [arrival.get_rid()]
+		var hit: Dictionary = arrival.get_world_3d().direct_space_state.intersect_ray(query)
+		if not hit.is_empty(): arrival.global_position.y = hit.position.y + 0.002
+	arrival.velocity = Vector3.ZERO
+	arrival.reset_physics_interpolation()
+	if arrival.artwork.has_method(&"reset_pose"):
+		arrival.artwork.reset_pose(Vector3.FORWARD if indoors else Vector3.BACK)
+	if not indoors: orbit.align_at_subject()
+	field.render_target_update_mode = SubViewport.UPDATE_DISABLED if indoors else SubViewport.UPDATE_ALWAYS
+	$Pixels/Clearing/Pool/MirrorViewport.render_target_update_mode = field.render_target_update_mode
+	room.render_target_update_mode = SubViewport.UPDATE_ALWAYS if indoors else SubViewport.UPDATE_DISABLED
+	$Screen.texture = room.get_texture() if indoors else field.get_texture()
+	session.place_changed()
 
 func _input(event: InputEvent) -> void:
-	if not is_node_ready() or indoors or crossing or not (event is InputEventMouse): return
-	var screen: TextureRect = $Screen
-	if orbit.camera_input(event, screen.get_rect(), screen.size.x/field.size.x):
+	if is_node_ready() and session.handle_event(event):
 		get_viewport().set_input_as_handled()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT and is_node_ready(): orbit.end_drag()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if indoors or crossing: return
+	if indoors or crossing or session.is_modal() or session.is_mapped(event): return
 	var key := event as InputEventKey
 	if not key or not key.pressed or key.echo: return
 	if key.keycode == KEY_B:

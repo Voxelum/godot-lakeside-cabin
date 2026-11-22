@@ -75,23 +75,31 @@ func road() -> void:
 				tiles.quad(at(a,.021),at(b,.021),at(b,h-.033),at(a,h-.033),at(outside,0),col.darkened(.17));tiles.quad(at(a,h-.033),at(b,h-.033),at(lip[j2],h),at(lip[j],h),at(outside,.9).normalized(),bevel_color)
 			tile_count+=1
 	put(tiles.bake("Handcut_Flagstones_%03d"%tile_count,ink))
-func tuft(b,p:Vector3,sz:float,col:Color) -> void:
+# Terrace overrides this for the actual pool; the legacy scene is unchanged.
+func allows_shore_plant(_p: Vector2, _radius: float) -> bool:
+	return true
+
+func tuft(b,p:Vector3,sz:float,col:Color,keep := true) -> void:
 	var bearing:=rng.randf()*TAU
 	for i in rng.randi_range(4,7):
 		var a:=bearing+i*1.5+rng.randf_range(-.36,.36);var d:=Vector3(cos(a),0,sin(a));var t:=Vector3(-d.z,0,d.x);var base:=p+d*rng.randf_range(.0,.09)*sz;var len:=rng.randf_range(.16,.34)*sz;var width:=rng.randf_range(.037,.092)*sz
 		var tip:=base+d*len*rng.randf_range(.45,.89)+Vector3.UP*len;var mid:=base+d*len*.3+Vector3.UP*len*.5;var n:Vector3=(d*.49+Vector3.UP).normalized();var c:=col.lightened(.12) if i%4==0 else col
-		b.flat(base-t*width*.48,base+t*width*.48,mid+t*width,n,c);b.flat(base-t*width*.48,mid+t*width,mid-t*width*.5,n,c);b.flat(mid-t*width*.5,mid+t*width,tip,n,c)
-func flower(b,p:Vector3,col:Color,sz:float) -> void:
+		if keep:
+			b.flat(base-t*width*.48,base+t*width*.48,mid+t*width,n,c);b.flat(base-t*width*.48,mid+t*width,mid-t*width*.5,n,c);b.flat(mid-t*width*.5,mid+t*width,tip,n,c)
+func flower(b,p:Vector3,col:Color,sz:float,keep := true) -> void:
 	var d:=Vector3(rng.randf_range(-.09,.09),0,rng.randf_range(-.09,.09));var head:=p+d+Vector3.UP*rng.randf_range(.26,.48)*sz;var n:Vector3=(Vector3.UP+Vector3(.1,0,.46)).normalized()
-	b.quad(p-Vector3.RIGHT*.019,p+Vector3.RIGHT*.019,head+Vector3.RIGHT*.021,head-Vector3.RIGHT*.021,Vector3(.16,.13,.98),Color("527744"));var turn:=rng.randf()*TAU
+	var turn:=rng.randf()*TAU
+	if not keep: return
+	b.quad(p-Vector3.RIGHT*.019,p+Vector3.RIGHT*.019,head+Vector3.RIGHT*.021,head-Vector3.RIGHT*.021,Vector3(.16,.13,.98),Color("527744"))
 	for i in 5:
 		var a:=turn+float(i)*TAU/5.;var v:=Vector3(cos(a),0,sin(a));var t:=Vector3(-v.z,0,v.x);var l:=.105*sz;var tip:=head+v*l+Vector3(0,.03*sz-v.z*.025*sz,0);var c:=col if i%3!=0 else col.darkened(.06)
 		b.quad(head,head+v*l*.58+t*l*.48,tip,head+v*l*.6-t*l*.48,n,c)
 	b.flat(head+Vector3(-.042,.017,0)*sz,head+Vector3(.021,.021,.048)*sz,head+Vector3(.032,.018,-.04)*sz,n,Color("ffc263"))
-func bracken(b,p:Vector3,sz:float) -> void:
+func bracken(b,p:Vector3,sz:float,keep := true) -> void:
 	var start:=rng.randf()*TAU
 	for i in 6:
 		var a:=start+i*1.047+rng.randf_range(-.16,.16);var d:=Vector3(cos(a),0,sin(a));var t:=Vector3(-d.z,0,d.x);var len:=rng.randf_range(.34,.59)*sz;var color:=Color("699557") if i%2==0 else Color("508757");var tip:=p+d*len+Vector3.UP*.26*sz
+		if not keep: continue
 		b.flat(p-t*.035,p+t*.035,tip,Vector3.UP,color)
 		for j in range(1,5):
 			var u:=float(j)/5.4;var base:=p.lerp(tip,u);base.y+=sin(u*PI)*.09*sz;var width:=len*.28*(1.-.55*u)
@@ -106,8 +114,17 @@ func foliage_patches() -> void:
 		for k in count:
 			var a:=rng.randf()*TAU;var rr:=sqrt(rng.randf());var off:=Vector2(cos(a)*rng.randf_range(.7,1.45),sin(a)*.72)*rr;var pos:=c+off
 			if Geometry2D.is_point_in_polygon(pos,outline) or not planted_bank(pos):continue
-			var here:=at(off,.012);tuft(b,here,size*rng.randf_range(.65,1.13),[Color("719949"),Color("7b9d49"),Color("8da955"),Color("71974f")][(k+j)%4]);if (k+j)%4==0 and j%5!=1:flower(b,here,bloom[j%4],size*rng.randf_range(.85,1.22))
-		if j%3==0 or j==1:bracken(b,Vector3(-.19,.013,.23),size*1.39)
+			var here := at(off,.012)
+			# Reject whole plants, but consume the same RNG as before so unrelated art stays put.
+			var grass_size := size*rng.randf_range(.65,1.13)
+			tuft(b,here,grass_size,[Color("719949"),Color("7b9d49"),Color("8da955"),Color("71974f")][(k+j)%4],
+				allows_shore_plant(pos,.40*grass_size))
+			if (k+j)%4==0 and j%5!=1:
+				var bloom_size := size*rng.randf_range(.85,1.22)
+				flower(b,here,bloom[j%4],bloom_size,allows_shore_plant(pos,.13+.11*bloom_size))
+		if j%3==0 or j==1:
+			var fern_size := size*1.39
+			bracken(b,Vector3(-.19,.013,.23),fern_size,allows_shore_plant(c+Vector2(-.19,.23),.63*fern_size))
 		var inst:MeshInstance3D=b.bake("Wild_Border_%02d"%(j+1),ink);inst.position=at(c,0);put(inst)
 func markers() -> void:
 	var loc:Array[Vector2]=[Vector2(-4.15,7.96),Vector2(7.52,-3.87),Vector2(8.08,1.07),Vector2(-5.6,-3.02),Vector2(-9.82,4.57),Vector2(2.05,10.92)]
@@ -137,5 +154,8 @@ func stone_herbs() -> void:
 		var inst:MeshInstance3D=b.bake("Bellflowers_%02d"%(k+1),ink);inst.position=groups[k];put(inst)
 	var tips=Brush.new();var positions:Array[Vector2]=[Vector2(-2.49,6.28),Vector2(-.14,4.81),Vector2(2.17,3.57),Vector2(5.08,.44),Vector2(6.91,-.52),Vector2(6.20,-3.64),Vector2(-1.30,9.93),Vector2(.86,8.68),Vector2(-2.32,2.26),Vector2(-2.24,7.23)]
 	for p in positions:
-		for j in 3:tuft(tips,at(p+Vector2(rng.randf_range(-.17,.17),rng.randf_range(-.20,.20)),.074),rng.randf_range(.60,.92),Color("869d53"))
+		for j in 3:
+			var pos := p+Vector2(rng.randf_range(-.17,.17),rng.randf_range(-.20,.20))
+			var size := rng.randf_range(.60,.92)
+			tuft(tips,at(pos,.074),size,Color("869d53"),allows_shore_plant(pos,.40*size))
 	put(tips.bake("Thyme_In_The_Joints",ink))

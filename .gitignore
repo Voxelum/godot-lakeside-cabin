@@ -4,3 +4,4 @@
 /export_credentials.cfg
 .env
 .env.*
+/ref

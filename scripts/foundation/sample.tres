@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3 uid="uid://b77f10mc8hxmf"]
+
+[ext_resource type="Script" uid="uid://cw01ip6tib33p" path="res://scripts/foundation/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://csid3fc63ih1v" path="res://art/ui/icon_stone.svg" id="2"]
+
+[resource]
+script = ExtResource("1")
+definition_id = "item.sample"
+title = "湖畔石"
+description = "一枚被湖水磨圆的石头。"
+rarity = 1
+icon = ExtResource("2")

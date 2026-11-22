@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/foundation/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://art/ui/icon_bread.svg" id="2"]
+
+[resource]
+script = ExtResource("1")
+definition_id = "item.bread"
+title = "面包"
+description = "从餐桌上拿起的一整条面包。"
+rarity = 1
+icon = ExtResource("2")

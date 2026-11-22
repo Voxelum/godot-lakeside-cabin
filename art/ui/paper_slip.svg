@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="34" viewBox="0 0 104 34">
+  <defs>
+    <linearGradient id="paper" x2="0.16" y2="1">
+      <stop stop-color="#d7ac72"/><stop offset=".30" stop-color="#f3d9a1"/><stop offset=".71" stop-color="#eed19a"/><stop offset="1" stop-color="#c59960"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#ae7946"/><stop offset=".56" stop-color="#f8e0ac"/><stop offset="1" stop-color="#d2ab73"/>
+    </linearGradient>
+  </defs>
+  <path fill="#4e2e1a" opacity=".38" d="M4 23 Q35 27 66 27 L98 23 L101 26 Q98 29 85 30 Q62 34 41 31 Q18 31 5 29Z"/>
+  <path fill="url(#paper)" d="M2 7 L7 6 L8 4 Q13 5 18 3.8 Q26 2.4 35 4 Q49 5.2 61 3.9 Q74 2.6 85 4.1 L91 3.5 Q96 2 101 3.5 Q97 7 100 11 L98.4 15 Q100 18 99.3 22 L101 24 Q96 28 90 28 L85 30 Q77 28.5 68 30 Q54 31.7 42 29.7 Q29 28.5 21 30.2 L15 29 L9 30 L8 27.8 L3 28.6 L4 24 L1.8 22.8 Q4 18 3 14 L4.7 12 L2.7 11Z"/>
+  <path fill="#985d32" opacity=".35" d="M84 5 Q92 6 101 3.5 Q97 7 100 11 L96 14 Q96 9 84 5Z"/>
+  <path fill="url(#fold)" d="M85 4.1 Q94 1.7 101 3.5 Q98 5.6 98.3 10 Q93 5.7 85 4.1Z"/>
+  <path fill="none" stroke="#9f7045" stroke-width=".6" stroke-linecap="round" opacity=".61" d="M3 7.4l7 .2 M3.1 11l4.8 .8 M2 22.8l5.8 -.8 M4 27.8l7 -1.7 M11 28.7l3.3 .4 M18 29.4l4.9 -.4 M33 29l6 .3 M66 30l7 -.7 M89 27.1l4.6 -.8 M99.5 22l-5 1.4 M98.4 15l-4 .5"/>
+  <path fill="none" stroke="#fff0c8" stroke-width=".7" stroke-linecap="round" opacity=".64" d="M8 5.5l4 .2 M14 6.3l7 -1.2 M26 4.8l5 .1 M42 5.4l5 .2 M71 4.8l7 -.4 M6 25.8l5.1 -1 M78 28l4 -.3 M95 26l3.3 -1.4"/>
+</svg>

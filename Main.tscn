@@ -7,6 +7,11 @@
 [ext_resource type="Shader" path="res://scripts/door_iris.gdshader" id="Iris"]
 [ext_resource type="PackedScene" path="res://world/Walker.tscn" id="Walker"]
 
+[ext_resource type="Script" path="res://scripts/field_session.gd" id="Session"]
+[ext_resource type="Script" path="res://scripts/ui/field_hud.gd" id="HUD"]
+[ext_resource type="Script" path="res://scripts/controls/binding_panel.gd" id="Bindings"]
+[ext_resource type="Script" path="res://scripts/ui/settings_book.gd" id="Book"]
+
 [sub_resource type="ViewportTexture" id="WindowView"]
 viewport_path = NodePath("Pixels")
 
@@ -47,6 +52,7 @@ script = ExtResource("3")
 own_world_3d = true
 handle_input_locally = false
 size = Vector2i(480,270)
+msaa_3d = 2
 render_target_update_mode = 0
 
 [node name="Interior" parent="RoomPixels" instance=ExtResource("Interior")]
@@ -64,3 +70,15 @@ mouse_filter = 2
 texture = SubResource("WindowView")
 expand_mode = 1
 stretch_mode = 0
+
+[node name="Session" type="Node" parent="."]
+script = ExtResource("Session")
+
+[node name="FieldHUD" type="Control" parent="."]
+script = ExtResource("HUD")
+
+[node name="SettingsBook" type="Control" parent="."]
+script = ExtResource("Book")
+
+[node name="BindingPanel" type="Control" parent="."]
+script = ExtResource("Bindings")

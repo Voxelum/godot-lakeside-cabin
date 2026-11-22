@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://art/lamps/LakesideLamp.tscn" id="Lamp"]
 [ext_resource type="PackedScene" path="res://art/lamps/PorchLight.tscn" id="Porch"]
 [ext_resource type="Script" path="res://world/clockwork.gd" id="Time"]
+[ext_resource type="PackedScene" path="res://world/targets/SamplePile.tscn" id="Pile"]
 [ext_resource type="Script" path="res://scripts/orbit_camera.gd" id="Orbit"]
 [ext_resource type="Script" path="res://scripts/sightline.gd" id="Sight"]
 [ext_resource type="PackedScene" path="res://art/sunbreak/Sunbreak.tscn" id="Beams"]
@@ -91,6 +92,23 @@ position = Vector3(7.78,0,1.14)
 position = Vector3(-2.53,3.30,1.04)
 [node name="Traveler" parent="." instance=ExtResource("4")]
 position = Vector3(-1.15, 0.085, 6.25)
+
+; Test stacks share one definition; these IDs name the ground sources, not the stones.
+[node name="AmberA" parent="." instance=ExtResource("Pile")]
+position = Vector3(-2.00, 0.06, 6.22)
+instance_id = "bank.sample_a"
+[node name="AmberB" parent="." instance=ExtResource("Pile")]
+position = Vector3(-2.03, 0.12, 6.20)
+instance_id = "bank.sample_b"
+
+; A presentation boundary in the existing, continuously walkable road. No door or teleport.
+[node name="TestRegionSeam" type="Marker3D" parent="."]
+position = Vector3(0, 0, 4.3)
+[node name="BankDisplayAnchor" type="Marker3D" parent="."]
+position = Vector3(0.10, 0.08, 6.30)
+[node name="RiseDisplayAnchor" type="Marker3D" parent="."]
+position = Vector3(-0.20, 0.82, 3.38)
+[node name="RegionViews" type="Node3D" parent="."]
 
 [node name="InFrame" type="StaticBody3D" parent="."]
 position = Vector3(0, 1, 0.6)

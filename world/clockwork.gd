@@ -7,6 +7,7 @@ var hour := 14.0
 var daylight := 1.0
 var sundown := 0.0
 var halted := true
+var allow_fast_key := true
 var points_on := true
 var spots_on := true
 var show_dial := true
@@ -54,7 +55,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if halted: return
-	var rate:=16.0 if Input.is_physical_key_pressed(KEY_T) else 1.0
+	var rate:=16.0 if allow_fast_key and Input.is_physical_key_pressed(KEY_T) else 1.0
 	var next:=hour + 24.*delta*rate/seconds_per_day
 	elapsed_days+=floori(next/24.)
 	hour=fposmod(next,24.0)
