@@ -22,9 +22,20 @@ func show_weapon(weapon: StringName, drawn: bool) -> void:
 				child.queue_free()
 			if not weapon.is_empty():
 				_build(prop, weapon == &"spear", prop == _stowed)
-		_hand.rotation.x = PI * (.48 if weapon == &"spear" else .18)
+	_hand.rotation = Vector3(PI * (.48 if weapon == &"spear" else .18), 0, 0)
 	_hand.visible = not weapon.is_empty() and drawn
 	_stowed.visible = not weapon.is_empty() and not drawn
+
+# Keep the grip at the palm but aim the steel in the actor's frame. Blade X
+# is tangent to the cut; Y runs from guard to tip independently of elbow flexion.
+func aim(action: StringName, p: float, parent_in_facing: Basis) -> void:
+	var load_up := smoothstep(0, .28, p)
+	var swing := smoothstep(.31, .71, p)
+	var yaw := preload("res://scripts/foundation/combat_motion.gd").slash_yaw(p) if action == &"slash" else .07
+	var pitch := lerpf(lerpf(.70, .95, load_up), 1.88, swing) if action == &"slash" else lerpf(1.31, 1.58, swing)
+	var target := Basis(Vector3.UP, yaw) * Basis(Vector3.RIGHT, pitch)
+	var rest := Basis(Vector3.RIGHT, PI * (.48 if action == &"thrust" else .18))
+	_hand.basis = rest.slerp(parent_in_facing.orthonormalized().inverse() * target, smoothstep(0, .16, p) * (1.0-smoothstep(.74, 1, p)))
 
 func _build(at: Node3D, spear: bool, stowed: bool) -> void:
 	var steel := Color("c4d2d2")

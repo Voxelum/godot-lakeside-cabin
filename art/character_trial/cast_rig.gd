@@ -34,7 +34,15 @@ func reset_pose(direction: Vector3) -> void:
 	mode = &"idle"
 	_apply(0.0)
 
+var stroke_left := 0.0
+var stroke_direction := Vector3.ZERO
+var stroke_low := false
+func stroke_animal(direction: Vector3, low: bool) -> void:
+	stroke_direction=direction; stroke_low=low; stroke_left=.55
+
 func pose_motion(direction: Vector3, distance: float, dt: float, sprinting: bool) -> void:
+	stroke_left=0.0 if distance>.002 else maxf(0.,stroke_left-dt)
+	if stroke_left>0: direction=stroke_direction
 	_time += dt
 	var moving := distance > .00021
 	# Facing follows intent when moving or braced at a wall, but the soles do not.
@@ -56,6 +64,10 @@ func pose_motion(direction: Vector3, distance: float, dt: float, sprinting: bool
 	var gesture := _gesture_weight() if not moving and direction.is_zero_approx() else 0.0
 	if gesture > .75: mode = &"gesture"
 	_apply(gesture)
+	if stroke_left>0:
+		var w:=sin(PI*stroke_left/.55)
+		_look.chest.rotation.x+=(.65 if stroke_low else .32)*w
+		_look.arms[1].rotation.x-=(1.25+.24*sin(TAU*stroke_left/.32))*w
 
 func _set_heading(direction: Vector3) -> void:
 	if Vector2(direction.x,direction.z).length_squared() > .0001:
@@ -187,3 +199,9 @@ func drive_combat(action: StringName, progress: float, direction: Vector3, weapo
 	_look.arms[0].rotation.x = pose.w
 	_look.elbows[0].rotation.x = -.72 if action == &"guard" else -.23
 	_look.elbows[1].rotation.x = -.55 if action == &"guard" else -.24
+	if action == &"slash" or action == &"thrust":
+		var w := CombatMotion.weight(action, progress)
+		_look.waist.position.z += .17*w
+		_look.legs[1].rotation.x -= .32*w
+		_look.legs[0].rotation.x += .26*w
+		_combat_props.aim(action, progress, _look.facing.global_basis.inverse() * _look.elbows[1].global_basis)

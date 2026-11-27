@@ -12,7 +12,13 @@ func run()->void:
 	check(d.health==10 and d.missed==0 and d.wagon.tool>0 and d.paid_out>0,"normal decade")
 	print("10 days: ",d)
 	var season:=L.new()
-	for i in 24*90: season.step()
+	var served:=0
+	for day in 90:
+		season.elapsed(120.)
+		for id:String in L.ResidentLife.IDS:
+			if season.d.life[id].ate==day: served+=1
+	check(served==720,"all seven residents and driver bought and ate daily: %d/720"%served)
+	print("paid meals consumed over 90 days: ",served)
 	check(season.d.missed==0 and season.d.health==10,"90 days including external exhaustion")
 	print("90 days: health ",season.d.health," missed ",season.d.missed," funds ",season.d.purse)
 	var frozen:=L.new(); frozen.d.road=false; frozen.d.auto_farm=false
@@ -29,14 +35,15 @@ func run()->void:
 	check(haul.d.cart==hold and haul.d.cart_eta==2,"closed road retains local shipment")
 	haul.d.road=true; haul.step(); haul.step(); check(haul.d.cart_eta==0 and haul.d.store.egg==1,"local cart unload once")
 	var livestock:=L.new(); livestock.d.grass=0; livestock.d.hay=2
-	livestock.step(); livestock.step()
-	check(livestock.d.hay==0 and livestock.d.shed.egg==1 and livestock.d.shed.milk==1 and livestock.d.shed.wool==0,"only two hay rations")
+	livestock.elapsed(18.5) # 09:42, all three collection visits finished
+	check(livestock.d.hay==0 and livestock.d.shed.egg==1 and livestock.d.shed.milk==L.FarmJobs.YIELDS[1] and livestock.d.shed.wool==0,"only two hay rations")
 	var shop:=L.new(); shop.d.wagon.iron=0; shop.d.purse.caravan=0; shop.d.purse.family+=120; shop.d.store.tool=2
 	shop.shipment("tool",2,false); shop.shipment("iron",2,true)
 	check(shop.d.cargo.is_empty() and shop.d.store.tool==2,"no free iron or exports to insolvent buyer")
 	var plot:=L.new(); plot.d.auto_farm=false; plot.tend()
 	for i in 48: plot.step()
-	check(plot.d.crop==1,"dry crops must wait")
+	check(plot.d.crop==0 and plot.d.withered==1,"two dry dawns kill wheat")
+	plot.tend()
 	for i in 2:
 		plot.tend()
 		for h in 24: plot.step()
@@ -45,13 +52,20 @@ func run()->void:
 	while int(d.hour)%24!=14: l.step()
 	check(not d.cargo.is_empty(),"mid journey")
 	var slot:="user://ledger_"+Crypto.new().generate_random_bytes(12).hex_encode()+".slot"
+	var mid:=State.new(); mid.village.elapsed(11.8)
+	for wait_time:float in [4.0,1.2,9.0]:
+		check(mid.save_slot(slot)=="","save during rounds")
+		var copy:=State.new(); check(copy.load_slot(slot)=="","load during rounds")
+		mid.village.elapsed(wait_time); copy.village.elapsed(wait_time)
+		check(copy.village.d==mid.village.d,"no duplicate rations or yields on reload")
+	check(mid.village.d.fed==7 and mid.village.d.collected==7 and mid.village.d.cart.egg==1 and mid.village.d.cart.milk==L.FarmJobs.YIELDS[1] and mid.village.d.cart.wool==1,"three rationed products on wagon once")
 	check(s.save_slot(slot)=="","save")
 	var loaded:=State.new(); check(loaded.load_slot(slot)=="","load")
 	for i in 24: l.step(); loaded.village.step()
 	check(d==loaded.village.d,"replay once")
-	for hour in [11,17]:
+	for hour in [11]:
 		while int(d.hour)%24!=hour: l.step()
-		check(d.cart_eta>0 if hour==11 else d.basket_eta>0,"local cargo has departed")
+		check(d.cart_eta>0,"local cargo has departed")
 		check(s.save_slot(slot)=="" and loaded.load_slot(slot)=="","local cargo round-trip")
 		for n in 3: l.step(); loaded.village.step()
 		check(d==loaded.village.d,"local cargo delivered once")

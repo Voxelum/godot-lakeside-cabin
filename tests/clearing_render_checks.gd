@@ -15,6 +15,8 @@ const ORIGINAL := [
 	["spawn", Vector2(-1.15, 6.25), 14.0],
 	["bank-day", Vector2(6.7, 3.95), 14.0, Vector3(6.7, .1, 3.95)],
 	["bank-dusk", Vector2(6.7, 3.95), 18.66667, Vector3(6.7, .1, 3.95)],
+	["bank-dawn", Vector2(6.7, 3.95), 6.15, Vector3(6.7, .1, 3.95)],
+	["bank-night", Vector2(6.7, 3.95), 23.0, Vector3(6.7, .1, 3.95)],
 	["lane-old", Vector2(-.45, 10.1), 14.0, Vector3(.28, 1.15, 12.35)],
 	["lane-new", Vector2(2.4, 17.45), 14.0, Vector3(3.35, 1.17, 18.55)],
 ]
@@ -82,6 +84,8 @@ func _run() -> void:
 	orbit = main.orbit
 	var clearing: Node3D = field.get_node("Clearing")
 	clock = clearing.get_node("Almanac")
+	# Frame presets own the sky during capture; do not resync to the save clock.
+	clock.set_process(false)
 	check(not main.indoors and not main.crossing, "fresh Main outdoors")
 	for i in 6:
 		await physics_frame

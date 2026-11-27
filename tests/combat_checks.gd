@@ -149,7 +149,7 @@ func _run() -> void:
 	driver.face(-front)
 	attack()
 	check(driver.action == &"thrust", "drawn spear maps to thrust")
-	await ticks(20)
+	await ticks(27) # Spear contact is after the load, at 60% of the thrust.
 	check(plant.stats.hp() == 29 and plant.action == &"hurt" and plant.view._jaw.rotation.x < -.15, "non-humanoid applies damage and jaw reaction through same interface")
 	await ticks(25)
 	target.set_guard(true)

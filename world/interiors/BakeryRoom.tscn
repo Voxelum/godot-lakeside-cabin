@@ -21,6 +21,8 @@
 
 [ext_resource type="PackedScene" path="res://world/interiors/WovenMat.tscn" id="WovenMat"]
 
+[ext_resource type="PackedScene" path="res://world/interiors/Cot.tscn" id="Cot"]
+
 [node name="BakeryRoom" instance=ExtResource("Shell")]
 
 [node name="Structure" parent="." instance=ExtResource("Structure")]
@@ -60,3 +62,6 @@ rotation_degrees = Vector3(0, -3, 0)
 
 [node name="QueueMat" parent="Furnishing" instance=ExtResource("WovenMat")]
 position = Vector3(1.99, 0, 1.52)
+
+[node name="BakersCot" parent="Furnishing" instance=ExtResource("Cot")]
+position = Vector3(-2.65, 0, 0.8)

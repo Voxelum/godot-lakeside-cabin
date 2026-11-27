@@ -24,6 +24,7 @@ var phase := Phase.WATCH
 var elapsed := 0.0
 var clock := 0.0
 var hit_flash := 0.0
+var damage_spark := preload("res://scripts/foundation/damage_spark.gd").new()
 var committed := Vector3.BACK
 var model_rest := Transform3D.IDENTITY
 var motion_sample := 0.0
@@ -69,6 +70,7 @@ func install(site: Node, body: Body, look: Node3D, entry: Species, index: int, b
 	cue.text = "!"
 	cue.hide()
 	actor.add_child(cue)
+	actor.add_child(damage_spark)
 
 func can_be_hit_by(source: CharacterBody3D) -> bool:
 	return stats.hp() > 0 and source == farm.player and farm.playable() and box.has_point(Layout.xz(source.global_position))
@@ -77,6 +79,7 @@ func receive_damage(power: int, _from_direction: Vector3) -> int:
 	if not can_be_hit_by(farm.player): return 0
 	var lost := stats.take_physical_damage(power)
 	if lost <= 0: return 0
+	damage_spark.play_hit(_from_direction, definition.cue_height * .83, false)
 	hit_flash = .22
 	if stats.hp() == 0:
 		change(Phase.DOWN)
@@ -119,6 +122,7 @@ func disengage() -> void:
 	if phase not in [Phase.WATCH, Phase.DOWN, Phase.HOME] or (phase == Phase.WATCH and stats.hp() != stats.max_hp()): change(Phase.HOME)
 
 func _replenish() -> void:
+	damage_spark.clear()
 	stats.change_hp(stats.max_hp())
 	hit_flash = 0
 	actor.solid.set_deferred("disabled", false)

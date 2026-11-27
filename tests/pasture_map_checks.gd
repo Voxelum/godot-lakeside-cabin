@@ -23,6 +23,15 @@ func _run() -> void:
 		check(main.orbit.is_position_in_frustum(Vector3(stall.x,.6,stall.y)),"animal lies inside normal camera")
 	check(actor.global_position.distance_to(Survey.point(Vector2(32.2,17.4)))<.25 and not actor.locked,"real walker reached paddock")
 	check(not map.visible,"world view"); await snap("pasture")
+	var farm=main.field.get_node("Clearing/Outskirts/VillageFarm")
+	check(await walk(Vector2(32.2,15.35),"track"),"return to farm track")
+	for id in ["hen","cow","sheep","field"]:
+		var dest:=Survey.xz(farm.farm_station(id)); var junction:=Vector2(dest.x,15.35)
+		check(await walk(junction,"service lane"),"approach "+id)
+		check(await walk(dest,"workstation"),"reach "+id+" with full player collision")
+		if id in ["hen","cow"]:
+			await ticks(45); await snap(id+"-station")
+		check(await walk(junction,"clear barn"),"return from "+id)
 	check(await walk(Vector2(30.2,13.2),"west furrows"),"walk into planted soil")
 	key(KEY_J); await process_frame; await process_frame; var sun=main.field.get_node("Clearing/Almanac"); var paused:bool=sun.halted
 	if d.auto_farm: key(KEY_G)

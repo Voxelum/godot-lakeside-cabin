@@ -115,7 +115,8 @@ func _run() -> void:
 	await frames(7)
 	check(main.field.size==size_px and main.active_actor()==player and player.is_on_floor(),"F5 native pixel preset, real grounded Walker")
 	_roster()
-	if "--route" in args: await _route()
+	if "--damage-marks" in args: await _damage_marks()
+	elif "--route" in args: await _route()
 	else:
 		await _bouts()
 		await _saving()
@@ -311,3 +312,27 @@ func _saving() -> void:
 func _write_snapshot(data: Dictionary) -> void:
 	var f := FileAccess.open(slot,FileAccess.WRITE)
 	f.store_buffer(var_to_bytes(data)); f.close()
+
+func _damage_marks() -> void:
+	var slime: Fighter = farm.pens[0].residents[0]
+	_stand(slime,.99); await frames(5)
+	var before := slime.stats.hp()
+	var hero_hp: int = stats.hp()
+	attack()
+	for i in 40:
+		await physics_frame
+		if slime.stats.hp() < before: break
+	check(slime.stats.hp()==before-1 and slime.damage_spark.visible,"jab creates monster contact mark with actual HP loss")
+	await _capture_mark("monster")
+	check(await wait_phase(slime,Fighter.Phase.SWING),"real enemy commits its counterattack")
+	check(stats.hp()<hero_hp and player.combat.damage_spark.visible and not slime.damage_spark.visible,"hero takes actual damage after monster mark expires")
+	await _capture_mark("player")
+	await frames(20)
+	check(not player.combat.damage_spark.visible and not slime.damage_spark.visible,"both marks expired")
+
+func _capture_mark(label: String) -> void:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--mark-dir="):
+			var dest := arg.trim_prefix("--mark-dir=").path_join(label+".png")
+			await RenderingServer.frame_post_draw
+			check(not FileAccess.file_exists(dest) and main.field.get_texture().get_image().save_png(dest)==OK,"save native victim frame: "+label)

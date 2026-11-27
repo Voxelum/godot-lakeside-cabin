@@ -58,7 +58,7 @@ func select_hero(profile: StringName) -> void:
 	_mount(room_actor,profile,Vector3.FORWARD)
 	if companion != null:
 		var former := companion.get_parent()
-		outdoor.remove_child(former)
+		former.get_parent().remove_child(former)
 		former.queue_free()
 	companion = _local("LakesideCompanion",Geometry.REED if profile == Geometry.LINNET else Geometry.LINNET,COMPANION_XZ,-.21,2.75)
 	_grounded = false
@@ -82,7 +82,7 @@ func _mount(actor: CharacterBody3D, profile: StringName, facing: Vector3) -> voi
 	model.call(&"reset_pose", facing)
 
 func _local(label: String, profile: StringName, xz: Vector2, yaw: float, shift: float) -> Rig:
-	var body := FieldBody.new()
+	var body := preload("res://art/field_cast/village_person.gd").new()
 	body.name = label
 	body.position = Survey.point(xz,.009)
 	var dimensions: Vector2 = BODIES[profile]
@@ -96,21 +96,4 @@ func _local(label: String, profile: StringName, xz: Vector2, yaw: float, shift: 
 	model.reset_pose(Vector3(sin(yaw),0,cos(yaw)))
 	return model
 
-func _physics_process(dt: float) -> void:
-	if get_parent().indoors: return
-	if not _grounded:
-		# The old spawn uses its own terrain bake rather than the lane survey.
-		for model: Rig in [companion,tender,potter]:
-			(model.get_parent() as FieldBody).fit_floor()
-		_grounded = true
-	_elapsed += dt
-	for local: Rig in [companion,tender,potter]:
-		local.pose_motion(Vector3.ZERO,0.0,dt,false)
-	var lap := fposmod(_elapsed, BAKER_ROUND)
-	var outbound := clampf((lap-2.7)/1.07,0.0,1.0)
-	var returning := clampf((lap-7.5)/.62,0.0,1.0)
-	var foot := Survey.point(BAKER_A.lerp(BAKER_B,outbound-returning),.009)
-	var body := baker.get_parent() as FieldBody
-	var sprinting := returning > 0.
-	var travel := body.move_to_mark(foot, dt * (3.46 if sprinting else 2.01)).slide(Vector3.UP)
-	baker.pose_motion(travel.normalized(),travel.length(),dt,sprinting)
+# ResidentPresenter owns locomotion for the whole cast.

@@ -106,16 +106,19 @@ func _advance_sky() -> void:
 	sundown=1.0-smoothstep(-.13,.21,height)
 	var honey:=1.0-smoothstep(.02,.55,high)
 	var eastern:=hour<12.
-	var clear_sky:=Color("94c7cf").lerp(Color("f4b294") if eastern else Color("eb9d87"),honey*.87)
-	_air.background_color=Color("141e37").lerp(clear_sky,daylight)
-	_air.ambient_light_color=Color("92a6d8").lerp(Color("c4d2dd").lerp(Color("c1a4bb"),honey*.68),daylight)
-	_air.ambient_light_energy=lerpf(.285,.69,daylight)
+	# Cool open shade holds foliage and stone together; warm accents come from
+	# directional sunlight and actual windows, never a rose wash in every shadow.
+	var clear_sky:=Color("87bdbe").lerp(Color("d3c5ab") if eastern else Color("bc9d91"),honey*.74)
+	_air.background_color=Color("102335").lerp(clear_sky,daylight)
+	var low_fill:=Color("a1bac2") if eastern else Color("99a7b7")
+	_air.ambient_light_color=Color("819fbf").lerp(Color("b4cbc6").lerp(low_fill,honey*.80),daylight)
+	_air.ambient_light_energy=lerpf(.28,.62,daylight)
 	# Keep very low angle shadows from fighting their source polygons at dawn.
 	_sun.rotation_degrees=Vector3(-lerpf(18.0,59.0,high),80.0-(hour-6.0)*14.9,0.)
 	_sun.shadow_bias=lerpf(.39,.12,smoothstep(.06,.52,high))
 	_sun.shadow_normal_bias=lerpf(1.95,1.3,smoothstep(.06,.52,high))
 	RenderingServer.global_shader_parameter_set(&"moon_ink",1.-smoothstep(-.25,.04,height))
-	_sun.light_color=(Color("ffb07a") if eastern else Color("ff9168")).lerp(Color("fff4d9"),smoothstep(.01,.50,high))
+	_sun.light_color=(Color("f0d6b1") if eastern else Color("f2af87")).lerp(Color("fff4d9"),smoothstep(.01,.50,high))
 	_sun.light_energy=smoothstep(-.12,.11,height)*lerpf(.71,1.03,smoothstep(0.,.64,high))
 	_sun.visible = _sun.light_energy>.003
 	var moon_up:=clampf(-height,0.,1.)

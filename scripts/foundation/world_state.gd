@@ -1,5 +1,6 @@
 extends RefCounted
 
+const Slots := preload("res://scripts/foundation/world_slots.gd")
 const Rooms := preload("res://world/interiors/room_catalog.gd")
 
 const SAMPLE = preload("res://scripts/foundation/sample.tres")
@@ -24,6 +25,8 @@ const MAX_INT := 9223372036854775807
 const MAX_SAVE_BYTES := 1024 * 1024
 
 const Ledger := preload("res://scripts/foundation/village_ledger.gd")
+const Entities := preload("entity_registry.gd")
+var entities := Entities.new()
 var village := Ledger.new()
 var player_stats := ActorStats.new()
 var inventory: Dictionary = {}
@@ -98,15 +101,28 @@ func remaining(instance_id: String, initial: int) -> int:
 
 
 func take_stack(instance_id: String, item_id: String, initial: int) -> int:
+	if Slots.PLACEMENTS.has(instance_id) and (initial != 1 or not Slots.accepts(instance_id, Slots.PLACE, item_id)): return 0
 	if initial < 0 or not DEFINITIONS.has(item_id):
 		return 0
 	var count := remaining(instance_id, initial)
 	var owned: Variant = inventory.get(item_id, 0)
+	if Slots.PLACEMENTS.has(instance_id) and count != 1: return 0
 	if count <= 0 or not _is_count(owned) or owned > MAX_INT - count:
 		return 0
 	inventory[item_id] = owned + count
 	_world_changes[instance_id] = {"remaining": 0}
 	return count
+
+
+func return_to_slot(instance_id: String, item_id: String) -> bool:
+	if not Slots.accepts(instance_id, Slots.PLACE, item_id) or remaining(instance_id, 1) != 0:
+		return false
+	var count: Variant = inventory.get(item_id, 0)
+	if not _is_count(count) or count < 1: return false
+	if count == 1: inventory.erase(item_id)
+	else: inventory[item_id] = count - 1
+	_world_changes.erase(instance_id) # A full slot is identical to its authored seed.
+	return true
 
 
 func stock(region_id: String) -> int:
@@ -133,7 +149,7 @@ func advance_interval(start: int, elapsed: int, route_open: bool = true) -> bool
 func save_slot(path: String = SLOT, building_revision := "", building_foot := Vector3.ZERO) -> String:
 	var snapshot := {
 		"version": VERSION, "equipment": equipment, "player_stats": player_stats.snapshot(), "inventory": inventory, "location_id": location_id,
-		"position": position, "world_changes": _world_changes,
+		"position": position, "world_changes": _world_changes, "entities": entities.snapshot(),
 		"simulated_until": simulated_until, "stocks": _stocks, "village": village.d,
 	}
 	if not building_revision.is_empty():
@@ -181,9 +197,9 @@ func load_slot(path: String = SLOT) -> String:
 		return problem
 	if var_to_bytes(snapshot) != payload:
 		return "存档编码无效或含有多余数据。"
-	village.d = snapshot.get("village", Ledger.INITIAL.duplicate(true))
-	if not village.d.has("visit"): village.d.visit = -1.0
-	inventory = snapshot.inventory
+	village.d = Ledger.upgrade(snapshot.get("village", Ledger.INITIAL.duplicate(true)))
+	inventory.assign(snapshot.inventory)
+	entities.restore(snapshot.get("entities", {}))
 	equipment = snapshot.get("equipment", {})
 	location_id = snapshot.location_id
 	position = snapshot.position
@@ -210,7 +226,8 @@ static func _validate(data: Variant) -> String:
 		if typeof(key) != TYPE_STRING:
 			return "存档字段类型无效。"
 	if data.has("village") and not Ledger.valid(data.village): return "村落账册无效。"
-	if data.size() != (7 if version == 1 else 8 if version == VERSION else 9) + int(data.has("equipment")) + int(data.has("village")):
+	if data.has("entities") and not Entities.valid(data.entities, DEFINITIONS): return "存档个体状态无效。"
+	if data.size() != (7 if version == 1 else 8 if version == VERSION else 9) + int(data.has("equipment")) + int(data.has("village")) + int(data.has("entities")):
 		return "存档字段数量无效。"
 	if version != 1 and not ActorStats.valid_snapshot(data.get("player_stats")):
 		return "存档角色属性无效。"

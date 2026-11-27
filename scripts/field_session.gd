@@ -52,6 +52,10 @@ func clear_combat_input() -> void:
 		if actor.combat: actor.combat.set_guard(false)
 
 func _install_combat() -> void:
+	for person in get_tree().get_nodes_in_group(&"village_person"):
+		if host.is_ancestor_of(person): state.entities.bind_resident(person.person_id, person)
+	for fighter in farm.fighters:
+		state.entities.bind_monster("%s.%d" % [fighter.definition.id, fighter.coat], fighter.actor, fighter.stats)
 	for actor in [host.field_actor, host.room_actor]:
 		var driver := Combat.new()
 		driver.install(actor, actor.artwork, state.player_stats)
@@ -61,7 +65,9 @@ func _install_combat() -> void:
 		if not host.field.is_ancestor_of(actor) or actor.get(&"combat_target") != true: continue
 		var view: Node3D = actor.get_node_or_null("Model")
 		if view != null and view.has_method(&"drive_combat"):
-			Combat.new().install(actor, view, ActorStats.new(), true)
+			var stats := ActorStats.new()
+			if actor.has_meta(&"entity"): stats = actor.get_meta(&"entity").stats
+			Combat.new().install(actor, view, stats, true)
 
 func _combat_impact(target: Node3D, lost: int) -> void:
 	var foe = target.get_node_or_null("Encounter")
@@ -88,7 +94,10 @@ func _combat_release(event: InputEvent) -> void:
 var field_map := preload("res://scripts/ui/field_map.gd").new()
 var village_book := preload("res://scripts/ui/village_book.gd").new()
 
+@onready var pasture = $"../Pixels/Clearing/Outskirts/VillageFarm"
+
 func start() -> void:
+	pasture.bind_session(self)
 	host.get_node("Pixels/Clearing/Almanac").bind_time(state.village)
 	village_book.install(self)
 	field_map.install(self)
@@ -135,6 +144,9 @@ func _index_room_targets() -> void:
 
 func _validate_source(target: Target, seen: Dictionary) -> void:
 	var id := target.instance_id
+	if State.Slots.PLACEMENTS.has(id) and (not target.is_pickup or target.initial_count != 1 or target.definition == null or not State.Slots.accepts(id, State.Slots.PLACE, target.definition.definition_id)):
+		target.valid_source = false
+		push_error("摆放位与物品定义或容量不匹配：" + id)
 	if id.strip_edges().is_empty() or target.definition == null or State.DEFINITIONS.get(target.definition.definition_id) != target.definition or seen.has(id):
 		target.valid_source = false
 		if seen.has(id): seen[id].valid_source = false
@@ -145,6 +157,7 @@ func place_changed() -> void:
 	state.location_id = host.place_id()
 	_index_room_targets()
 	var actor = host.active_actor()
+	state.entities.bind_player(actor, state.player_stats, state.inventory)
 	if _last_combat_actor and actor != _last_combat_actor:
 		var other: Combat = _last_combat_actor.get(&"combat")
 		actor.combat.weapon = other.weapon
@@ -232,6 +245,14 @@ func _process(_dt: float) -> void:
 	_project_tip()
 
 func _project_tip() -> void:
+	var animal:StaticBody3D=pasture.nearby() if pasture else null
+	if animal:
+		var cam:Camera3D=host.field.get_camera_3d()
+		var anchor:=animal.global_position+Vector3.UP*(.90 if int(animal.get_meta("species"))==0 else 1.45)
+		if cam and cam.is_position_in_frustum(anchor):
+			var bounds:=screen.get_rect()
+			hud.show_pickup_tip(bounds.position+cam.unproject_position(anchor)/Vector2(host.field.size)*bounds.size,pasture.tip(animal),_use_binding_names()+" · 抚摸",bounds)
+			return
 	if not _tip_source or host.crossing or is_modal():
 		hud.hide_pickup_tip()
 		return
@@ -247,6 +268,7 @@ func _project_tip() -> void:
 	hud.show_pickup_tip(bounds.position + uv * bounds.size, _tip_rows, _tip_action, bounds)
 
 func _use() -> void:
+	if pasture.pet_nearby(): return # Same target as the visible petting tip, even beside a farmhand.
 	if _dialogue_handler.is_valid() and _dialogue_handler.call(): return
 	if farm.rest_if_near(): return
 	var actor: Node3D = host.active_actor()
@@ -258,6 +280,15 @@ func _use() -> void:
 	elif options.size() > 1: hud.feedback("未转移：请移近一个目标。")
 	else: hud.feedback("箱中没有物品。" if _near_empty_box() else "附近没有可用物件。")
 	_refresh_nearby()
+
+func _place_nearby() -> bool:
+	var origin: Vector3 = host.active_actor().global_position
+	for target in _targets():
+		if target.place(state, origin, Choice.REACH):
+			hud.feedback("已放回原位：%s" % target.definition.title)
+			_refresh_nearby()
+			return true
+	return false
 
 func _show_inventory() -> void:
 	hud.set_portrait_look(host.active_actor().artwork)
@@ -450,6 +481,8 @@ func handle_event(event: InputEvent) -> bool:
 			return true
 		if event is InputEventKey:
 			match event.keycode:
+				KEY_K:
+					if not is_mapped(event): return _place_nearby()
 				KEY_F5: _save_slot(); return true
 				KEY_F9: _read_slot(); return true
 				KEY_F6: _sample_interval(); return true

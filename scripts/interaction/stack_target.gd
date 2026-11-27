@@ -36,6 +36,13 @@ func take(state: State, origin: Vector3, reach: float, receiver: Node3D = null) 
 	_set_lid(OPEN_ANGLE, receiver != null)
 	return count
 
+func place(state: State, origin: Vector3, reach: float) -> bool:
+	var anchor := global_position - Vector3.UP * reach_drop
+	if not valid_source or definition == null or reach < 0 or origin.distance_squared_to(anchor) > reach * reach: return false
+	if not state.return_to_slot(instance_id, definition.definition_id): return false
+	refresh(state)
+	return true
+
 func update_proximity(state: State, origin: Vector3) -> void:
 	if not is_pickup:
 		var nearby := global_position.distance_squared_to(origin) <= 1.65 * 1.65

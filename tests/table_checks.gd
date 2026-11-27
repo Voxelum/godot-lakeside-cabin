@@ -59,6 +59,11 @@ func _run() -> void:
 	check(state.save_slot(slot).is_empty() and restored.load_slot(slot).is_empty() and restored.inventory == state.inventory, "v1 roundtrip for tabletop inventory")
 	check(restored.remaining(bread.instance_id, 1) == 0 and restored.remaining(cup.instance_id, 1) == 0, "individual consumed IDs persisted")
 	check(restored.take_stack("bad", "item.unknown", 1) == 0, "unknown item rejected")
+	check(not bread.place(restored, east + Vector3(5,0,0), 1.55), "reject remote placement")
+	check(not restored.return_to_slot(bread.instance_id, "item.cup") and not cup.place(restored, east, 1.55), "wrong item and non-slot rejected")
+	check(bread.place(restored, east, 1.55) and bread.visible and not restored.inventory.has("item.bread"), "return loaf from bag to board")
+	check(not bread.place(restored, east, 1.55), "cannot put twice")
+	check(restored.save_slot(slot).is_empty() and state.load_slot(slot).is_empty() and bread.take(state,east,1.55)==1, "placed loaf survives reload and transfers once")
 	DirAccess.remove_absolute(slot)
 
 	check(chest != null, "chest present")

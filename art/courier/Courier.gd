@@ -36,8 +36,16 @@ func reset_pose(direction: Vector3) -> void:
 	resting_z = [0.0, 0.0]
 	_apply()
 
+var stroke_left := 0.0
+var stroke_direction := Vector3.ZERO
+var stroke_low := false
+
+func stroke_animal(direction: Vector3, low: bool) -> void:
+	stroke_direction = direction; stroke_low = low; stroke_left = .55
+
 func pose_world(direction: Vector3, horizontal_distance: float, dt: float) -> void:
-	_set_heading(direction)
+	stroke_left = 0.0 if horizontal_distance > .002 else maxf(0., stroke_left-dt)
+	_set_heading(stroke_direction if stroke_left > 0 else direction)
 	var step := maxf(dt, 0.0)
 	clock += step
 	var rot := facing.global_rotation
@@ -107,6 +115,11 @@ func _apply() -> void:
 		_solve(i, ankle - Vector3(0.0, hips.position.y, hips.position.z), -roll)
 		arms[i].rotation.x = 0.37 * cos(TAU * p) * weight + 0.075 * breath
 
+	if stroke_left > 0:
+		var contact:=sin(PI*stroke_left/.55)
+		chest.rotation.x += (.67 if stroke_low else .34)*contact
+		arms[1].rotation.x -= (1.18+.22*sin(TAU*stroke_left/.32))*contact
+
 func _solve(i: int, target: Vector3, boot_pitch: float) -> void:
 	var radius := clampf(Vector2(target.y, target.z).length(), 0.01, U + L - 0.001)
 	var aim := atan2(target.z, -target.y)
@@ -136,3 +149,9 @@ func drive_combat(action: StringName, progress: float, direction: Vector3, weapo
 	chest.rotation = Vector3(0.0 if whole_body else pose.x, pose.y, 0)
 	arms[0].rotation.x = pose.w
 	arms[1].rotation.x = pose.z
+	if action == &"slash" or action == &"thrust":
+		var w := CombatMotion.weight(action, progress)
+		hips.position.z += .17*w
+		thighs[1].rotation.x -= .32*w
+		thighs[0].rotation.x += .26*w
+		_combat_props.aim(action, progress, facing.global_basis.inverse() * arms[1].global_basis)

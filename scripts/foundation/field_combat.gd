@@ -12,6 +12,7 @@ var forward := Vector3.BACK
 var weapon: StringName = &""
 var drawn := false
 var guard_held := false
+var damage_spark := preload("res://scripts/foundation/damage_spark.gd").new()
 var _connected_hit := false
 var _receives_player_strikes := false
 
@@ -22,10 +23,12 @@ func install(body: CharacterBody3D, art: Node3D, health: Stats, target := false)
 	forward = body.global_basis.z.slide(Vector3.UP).normalized()
 	_receives_player_strikes = target
 	body.add_child(self)
+	body.add_child(damage_spark)
 	if target: add_to_group(&"prototype_combat_target")
 	_render(0)
 
 func reset() -> void:
+	damage_spark.clear()
 	guard_held = false
 	_set_action(&"idle" if stats.hp() > 0 else &"down")
 	_render(0 if stats.hp() > 0 else 1)
@@ -78,6 +81,8 @@ func receive_damage(amount: int, from_direction: Vector3) -> int:
 	if action == &"roll" and elapsed > .05 and elapsed < .31: return 0
 	var guarded := action == &"guard" and forward.dot(from_direction.normalized()) > .25
 	var lost := stats.take_physical_damage(amount, guarded)
+	if lost > 0:
+		damage_spark.play_hit(from_direction, 1.6, not _receives_player_strikes)
 	if lost > 0 and (not guarded or stats.hp() == 0):
 		_set_action(&"hurt" if stats.hp() > 0 else &"down")
 	return lost
@@ -90,9 +95,14 @@ func tick(dt: float) -> void:
 		reset() # Alternate player looks may be swapped while running.
 	if action == &"idle" or action == &"guard": return
 	var duration: float = Motion.DURATIONS[action]
+	var previous := elapsed / duration
 	elapsed = minf(elapsed + dt, duration)
 	var progress := elapsed / duration
-	if not _connected_hit and progress >= .43 and Motion.STRIKES.has(action):
+	if not _connected_hit and action == &"slash" and previous <= .68 and progress >= .34:
+		var first := Motion.slash_yaw(maxf(previous,.34))
+		var last := Motion.slash_yaw(minf(progress,.68))
+		_connected_hit = _strike(Motion.STRIKES[action], (first+last)*.5, cos(.24+absf(first-last)*.5))
+	elif not _connected_hit and action != &"slash" and Motion.STRIKES.has(action) and progress >= float(Motion.CONTACT[action]):
 		_connected_hit = true
 		_strike(Motion.STRIKES[action])
 	if progress >= .50:
@@ -123,14 +133,17 @@ static func clear_melee(source: CharacterBody3D, target: CharacterBody3D, facing
 func can_be_hit_by(_attacker: CharacterBody3D) -> bool:
 	return stats.hp() > 0
 
-func _strike(profile: Array) -> void:
+func _strike(profile: Array, sweep_yaw := 0.0, sweep_cos := -1.0) -> bool:
 	var closest: Node = null
 	var reach: float = profile[1]
 	for other in get_tree().get_nodes_in_group(&"prototype_combat_target"):
 		if other == self or not other.can_be_hit_by(actor): continue
+		var offset: Vector3 = other.actor.global_position - actor.global_position
+		if forward.rotated(Vector3.UP,sweep_yaw).dot(offset.slide(Vector3.UP).normalized()) < sweep_cos: continue
 		if not clear_melee(actor, other.actor, forward, reach, profile[2]): continue
 		closest = other
 		reach = (other.actor.global_position - actor.global_position).slide(Vector3.UP).length()
 	if closest != null:
 		var lost: int = closest.receive_damage(profile[0], actor.global_position - closest.actor.global_position)
 		impact.emit(closest.actor, lost)
+	return closest != null

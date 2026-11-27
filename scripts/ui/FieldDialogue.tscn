@@ -13,14 +13,50 @@ fallback_portrait = ExtResource("Fallback")
 
 [node name="Tender" type="Node" parent="."]
 script = ExtResource("Binding")
-actor_path = NodePath("../../Pixels/Clearing/TrialTownsfolk/HazelTender")
+person_id = "HazelTender"
 speaker_name = "榛树园丁"
 portrait = ExtResource("Tender")
 lines = PackedStringArray("榛树今年抽了新芽。", "湖风大，树苗得多绑一道。")
 
 [node name="Potter" type="Node" parent="."]
 script = ExtResource("Binding")
-actor_path = NodePath("../../Pixels/Clearing/TrialTownsfolk/WellPotter")
+person_id = "WellPotter"
 speaker_name = "井边陶工"
 portrait = ExtResource("Potter")
 lines = PackedStringArray("这批陶罐还在晾。", "等湖雾散了，再送进窑里。")
+
+[node name="farmer" type="Node" parent="."]
+script = ExtResource("Binding")
+person_id = "farmer"
+speaker_name = "农户"
+lines = PackedStringArray("我照看麦田，也照料村里的牲口。")
+
+[node name="CaravanMerchant" type="Node" parent="."]
+script = ExtResource("Binding")
+person_id = "CaravanMerchant"
+speaker_name = "外来行商"
+lines = PackedStringArray("货单在车上，停靠时我们在秤棚交货。")
+
+[node name="LakesideCompanion" type="Node" parent="."]
+script = ExtResource("Binding")
+person_id = "LakesideCompanion"
+speaker_name = "湖畔旅伴"
+lines = PackedStringArray("湖边的路我熟。")
+
+[node name="BakeryRunner" type="Node" parent="."]
+script = ExtResource("Binding")
+person_id = "BakeryRunner"
+speaker_name = "面包学徒"
+lines = PackedStringArray("今天的面团已经发好了。")
+
+[node name="NetMender" type="Node" parent="."]
+script = ExtResource("Binding")
+person_id = "NetMender"
+speaker_name = "补网人"
+lines = PackedStringArray("网眼得一个个补。")
+
+[node name="Lamplighter" type="Node" parent="."]
+script = ExtResource("Binding")
+person_id = "Lamplighter"
+speaker_name = "点灯人"
+lines = PackedStringArray("入夜之前要巡一遍灯。")
