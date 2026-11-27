@@ -1,0 +1,98 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Material_rug"]
+albedo_color = Color(0.5882, 0.3961, 0.3294, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Cloth"]
+material = SubResource("Material_rug")
+size = Vector3(1.98, 0.012, 1.22)
+
+[sub_resource type="StandardMaterial3D" id="Material_rugline"]
+albedo_color = Color(0.8392, 0.6275, 0.4353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_EndBand0"]
+material = SubResource("Material_rugline")
+size = Vector3(1.92, 0.005, 0.113)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Border0"]
+material = SubResource("Material_dark")
+size = Vector3(0.094, 0.006, 1.03)
+
+[sub_resource type="BoxMesh" id="Mesh_Diamond0"]
+material = SubResource("Material_rugline")
+size = Vector3(0.24, 0.006, 0.24)
+
+[sub_resource type="StandardMaterial3D" id="Material_linen"]
+albedo_color = Color(0.8000, 0.7020, 0.5255, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Fringe00"]
+material = SubResource("Material_linen")
+size = Vector3(0.39, 0.012, 0.057)
+
+[node name="WovenMat" type="Node3D"]
+
+[node name="Cloth" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.006, 0)
+mesh = SubResource("Mesh_Cloth")
+
+[node name="EndBand0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.014, -0.52)
+mesh = SubResource("Mesh_EndBand0")
+
+[node name="EndBand1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.014, 0.52)
+mesh = SubResource("Mesh_EndBand0")
+
+[node name="Border0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.85, 0.012, 0)
+mesh = SubResource("Mesh_Border0")
+
+[node name="Border1" type="MeshInstance3D" parent="."]
+position = Vector3(0.85, 0.012, 0)
+mesh = SubResource("Mesh_Border0")
+
+[node name="Diamond0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5, 0.015, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_Diamond0")
+
+[node name="Fringe00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5, 0.008, -0.574)
+mesh = SubResource("Mesh_Fringe00")
+
+[node name="Fringe01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5, 0.008, 0.574)
+mesh = SubResource("Mesh_Fringe00")
+
+[node name="Diamond1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.015, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_Diamond0")
+
+[node name="Fringe10" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.008, -0.574)
+mesh = SubResource("Mesh_Fringe00")
+
+[node name="Fringe11" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.008, 0.574)
+mesh = SubResource("Mesh_Fringe00")
+
+[node name="Diamond2" type="MeshInstance3D" parent="."]
+position = Vector3(0.5, 0.015, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_Diamond0")
+
+[node name="Fringe20" type="MeshInstance3D" parent="."]
+position = Vector3(0.5, 0.008, -0.574)
+mesh = SubResource("Mesh_Fringe00")
+
+[node name="Fringe21" type="MeshInstance3D" parent="."]
+position = Vector3(0.5, 0.008, 0.574)
+mesh = SubResource("Mesh_Fringe00")

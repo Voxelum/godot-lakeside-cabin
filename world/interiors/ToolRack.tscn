@@ -1,0 +1,172 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.6, 1.83, 0.57)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leg00"]
+material = SubResource("Material_dark")
+size = Vector3(0.105, 1.82, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Backboard"]
+material = SubResource("Material_oak")
+size = Vector3(1.59, 1.12, 0.135)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Header"]
+material = SubResource("Material_edge")
+size = Vector3(1.61, 0.12, 0.19)
+
+[sub_resource type="BoxMesh" id="Mesh_FootShelf"]
+material = SubResource("Material_dark")
+size = Vector3(1.6, 0.12, 0.57)
+
+[sub_resource type="StandardMaterial3D" id="Material_ash"]
+albedo_color = Color(0.7176, 0.5961, 0.4471, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Brace"]
+material = SubResource("Material_ash")
+size = Vector3(1.5, 0.08, 0.09)
+
+[sub_resource type="StandardMaterial3D" id="Material_handle"]
+albedo_color = Color(0.6157, 0.4118, 0.2627, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Handle0"]
+material = SubResource("Material_handle")
+size = Vector3(0.075, 0.52, 0.085)
+
+[sub_resource type="StandardMaterial3D" id="Material_brass"]
+albedo_color = Color(0.7765, 0.6392, 0.4039, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Peg0"]
+material = SubResource("Material_brass")
+size = Vector3(0.065, 0.065, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="Material_iron"]
+albedo_color = Color(0.4549, 0.4902, 0.5059, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_HammerHead"]
+material = SubResource("Material_iron")
+size = Vector3(0.325, 0.14, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="Material_brite"]
+albedo_color = Color(0.6157, 0.6588, 0.6706, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_HammerFace"]
+material = SubResource("Material_brite")
+size = Vector3(0.075, 0.18, 0.13)
+
+[sub_resource type="BoxMesh" id="Mesh_TongJaw0"]
+material = SubResource("Material_brite")
+size = Vector3(0.059, 0.37, 0.09)
+
+[sub_resource type="BoxMesh" id="Mesh_FileSteel"]
+material = SubResource("Material_iron")
+size = Vector3(0.13, 0.295, 0.052)
+
+[node name="ToolRack" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.915, 0)
+shape = SubResource("Footprint")
+
+[node name="Leg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.71, 0.91, -0.23)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.71, 0.91, 0.23)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.71, 0.91, -0.23)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.71, 0.91, 0.23)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Backboard" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.24, -0.19)
+mesh = SubResource("Mesh_Backboard")
+
+[node name="Header" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.8, -0.12)
+mesh = SubResource("Mesh_Header")
+
+[node name="FootShelf" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.19, 0)
+mesh = SubResource("Mesh_FootShelf")
+
+[node name="Brace" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.78, 0.158)
+mesh = SubResource("Mesh_Brace")
+
+[node name="Handle0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.51, 1.19, -0.065)
+rotation_degrees = Vector3(0, 0, 13)
+mesh = SubResource("Mesh_Handle0")
+
+[node name="Peg0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.51, 1.48, -0.022)
+mesh = SubResource("Mesh_Peg0")
+
+[node name="Handle1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.1, 1.19, -0.065)
+rotation_degrees = Vector3(0, 0, -24)
+mesh = SubResource("Mesh_Handle0")
+
+[node name="Peg1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.1, 1.48, -0.022)
+mesh = SubResource("Mesh_Peg0")
+
+[node name="Handle2" type="MeshInstance3D" parent="."]
+position = Vector3(0.46, 1.19, -0.065)
+rotation_degrees = Vector3(0, 0, 13)
+mesh = SubResource("Mesh_Handle0")
+
+[node name="Peg2" type="MeshInstance3D" parent="."]
+position = Vector3(0.46, 1.48, -0.022)
+mesh = SubResource("Mesh_Peg0")
+
+[node name="HammerHead" type="MeshInstance3D" parent="."]
+position = Vector3(-0.565, 1.45, -0.03)
+rotation_degrees = Vector3(0, 0, 13)
+mesh = SubResource("Mesh_HammerHead")
+
+[node name="HammerFace" type="MeshInstance3D" parent="."]
+position = Vector3(-0.694, 1.427, -0.03)
+rotation_degrees = Vector3(0, 0, 13)
+mesh = SubResource("Mesh_HammerFace")
+
+[node name="TongJaw0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.106, 1.37, -0.033)
+rotation_degrees = Vector3(0, 0, -12)
+mesh = SubResource("Mesh_TongJaw0")
+
+[node name="TongJaw1" type="MeshInstance3D" parent="."]
+position = Vector3(0.03, 1.37, -0.033)
+rotation_degrees = Vector3(0, 0, 14)
+mesh = SubResource("Mesh_TongJaw0")
+
+[node name="FileSteel" type="MeshInstance3D" parent="."]
+position = Vector3(0.43, 1.44, -0.027)
+rotation_degrees = Vector3(0, 0, 13)
+mesh = SubResource("Mesh_FileSteel")

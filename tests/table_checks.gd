@@ -17,8 +17,8 @@ func check(ok: bool, label: String) -> void:
 func _run() -> void:
 	var cabin := Interior.instantiate()
 	root.add_child(cabin)
-	var bread := cabin.get_node("Dining/BreadPickup") as Target
-	var cup := cabin.get_node("Dining/CupPickup") as Target
+	var bread := cabin.get_node("Dining/Tabletop/CabinSetting/BreadPickup") as Target
+	var cup := cabin.get_node("Dining/Tabletop/CabinSetting/CupPickup") as Target
 	var chest: Target
 	var table_count := 0
 	for target in get_nodes_in_group("test_stack_source"):

@@ -38,10 +38,32 @@ static func window(b: Batch, f: Transform3D, w: float, h: float, beam: Color, ac
 				panel(b, f, Vector3(x,h*k*.2,.136), Vector3(.237,.032,.028), accent.lightened(.19), 1)
 			panel(b, f, Vector3(x-side*.103,h*.5,.144), Vector3(.029,h*.96,.026), beam, 1)
 
-static func entry(b: Batch, f: Transform3D, w: float, h: float, beam: Color, accent: Color, stone: Color, arched: bool, double: bool) -> void:
-	if arched:
-		_door_face(b, f, w+.25, h+.125, .045, stone.lightened(.17), true)
-	_door_face(b, f, w+.10, h+.048, .070, SHADOW, arched)
+static func entry_frame(b: Batch, f: Transform3D, w: float, h: float, beam: Color, stone: Color, arched: bool) -> void:
+	if not arched:
+		panel(b,f,Vector3(0,h+.075,.136),Vector3(w+.33,.185,.27),beam.lightened(.095),1)
+		for side: float in [-1.0, 1.0]:
+			panel(b,f,Vector3(side*(w*.5+.082),h*.5,.113),Vector3(.158,h+.08,.225),beam,1)
+		return
+	var spring := h - w*.37
+	var outer := w*.5 + .125
+	var inner := w*.5 + .012
+	var rim := stone.lightened(.17)
+	for side: float in [-1.0, 1.0]:
+		panel(b, f, Vector3(side*(outer+inner)*.5,spring*.5,.041),Vector3(outer-inner,spring,.064),rim,1)
+	for i in 12:
+		var a := PI*i/12.0
+		var c := PI*(i+1)/12.0
+		var low_a := Vector3(inner*cos(a),spring+w*.37*sin(a),.073)
+		var low_c := Vector3(inner*cos(c),spring+w*.37*sin(c),.073)
+		var high_a := Vector3(outer*cos(a),spring+(w*.37+.125)*sin(a),.073)
+		var high_c := Vector3(outer*cos(c),spring+(w*.37+.125)*sin(c),.073)
+		b.quad(f*low_a,f*high_a,f*high_c,f*low_c,f.basis.z,rim,1)
+
+static func entry(b: Batch, f: Transform3D, w: float, h: float, beam: Color, accent: Color, stone: Color, arched: bool, double: bool, leaf_only := false, pull_sign := 1.0) -> void:
+	if not leaf_only:
+		if arched: _door_face(b, f, w+.25, h+.125, .045, stone.lightened(.17), true)
+		_door_face(b, f, w+.10, h+.048, .070, SHADOW, arched)
+		if not arched: entry_frame(b, f, w, h, beam, stone, false)
 	_door_face(b, f, w, h, .096, accent.darkened(.17), arched)
 	var count := ceili(w / .175)
 	var spring := h - w*.37
@@ -51,11 +73,7 @@ static func entry(b: Batch, f: Transform3D, w: float, h: float, beam: Color, acc
 		var y_a := spring + w*.37 * sqrt(maxf(0, 1.0 - pow(a*2.0/w,2))) if arched else h-.035
 		var y_c := spring + w*.37 * sqrt(maxf(0, 1.0 - pow(c*2.0/w,2))) if arched else h-.035
 		b.quad(f*Vector3(a,.018,.104), f*Vector3(c,.018,.104), f*Vector3(c,y_c,.104), f*Vector3(a,y_a,.104), f.basis.z, Batch.tone(accent, .085 * sin(float(i)*2.1)), 1)
-	if not arched:
-		panel(b,f,Vector3(0,h+.075,.136),Vector3(w+.33,.185,.27),beam.lightened(.095),1)
-		for side: float in [-1.0, 1.0]:
-			panel(b,f,Vector3(side*(w*.5+.082),h*.5,.113),Vector3(.158,h+.08,.225),beam,1)
-	var pull := .31 * w
+	var pull := .31 * w * pull_sign
 	if double:
 		panel(b,f,Vector3(0,h*.5,.115),Vector3(.045,h,.064),SHADOW)
 		for side: float in [-1.0, 1.0]:

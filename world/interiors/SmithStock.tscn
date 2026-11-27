@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/SmithStockStructure.scn" id="Structure"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/IronRack.tscn" id="IronRack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/MaterialBins.tscn" id="MaterialBins"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockCrate.tscn" id="StockCrate"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockRack.tscn" id="StockRack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/ToolRack.tscn" id="ToolRack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/Workbench.tscn" id="Workbench"]
+
+[node name="SmithStock" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="StockRack1" parent="Furnishing" instance=ExtResource("StockRack")]
+position = Vector3(-2.56, 0, 0.12)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="ToolRack" parent="Furnishing" instance=ExtResource("ToolRack")]
+position = Vector3(-1.91, 0, -2.28)
+
+[node name="IronRack1" parent="Furnishing" instance=ExtResource("IronRack")]
+position = Vector3(-0.28, 0, -2.27)
+
+[node name="MaterialBins" parent="Furnishing" instance=ExtResource("MaterialBins")]
+position = Vector3(1.45, 0, -2.28)
+
+[node name="FuelCrate" parent="Furnishing" instance=ExtResource("StockCrate")]
+position = Vector3(-2.21, 0, -1.33)
+rotation_degrees = Vector3(0, 6, 0)
+
+[node name="ReceivingBench" parent="Furnishing" instance=ExtResource("Workbench")]
+position = Vector3(2.36, 0, 0.28)
+rotation_degrees = Vector3(0, -78, 0)
+
+[node name="ReturnsCrate" parent="Furnishing" instance=ExtResource("StockCrate")]
+position = Vector3(2.31, 0, 1.61)
+rotation_degrees = Vector3(0, -7, 0)

@@ -6,7 +6,17 @@ extends Node
 var hour := 14.0
 var daylight := 1.0
 var sundown := 0.0
-var halted := true
+var halted := false
+var ledger: RefCounted
+
+func bind_time(source: RefCounted) -> void:
+	ledger = source
+	sync_time()
+
+func sync_time() -> void:
+	elapsed_days = int(ledger.d.hour) / 24
+	hour = float(int(ledger.d.hour) % 24) + float(ledger.d.seconds) / 5.0
+	_advance_sky()
 var allow_fast_key := true
 var points_on := true
 var spots_on := true
@@ -54,14 +64,22 @@ func _ready() -> void:
 	_advance_sky()
 
 func _process(delta: float) -> void:
-	if halted: return
+	if halted:
+		# A manual economy step still changes the shared time when paused.
+		if ledger and (elapsed_days != int(ledger.d.hour) / 24 or floori(hour) != int(ledger.d.hour) % 24): sync_time()
+		return
 	var rate:=16.0 if allow_fast_key and Input.is_physical_key_pressed(KEY_T) else 1.0
+	if ledger:
+		ledger.elapsed(delta * rate)
+		sync_time()
+		return
 	var next:=hour + 24.*delta*rate/seconds_per_day
 	elapsed_days+=floori(next/24.)
 	hour=fposmod(next,24.0)
 	_advance_sky()
 
 func handle_key(key:Key) -> bool:
+	var previous := hour
 	match key:
 		KEY_1,KEY_KP_1: hour=14.0; halted=true
 		KEY_2,KEY_KP_2: hour=16.75; halted=true
@@ -72,7 +90,13 @@ func handle_key(key:Key) -> bool:
 		KEY_O: points_on=not points_on
 		KEY_I: spots_on=not spots_on
 		_: return false
-	_advance_sky()
+	if ledger and key in [KEY_1,KEY_KP_1,KEY_2,KEY_KP_2,KEY_3,KEY_KP_3,KEY_4,KEY_KP_4]:
+		# Seek forward to the next occurrence; an identical preset is a no-op.
+		var forward := 0.0 if is_equal_approx(previous,hour) else fposmod(hour-previous,24.0)
+		ledger.elapsed(forward * 5.0)
+		sync_time()
+	else:
+		_advance_sky()
 	return true
 
 func _advance_sky() -> void:

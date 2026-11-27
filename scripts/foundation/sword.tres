@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/foundation/item_definition.gd" id="1"]
+
+[ext_resource type="Texture2D" path="res://art/ui/sword.svg" id="2"]
+
+[resource]
+icon = ExtResource("2")
+script = ExtResource("1")
+definition_id = "item.sword"
+title = "长剑"
+description = "主手武器。出鞘后可横挥。"
+unit_weight_kg = 1.25
+equipment_slot = "main_hand"
+combat_weapon = &"sword"

@@ -1,0 +1,170 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.74, 0.64, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Plinth"]
+material = SubResource("Material_dark")
+size = Vector3(1.75, 0.15, 0.6)
+
+[sub_resource type="BoxMesh" id="Mesh_RearLedge"]
+material = SubResource("Material_dark")
+size = Vector3(1.72, 0.41, 0.075)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Bin0"]
+material = SubResource("Material_oak")
+size = Vector3(0.545, 0.3, 0.56)
+
+[sub_resource type="StandardMaterial3D" id="Material_iron"]
+albedo_color = Color(0.4549, 0.4902, 0.5059, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Band0"]
+material = SubResource("Material_iron")
+size = Vector3(0.52, 0.063, 0.024)
+
+[sub_resource type="StandardMaterial3D" id="Material_coal"]
+albedo_color = Color(0.2824, 0.2667, 0.3255, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Tag0"]
+material = SubResource("Material_coal")
+size = Vector3(0.17, 0.088, 0.024)
+
+[sub_resource type="StandardMaterial3D" id="Material_brite"]
+albedo_color = Color(0.6157, 0.6588, 0.6706, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Tag1"]
+material = SubResource("Material_brite")
+size = Vector3(0.17, 0.088, 0.024)
+
+[sub_resource type="StandardMaterial3D" id="Material_copper"]
+albedo_color = Color(0.7373, 0.4549, 0.2941, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Tag2"]
+material = SubResource("Material_copper")
+size = Vector3(0.17, 0.088, 0.024)
+
+[sub_resource type="BoxMesh" id="Mesh_Coal0"]
+material = SubResource("Material_coal")
+size = Vector3(0.17, 0.16, 0.15)
+
+[sub_resource type="BoxMesh" id="Mesh_Iron0"]
+material = SubResource("Material_brite")
+size = Vector3(0.117, 0.088, 0.43)
+
+[sub_resource type="BoxMesh" id="Mesh_Copper0"]
+material = SubResource("Material_copper")
+size = Vector3(0.34, 0.078, 0.092)
+
+[node name="MaterialBins" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.32, 0)
+shape = SubResource("Footprint")
+
+[node name="Plinth" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.08, 0)
+mesh = SubResource("Mesh_Plinth")
+
+[node name="RearLedge" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.36, -0.27)
+mesh = SubResource("Mesh_RearLedge")
+
+[node name="Bin0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.28, 0)
+mesh = SubResource("Mesh_Bin0")
+
+[node name="Band0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.215, 0.283)
+mesh = SubResource("Mesh_Band0")
+
+[node name="Tag0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.336, 0.292)
+mesh = SubResource("Mesh_Tag0")
+
+[node name="Bin1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.28, 0)
+mesh = SubResource("Mesh_Bin0")
+
+[node name="Band1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.215, 0.283)
+mesh = SubResource("Mesh_Band0")
+
+[node name="Tag1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.336, 0.292)
+mesh = SubResource("Mesh_Tag1")
+
+[node name="Bin2" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.28, 0)
+mesh = SubResource("Mesh_Bin0")
+
+[node name="Band2" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.215, 0.283)
+mesh = SubResource("Mesh_Band0")
+
+[node name="Tag2" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.336, 0.292)
+mesh = SubResource("Mesh_Tag2")
+
+[node name="Coal0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.7, 0.47, -0.08)
+rotation_degrees = Vector3(17, 31, 12)
+mesh = SubResource("Mesh_Coal0")
+
+[node name="Coal1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.47, 0.47, 0.1)
+rotation_degrees = Vector3(17, 50, 12)
+mesh = SubResource("Mesh_Coal0")
+
+[node name="Coal2" type="MeshInstance3D" parent="."]
+position = Vector3(-0.47, 0.47, -0.14)
+rotation_degrees = Vector3(17, 69, 12)
+mesh = SubResource("Mesh_Coal0")
+
+[node name="Coal3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.69, 0.47, 0.13)
+rotation_degrees = Vector3(17, 88, 12)
+mesh = SubResource("Mesh_Coal0")
+
+[node name="Iron0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.16, 0.471, 0)
+rotation_degrees = Vector3(0, 5, 0)
+mesh = SubResource("Mesh_Iron0")
+
+[node name="Copper0" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.474, 0.045)
+rotation_degrees = Vector3(0, -14, 0)
+mesh = SubResource("Mesh_Copper0")
+
+[node name="Iron1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.005, 0.471, 0)
+rotation_degrees = Vector3(0, 5, 0)
+mesh = SubResource("Mesh_Iron0")
+
+[node name="Copper1" type="MeshInstance3D" parent="."]
+position = Vector3(0.574, 0.506, -0.042)
+rotation_degrees = Vector3(0, -14, 0)
+mesh = SubResource("Mesh_Copper0")
+
+[node name="Iron2" type="MeshInstance3D" parent="."]
+position = Vector3(0.15, 0.471, 0)
+rotation_degrees = Vector3(0, 5, 0)
+mesh = SubResource("Mesh_Iron0")
+
+[node name="Copper2" type="MeshInstance3D" parent="."]
+position = Vector3(0.658, 0.538, -0.129)
+rotation_degrees = Vector3(0, -14, 0)
+mesh = SubResource("Mesh_Copper0")

@@ -45,10 +45,10 @@ func _run() -> void:
 		var end := card.position + card.size * card.scale
 		_check(card.position.x > 0 and card.position.y > 0 and end.x < dimensions.x and end.y < dimensions.y, "card inset: %s" % dimensions)
 	hud.show_inventory({"item.other": 8}, definition)
-	_check(hud.inventory_open and overlay.visible and list.item_count == 0 and close.has_focus(), "empty and undefined inventories focus Close")
+	_check(hud.inventory_open and overlay.visible and list.item_count == 0 and list.has_focus(), "empty and undefined inventory keeps focus in its own region")
 	hud.show_inventory({definition.definition_id: 3, "item.other": 8}, definition)
 	_check(list.item_count == 1 and list.is_selected(0) and list.has_focus(), "one selected item")
-	_check(list.get_item_text(0).contains("× 3") and details.text == definition.description, "quantity and description")
+	_check(list.get_item_metadata(0) == "×3" and details.text == definition.description, "quantity and description")
 	_check(list.get_item_icon(0) == null, "iconless definition renders without a texture")
 	definition.icon = GradientTexture2D.new()
 	hud.show_inventory({definition.definition_id: 3}, definition)
@@ -70,7 +70,7 @@ func _run() -> void:
 	_check(details.text == State.DEFINITIONS["item.cup"].description, "selection changes description")
 	stock["item.cup"] = 4
 	hud.show_inventory(stock, State.DEFINITIONS)
-	_check(list.is_selected(1) and list.get_item_text(1).contains("× 4"), "refresh preserves selection and updates quantity")
+	_check(list.is_selected(1) and list.get_item_metadata(1) == "×4", "refresh preserves selection and updates quantity")
 	hud.hide_inventory()
 	var tip := hud.get_node("PickupTip") as Panel
 	var rows := PackedStringArray(["优先物品 × 2", "另一物品 × 1"])
@@ -80,14 +80,14 @@ func _run() -> void:
 		var bounds := Rect2(Vector2(8, 8), dimensions - Vector2(16, 16))
 		for anchor in [bounds.position, bounds.end, Vector2(bounds.end.x, bounds.position.y), bounds.get_center()]:
 			hud.show_pickup_tip(anchor, rows, "交互：拾取", bounds)
-			_check(tip.visible and bounds.encloses(Rect2(tip.position, tip.size)), "tip stays within supplied bounds")
+			_check(tip.visible and bounds.encloses(tip.get_global_transform() * Rect2(Vector2.ZERO, tip.size)), "tip stays within supplied bounds")
 			_check((tip.get_child(0) as Label).text.begins_with("◆ " + rows[0]), "first row remains first")
 	var crowded := rows.duplicate()
 	for index in range(24):
 		crowded.append("备用物品 %d" % index)
-	var tight := Rect2(14, 14, 200, 125)
+	var tight := Rect2(14, 14, 200, 75)
 	hud.show_pickup_tip(Vector2(24, 24), crowded, "交互：拾取", tight)
-	_check(tip.visible and tight.encloses(Rect2(tip.position, tip.size)), "crowded tip remains within bounds")
+	_check(tip.visible and tight.encloses(tip.get_global_transform() * Rect2(Vector2.ZERO, tip.size)), "crowded tip remains within bounds")
 	var content := (tip.get_child(0) as Label).text
 	_check(content.begins_with("◆ " + rows[0]) and content.contains("另有"), "crowded tip retains primary row and summarizes overflow")
 	_check(tip.mouse_filter == Control.MOUSE_FILTER_IGNORE and (tip.get_child(0) as Label).mouse_filter == Control.MOUSE_FILTER_IGNORE, "tip does not capture mouse")
@@ -103,7 +103,7 @@ func _run() -> void:
 	hud.feedback("B 行囊  ·  F10 设置  ·  右下角可打开旅途手册  ·  这是一条较长的反馈")
 	await process_frame
 	var launcher_area := Rect2(Vector2(272, 154), Vector2(43, 22))
-	_check(feedback_label.visible and not feedback_label.get_rect().intersects(launcher_area), "320px feedback leaves settings launcher clear")
+	_check(feedback_label.visible and not (feedback_label.get_global_transform() * Rect2(Vector2.ZERO, feedback_label.size)).intersects(launcher_area), "320px feedback leaves settings launcher clear")
 	hud.feedback("")
 	_check(timer.is_stopped(), "feedback can clear immediately")
 	if _failures == 0:

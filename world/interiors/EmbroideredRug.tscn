@@ -1,0 +1,379 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Mat_gold"]
+albedo_color = Color(0.8352941176470589, 0.6392156862745098, 0.3568627450980392, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_red"]
+albedo_color = Color(0.6549019607843137, 0.2784313725490196, 0.21176470588235294, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_cream"]
+albedo_color = Color(0.9529411764705882, 0.8509803921568627, 0.6745098039215687, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_wine"]
+albedo_color = Color(0.45098039215686275, 0.2235294117647059, 0.21176470588235294, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_400"]
+material = SubResource("Mat_wine")
+size = Vector3(2.18, 0.022, 2.48)
+
+[sub_resource type="BoxMesh" id="Mesh_401"]
+material = SubResource("Mat_red")
+size = Vector3(1.91, 0.008, 2.2)
+
+[sub_resource type="BoxMesh" id="Mesh_402"]
+material = SubResource("Mat_cream")
+size = Vector3(0.038, 0.006, 2.21)
+
+[sub_resource type="BoxMesh" id="Mesh_403"]
+material = SubResource("Mat_cream")
+size = Vector3(1.9, 0.006, 0.031)
+
+[sub_resource type="BoxMesh" id="Mesh_404"]
+material = SubResource("Mat_gold")
+size = Vector3(1.9, 0.006, 0.031)
+
+[sub_resource type="BoxMesh" id="Mesh_405"]
+material = SubResource("Mat_wine")
+size = Vector3(0.23, 0.008, 0.23)
+
+[sub_resource type="BoxMesh" id="Mesh_406"]
+material = SubResource("Mat_cream")
+size = Vector3(0.086, 0.008, 0.086)
+
+[sub_resource type="BoxMesh" id="Mesh_407"]
+material = SubResource("Mat_gold")
+size = Vector3(0.23, 0.008, 0.23)
+
+[sub_resource type="BoxMesh" id="Mesh_408"]
+material = SubResource("Mat_cream")
+size = Vector3(0.033, 0.013, 0.105)
+
+[sub_resource type="BoxMesh" id="Mesh_409"]
+material = SubResource("Mat_gold")
+size = Vector3(0.033, 0.013, 0.105)
+
+[node name="EmbroideredRug" type="Node3D"]
+
+[node name="Rug" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.011, 0)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_400")
+
+[node name="RugInner" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.024, 0)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_401")
+
+[node name="SideTape0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.95, 0.03, 0)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_402")
+
+[node name="SideTape1" type="MeshInstance3D" parent="."]
+position = Vector3(0.95, 0.03, 0)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_402")
+
+[node name="EndTape0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, -1.03)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_403")
+
+[node name="EndTape1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, -0.96)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_404")
+
+[node name="EndTape2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0.96)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_404")
+
+[node name="EndTape3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 1.03)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_403")
+
+[node name="Diamond00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.03, -0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_405")
+
+[node name="Seed00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.038, -0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.03, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_407")
+
+[node name="Seed01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.038, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond02" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.03, 0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_405")
+
+[node name="Seed02" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.038, 0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond10" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, -0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_407")
+
+[node name="Seed10" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.038, -0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond11" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_405")
+
+[node name="Seed11" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.038, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond12" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_407")
+
+[node name="Seed12" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.038, 0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond20" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.03, -0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_405")
+
+[node name="Seed20" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.038, -0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond21" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.03, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_407")
+
+[node name="Seed21" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.038, 0)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Diamond22" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.03, 0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_405")
+
+[node name="Seed22" type="MeshInstance3D" parent="."]
+position = Vector3(0.49, 0.038, 0.55)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("Mesh_406")
+
+[node name="Tassel0_0" type="MeshInstance3D" parent="."]
+position = Vector3(-1, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel0_1" type="MeshInstance3D" parent="."]
+position = Vector3(-1, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel1_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.889, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel1_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.889, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel2_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.778, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel2_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.778, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel3_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.667, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel3_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.667, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel4_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.556, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel4_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.556, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel5_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.445, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel5_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.445, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel6_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.334, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel6_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.334, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel7_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.223, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel7_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.223, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel8_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.112, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel8_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.112, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel9_0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.001, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel9_1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.001, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel10_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.11, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel10_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.11, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel11_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.221, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel11_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.221, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel12_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.332, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel12_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.332, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel13_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.443, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel13_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.443, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel14_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.554, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel14_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.554, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel15_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.665, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel15_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.665, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel16_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.776, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel16_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.776, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel17_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.887, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel17_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.887, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_409")
+
+[node name="Tassel18_0" type="MeshInstance3D" parent="."]
+position = Vector3(0.998, 0.007, -1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")
+
+[node name="Tassel18_1" type="MeshInstance3D" parent="."]
+position = Vector3(0.998, 0.007, 1.27)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_408")

@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/OrchardHouseStructure.scn" id="Structure"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/BootBench.tscn" id="BootBench"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/Cot.tscn" id="Cot"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/GrainSack.tscn" id="GrainSack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/LinenScreen.tscn" id="LinenScreen"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/ProduceBin.tscn" id="ProduceBin"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockCrate.tscn" id="StockCrate"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockRack.tscn" id="StockRack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/Workbench.tscn" id="Workbench"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/WovenMat.tscn" id="WovenMat"]
+
+[node name="OrchardRoom" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="Cot1" parent="Furnishing" instance=ExtResource("Cot")]
+position = Vector3(2.67, 0, -1.33)
+
+[node name="Screen" parent="Furnishing" instance=ExtResource("LinenScreen")]
+position = Vector3(2.49, 0, -0.1)
+rotation_degrees = Vector3(0, -7, 0)
+
+[node name="ProduceBin" parent="Furnishing" instance=ExtResource("ProduceBin")]
+position = Vector3(-2.54, 0, -0.82)
+rotation_degrees = Vector3(0, 14, 0)
+
+[node name="NextBin" parent="Furnishing" instance=ExtResource("ProduceBin")]
+position = Vector3(-2.62, 0, 0.3)
+rotation_degrees = Vector3(0, 7, 0)
+
+[node name="OrchardShelf" parent="Furnishing" instance=ExtResource("StockRack")]
+position = Vector3(-0.83, 0, -2.12)
+
+[node name="SortingBench" parent="Furnishing" instance=ExtResource("Workbench")]
+position = Vector3(-2.51, 0, -1.95)
+
+[node name="PreservesCrate" parent="Furnishing" instance=ExtResource("StockCrate")]
+position = Vector3(-2.56, 0, 1.64)
+rotation_degrees = Vector3(0, 18, 0)
+
+[node name="RetiedSack" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(-2.98, 0, 2.06)
+rotation_degrees = Vector3(0, -12, 0)
+
+[node name="BootBench" parent="Furnishing" instance=ExtResource("BootBench")]
+position = Vector3(2.87, 0, 1.54)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="EntryMat" parent="Furnishing" instance=ExtResource("WovenMat")]
+position = Vector3(1.66, 0, 1.84)

@@ -1,0 +1,38 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://source/mountain/ridge_profile.gd" id="Profile"]
+[ext_resource type="Script" path="res://source/mountain/ridge_tier.gd" id="Tier"]
+
+[sub_resource type="Resource" id="Lower"]
+script = ExtResource("Tier")
+height = 1.32
+crest_radius = 6.05
+lobes = PackedFloat32Array(0.85, 0.95, 1.10, 0.92, 0.80, 0.95, 1.16, 1.07, 1.29, 1.31, 1.27, 0.98)
+cliff_run = 0.70
+rock_relief = 0.60
+ramp_bearing = -2.0
+ramp_arc = 12.5
+ramp_splay = 17.0
+ramp_run = 3.5
+
+[sub_resource type="Resource" id="Upper"]
+script = ExtResource("Tier")
+height = 3.48
+crest_radius = 2.58
+lobes = PackedFloat32Array(0.91, 0.82, 0.94, 0.73, 1.09, 1.27, 1.42, 1.17, 1.06, 0.91, 1.01, 1.20)
+cliff_run = 0.74
+rock_relief = 0.85
+ramp_bearing = -94.0
+ramp_arc = 19.5
+ramp_splay = 16.0
+ramp_run = 4.59
+
+[resource]
+script = ExtResource("Profile")
+origin = Vector3(-13.85, 0, 21.4)
+seed = 143179
+sectors = 108
+tiers = Array[ExtResource("Tier")]([SubResource("Lower"), SubResource("Upper")])
+trail = PackedVector2Array(18.14, -1.23, 15.90, -0.60, 13.70, -0.12, 11.40, -0.01, 9.50, 0.14, 8.37, -0.20, 6.76, -0.22, 5.25, -0.18, 4.60, -0.37, 4.30, -1.68, 3.65, -3.48, 2.65, -5.38, 1.26, -6.79, 0.38, -7.30, -0.50, -7.22, -0.42, -5.80, -0.31, -4.11, -0.18, -2.53, 0.10, -1.33, 0.22, -0.55)
+trail_widths = PackedFloat32Array(0.65, 1.36, 1.55, 1.62, 1.65, 1.62, 1.58, 1.49, 1.38, 1.40, 1.48, 1.51, 1.50, 1.32, 1.46, 1.52, 1.45, 1.34, 1.22, 0.70)
+rock_tone = Color(0.54, 0.56, 0.54, 1)

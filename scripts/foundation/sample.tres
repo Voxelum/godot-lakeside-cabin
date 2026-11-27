@@ -9,4 +9,5 @@ definition_id = "item.sample"
 title = "湖畔石"
 description = "一枚被湖水磨圆的石头。"
 rarity = 1
+unit_weight_kg = 1.5
 icon = ExtResource("2")

@@ -31,6 +31,6 @@ foreach ($phase in 'door-write','door-read','regions','table-menu') {
 
 `door-write` 留下的是带本次随机 ID 的测试档，供下一进程 `door-read` 验证后移除；`regions` 重新从零开始。真实黑场用例需要渲染窗口，不能用无头帧代替。
 
-**补验实体手柄：** `& $g --path . --script res://tests/device_checks.gd -- --pad-live`。25 秒内横向轻推左杆、推满，按住 LB 推满，再松开按 X；只有实际轴/按钮和游戏响应均采到才记录通过。随后可在普通 Demo 以 A 拾取、Back 开包、Start 改绑，再过门确认松手才能继续走。`--native` 是独立的窗口键鼠用例：按 W 走一小步，单击左键，看到 `NATIVE_USE` 后再单击右键。以上模式都不使用玩家档。
+**补验实体手柄：** `& $g --path . --script res://tests/device_checks.gd -- --pad-live`。25 秒内横向轻推左杆、推满，按住 LB 推满，再松开按 X；只有实际轴/按钮和游戏响应均采到才记录通过。随后可在普通 Demo 以 A 拾取、Back 开包、Start 改绑，再过门确认松手才能继续走。`--native` 是独立的窗口键鼠用例：按 W 走一小步，单击左键，看到 `NATIVE_USE` 后按 F（S11 起，原右键改为防御）。以上模式都不使用玩家档。
 
 本轮没有实现 S07、S20、战斗、经济系统或地图流式加载器。

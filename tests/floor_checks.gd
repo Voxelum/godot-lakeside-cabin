@@ -1,6 +1,7 @@
 extends SceneTree
 ## Run with a window: godot --path . --script res://tests/floor_checks.gd
-## All captures come from one fixed 480x270 viewport, never from disk.
+## Legacy cabin grain diagnostic kept for the original art asset. F5's baked
+## slabs/material roles are now covered by building_roster_checks.gd.
 
 var viewport: SubViewport
 
@@ -83,7 +84,16 @@ func check() -> void:
 	preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	preview.size = Vector2(960, 540)
 	root.add_child(preview)
-	var room := (load("res://world/Interior.tscn") as PackedScene).instantiate()
+	var room := (load("res://world/interiors/CabinShell.tscn") as PackedScene).instantiate()
+	var furnished := (load("res://world/Interior.tscn") as PackedScene).instantiate()
+	for label in ["Hearth", "Textiles", "Pantry", "EntryChest", "Dining", "SouthChair", "NorthChair"]:
+		var prop := furnished.get_node(label)
+		prop.owner = null
+		furnished.remove_child(prop)
+		room.add_child(prop)
+	# Recreate the legacy chest pose for a consistent desk-side diagnostic.
+	room.get_node("EntryChest").position = Vector3(.02,.035,1.92)
+	furnished.free()
 	viewport.add_child(room)
 	var floor := room.get_node("Floorboards")
 	var backing := floor.get_node("SeamBacking") as MeshInstance3D

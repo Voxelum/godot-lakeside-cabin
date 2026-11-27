@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/field_dialogue.gd" id="Dialogue"]
+[ext_resource type="Script" path="res://scripts/ui/dialogue_binding.gd" id="Binding"]
+[ext_resource type="Texture2D" path="res://scripts/ui/dialogue_tender.svg" id="Tender"]
+[ext_resource type="Texture2D" path="res://scripts/ui/dialogue_potter.svg" id="Potter"]
+[ext_resource type="Texture2D" path="res://scripts/ui/dialogue_fallback.svg" id="Fallback"]
+
+[node name="FieldDialogue" type="Panel"]
+visible = false
+script = ExtResource("Dialogue")
+fallback_portrait = ExtResource("Fallback")
+
+[node name="Tender" type="Node" parent="."]
+script = ExtResource("Binding")
+actor_path = NodePath("../../Pixels/Clearing/TrialTownsfolk/HazelTender")
+speaker_name = "榛树园丁"
+portrait = ExtResource("Tender")
+lines = PackedStringArray("榛树今年抽了新芽。", "湖风大，树苗得多绑一道。")
+
+[node name="Potter" type="Node" parent="."]
+script = ExtResource("Binding")
+actor_path = NodePath("../../Pixels/Clearing/TrialTownsfolk/WellPotter")
+speaker_name = "井边陶工"
+portrait = ExtResource("Potter")
+lines = PackedStringArray("这批陶罐还在晾。", "等湖雾散了，再送进窑里。")

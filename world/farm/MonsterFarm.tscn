@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/farm/monster_farm.gd" id="Farm"]
+[ext_resource type="Script" path="res://world/farm/farm_grounds.gd" id="Grounds"]
+[ext_resource type="PackedScene" path="res://art/woods/CoppiceMaple.tscn" id="Maple"]
+[ext_resource type="PackedScene" path="res://art/woods/WaysideOak.tscn" id="Oak"]
+[ext_resource type="PackedScene" path="res://art/lamps/LakesideLamp.tscn" id="Lamp"]
+
+[node name="MonsterFarm" type="Node3D"]
+script = ExtResource("Farm")
+
+[node name="Grounds" type="Node3D" parent="."]
+script = ExtResource("Grounds")
+
+[node name="Pens" type="Node3D" parent="."]
+
+; Reuse Clearing's dimmed night lamps on alternate rails; none blocks a gate.
+[node name="LaneLamps" type="Node3D" parent="."]
+[node name="OakpostLamp" parent="LaneLamps" instance=ExtResource("Lamp")]
+position = Vector3(37.23, 0, 33.3)
+rotation_degrees = Vector3(0, -122, 0)
+[node name="ScoutLamp" parent="LaneLamps" instance=ExtResource("Lamp")]
+position = Vector3(42.03, 0, 29.5)
+rotation_degrees = Vector3(0, 43, 0)
+[node name="SilkLamp" parent="LaneLamps" instance=ExtResource("Lamp")]
+position = Vector3(54.06, 0, 33.3)
+rotation_degrees = Vector3(0, -135, 0)
+[node name="WarrenLamp" parent="LaneLamps" instance=ExtResource("Lamp")]
+position = Vector3(58.82, 0, 29.5)
+rotation_degrees = Vector3(0, 43, 0)
+[node name="MawLamp" parent="LaneLamps" instance=ExtResource("Lamp")]
+position = Vector3(70.85, 0, 33.3)
+rotation_degrees = Vector3(0, -135, 0)
+[node name="RestLamp" parent="LaneLamps" instance=ExtResource("Lamp")]
+position = Vector3(75.62, 0, 29.5)
+rotation_degrees = Vector3(0, 44, 0)
+
+; A windbreak behind the small pens, not in the walking/attack sightline.
+[node name="AlderWindbreak" type="Node3D" parent="."]
+[node name="GateMaple" parent="AlderWindbreak" instance=ExtResource("Maple")]
+position = Vector3(43.8, 0, 21.6)
+rotation_degrees = Vector3(0, 29, 0)
+scale = Vector3(0.84, 0.84, 0.84)
+[node name="WolfOak" parent="AlderWindbreak" instance=ExtResource("Oak")]
+position = Vector3(53.3, 0, 19.65)
+rotation_degrees = Vector3(0, -73, 0)
+scale = Vector3(0.91, 0.91, 0.91)
+[node name="EndMaple" parent="AlderWindbreak" instance=ExtResource("Maple")]
+position = Vector3(74.1, 0, 20.2)
+rotation_degrees = Vector3(0, 127, 0)
+scale = Vector3(0.95, 0.95, 0.95)

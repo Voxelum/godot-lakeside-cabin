@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://art/field_cast/field_body.gd" id="Body"]
+[ext_resource type="Script" path="res://art/field_cast/field_looks.gd" id="Look"]
+
+[sub_resource type="CapsuleShape3D" id="Coat"]
+radius = 0.30
+height = 1.65
+
+[node name="NetMender" type="CharacterBody3D"]
+script = ExtResource("Body")
+body_shape = SubResource("Coat")
+body_center = Vector3(0, 0.825, 0)
+
+[node name="Model" type="Node3D" parent="."]
+script = ExtResource("Look")

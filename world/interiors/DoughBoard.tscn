@@ -1,0 +1,115 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Material_ash"]
+albedo_color = Color(0.7176, 0.5961, 0.4471, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Board"]
+material = SubResource("Material_ash")
+size = Vector3(0.77, 0.05, 0.48)
+
+[sub_resource type="StandardMaterial3D" id="Material_cream"]
+albedo_color = Color(0.8784, 0.8196, 0.6784, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_Dough"]
+material = SubResource("Material_cream")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="StandardMaterial3D" id="Material_crumb"]
+albedo_color = Color(0.9373, 0.8314, 0.6039, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_DoughScore0"]
+material = SubResource("Material_crumb")
+size = Vector3(0.022, 0.015, 0.1632)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="CylinderMesh" id="Mesh_Roller"]
+material = SubResource("Material_edge")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="CylinderMesh" id="Mesh_RollerAxle"]
+material = SubResource("Material_dark")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Material_slate"]
+albedo_color = Color(0.3216, 0.4275, 0.4588, 1)
+roughness = 0.94
+
+[sub_resource type="CylinderMesh" id="Mesh_FlourBowl"]
+material = SubResource("Material_slate")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_Flour"]
+material = SubResource("Material_cream")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[node name="DoughBoard" type="Node3D"]
+
+[node name="Board" type="MeshInstance3D" parent="."]
+position = Vector3(-0.21, 0.025, 0.02)
+mesh = SubResource("Mesh_Board")
+
+[node name="Dough" type="MeshInstance3D" parent="."]
+position = Vector3(-0.29, 0.1015, 0.045)
+scale = Vector3(0.43, 0.11, 0.34)
+mesh = SubResource("Mesh_Dough")
+
+[node name="DoughScore0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.3803, 0.1488, 0.045)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_DoughScore0")
+
+[node name="DoughScore1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.2427, 0.1488, 0.045)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_DoughScore0")
+
+[node name="Roller" type="MeshInstance3D" parent="."]
+position = Vector3(0.25, 0.095, 0.06)
+rotation_degrees = Vector3(90, 0, 18)
+scale = Vector3(0.115, 0.36, 0.115)
+mesh = SubResource("Mesh_Roller")
+
+[node name="RollerAxle" type="MeshInstance3D" parent="."]
+position = Vector3(0.25, 0.095, 0.06)
+rotation_degrees = Vector3(90, 0, 18)
+scale = Vector3(0.063, 0.51, 0.063)
+mesh = SubResource("Mesh_RollerAxle")
+
+[node name="FlourBowl" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.075, -0.15)
+scale = Vector3(0.22, 0.15, 0.22)
+mesh = SubResource("Mesh_FlourBowl")
+
+[node name="Flour" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.152, -0.15)
+scale = Vector3(0.18, 0.015, 0.18)
+mesh = SubResource("Mesh_Flour")

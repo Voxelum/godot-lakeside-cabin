@@ -1,0 +1,20 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Skeleton.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"skeleton_sentry"
+title = "骷髅兵"
+coats = PackedStringArray("骷髅哨兵", "铜圆盾卫", "骨龛旗手")
+body_names = PackedStringArray("SkeletonSentry", "CopperRound", "Ossuary")
+model_scene = ExtResource("Body")
+health = 30
+power = 8
+armor = 3
+speed = 1.68
+reach = 1.48
+notice = 4.35
+windup = 0.69
+recovery = 1.23
+soil = Color(0.61, 0.57, 0.46, 1)
+cue_height = 2.08

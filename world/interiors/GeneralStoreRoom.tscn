@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/GeneralStoreStructure.scn" id="Structure"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/ShopCounter.tscn" id="Counter"]
+[ext_resource type="PackedScene" path="res://world/interiors/GranaryShelf.tscn" id="Grain"]
+[ext_resource type="PackedScene" path="res://world/interiors/ToolRack.tscn" id="Tools"]
+[ext_resource type="PackedScene" path="res://world/interiors/CrockerySideboard.tscn" id="Crockery"]
+[ext_resource type="PackedScene" path="res://world/interiors/ProduceBin.tscn" id="Bin"]
+[ext_resource type="PackedScene" path="res://world/interiors/GrainSack.tscn" id="Sack"]
+[ext_resource type="PackedScene" path="res://world/interiors/WovenMat.tscn" id="Mat"]
+
+[node name="GeneralStoreRoom" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="WeighCounter" parent="Furnishing" instance=ExtResource("Counter")]
+position = Vector3(-0.70, 0, 0.07)
+
+[node name="DryGoods" parent="Furnishing" instance=ExtResource("Grain")]
+position = Vector3(-1.55, 0, -1.62)
+
+[node name="Tableware" parent="Furnishing" instance=ExtResource("Crockery")]
+position = Vector3(-0.06, 0, -1.62)
+
+[node name="ToolsDisplay" parent="Furnishing" instance=ExtResource("Tools")]
+position = Vector3(2.16, 0, -0.16)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="ProduceDisplay" parent="Furnishing" instance=ExtResource("Bin")]
+position = Vector3(-1.58, 0, 1.52)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="ReserveSack" parent="Furnishing" instance=ExtResource("Sack")]
+position = Vector3(1.79, 0, -1.57)
+rotation_degrees = Vector3(0, -15, 0)
+
+[node name="QueueMat" parent="Furnishing" instance=ExtResource("Mat")]
+position = Vector3(0.08, 0, 1.30)

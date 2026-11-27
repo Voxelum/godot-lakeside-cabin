@@ -1,5 +1,5 @@
-extends Node2D
-## A small pixel-set dial; no system fonts and no HUD in the reflected viewport.
+extends Control
+## Bitmap hour glyphs retain their pixel look; the clock sits on the shared UI frame.
 const DIGITS: Array[int]=[0b111101101101111,0b010110010010111,0b111001111100111,0b111001111001111,0b101101111001001,0b111100111001111,0b111100111101111,0b111001010010010,0b111101111101111,0b111101111001111]
 const Paper := preload("res://scripts/ui/parchment.gd")
 var face_stock := Paper.tag()
@@ -7,10 +7,26 @@ var clock: Node
 var minutes := -1
 var paused := false
 var day := false
-func _ready()->void: clock=get_tree().get_first_node_in_group(&"solar_clock")
+const UI := preload("res://scripts/ui/ui_layout.gd")
+var _ui: UI
+var _available := true
+
+func _ready() -> void:
+	clock = get_tree().get_first_node_in_group(&"solar_clock")
+	_ui = UI.attach(self)
+	_ui.changed.connect(_layout)
+	_layout()
+
+func _layout() -> void:
+	_ui.place(self, Rect2(UI.SAFE.position, Vector2(45, 14)))
+
+func set_available(value: bool) -> void:
+	_available = value
+	visible = _available and clock != null and clock.show_dial
+
 func _process(_delta:float)->void:
 	if not clock: return
-	visible=clock.show_dial
+	visible = _available and clock.show_dial
 	var t:=floori(float(clock.hour)*60.);var is_day:bool=clock.daylight>.42
 	if t!=minutes or paused!=clock.halted or day!=is_day:
 		minutes=t;paused=clock.halted;day=is_day;queue_redraw()

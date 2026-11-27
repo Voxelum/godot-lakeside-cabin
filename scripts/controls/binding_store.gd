@@ -1,8 +1,10 @@
 extends RefCounted
 
-const ACTIONS := [&"walk_left", &"walk_right", &"walk_up", &"walk_down", &"sprint", &"attack", &"use", &"inventory", &"bindings"]
-const RESERVED := [KEY_ESCAPE, KEY_F5, KEY_F6, KEY_F9]
-const SECTION := "s03_bindings_v1"
+const ACTIONS := [&"walk_left", &"walk_right", &"walk_up", &"walk_down", &"sprint", &"attack", &"use", &"guard", &"roll", &"draw_weapon", &"inventory", &"bindings"]
+const RESERVED := [KEY_ESCAPE, KEY_F5, KEY_F6, KEY_F9, KEY_M]
+const SECTION := "s03_bindings_v2"
+const OLD_SECTION := "s03_bindings_v1"
+const NEW_ACTIONS := [&"guard", &"roll", &"draw_weapon"]
 const PAD_LABELS := ["A / Cross", "B / Circle", "X / Square", "Y / Triangle", "Back", "Guide", "Start", "L3", "R3", "LB", "RB", "D-pad Up", "D-pad Down", "D-pad Left", "D-pad Right"]
 
 static func pad_label(spec: Vector2i, compact := false) -> String:
@@ -113,6 +115,18 @@ static func load_bindings(path: String) -> Error:
 		var saved := {}
 		for action in ACTIONS:
 			saved[action] = cfg.get_value(SECTION, action) if cfg.has_section_key(SECTION, action) else null
+		if not cfg.has_section(SECTION) and cfg.has_section(OLD_SECTION):
+			# Retain compatible legacy custom bindings. Old default right-click
+			# is deliberately transferred from Use to Guard.
+			for action in ACTIONS:
+				if action in NEW_ACTIONS: continue
+				var items: Variant = cfg.get_value(OLD_SECTION, action, null)
+				if action == &"use" and items is Array:
+					items = items.map(func(spec): return Vector2i(1, KEY_F) if spec == Vector2i(3, MOUSE_BUTTON_RIGHT) else spec)
+				var candidate := map.duplicate()
+				candidate[action] = items
+				if valid(candidate): map = candidate
+			saved = map
 		if valid(saved):
 			map = saved
 		else:

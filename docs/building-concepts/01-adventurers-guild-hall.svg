@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">冒险者公会 · 公共会馆建筑概念</title>
+<desc id="desc">蓝灰瓦有中央山墙与两扇通向议事厅的高位老虎窗；石阶接市集巷道。一楼登记等候，右侧真梯通二楼议事与档案。</desc>
+<defs>
+  <pattern id="paper" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#b69b74" stroke-opacity=".19"/></pattern>
+  <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#59788a"/></marker>
+  <g id="mark"><path d="M-24-20Q0-24 0-28Q11-23 24-20L21 6Q16 20 0 30Q-16 20-21 6Z" fill="#354d6b" stroke="#bd9562" stroke-width="4"/><path d="M-11-12L14 12M11-12L-14 12M-12 5l8 8m16-8l-8 8" stroke="#f9e1b4" stroke-width="3" stroke-linecap="square"/></g>
+  <g id="sash"><path d="M0 0L40 13V36L0 23Z" fill="#c79556" stroke="#5d422d" stroke-width="4"/><path d="M20 6V29M0 11L40 24" stroke="#715137" stroke-width="2"/><path d="M-3 25L43 40" stroke="#ad9270" stroke-width="4"/></g>
+  <g id="little"><path d="M0 0L28 9V24L0 15Z" fill="#d5ab73" stroke="#634933" stroke-width="3"/><path d="M14 4V20M0 7l28 9" stroke="#785739" stroke-width="1.7"/></g>
+</defs>
+<style>
+text{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",Arial,sans-serif;fill:#3f3429}.title{font-size:36px;font-weight:700;letter-spacing:2px}.strap{font-size:12px;letter-spacing:3px;fill:#5a6c76}.key{font-size:21px;font-weight:700}.body{font-size:14px;fill:#665443}.label{font-size:13px;font-weight:600}.tiny{font-size:11px;fill:#756452}.axis{stroke:#a78f70;stroke-width:1;stroke-dasharray:3 4}.path{fill:none;stroke:#59788a;stroke-width:2;stroke-dasharray:5 4;marker-end:url(#arrow)}.planwall{stroke:#6f5947;stroke-width:6;fill:none}.wood{fill:#985f3e;stroke:#60452e;stroke-width:2}.num{font-size:13px;fill:#f4e3bf;font-weight:700;text-anchor:middle}
+</style>
+<rect width="1200" height="900" fill="#eee1c8"/>
+<rect x="18" y="18" width="1164" height="864" rx="8" fill="none" stroke="#9f8665"/>
+<text x="52" y="59" class="strap">MARKET COURT  /  ARCHITECTURE STUDY 01</text>
+<text x="50" y="104" class="title">冒险者公会 · 公共会馆</text>
+<text x="53" y="133" class="body">从巷尾集散地起步：街道 — 宽石阶 — 办事大厅 — 议事厅</text>
+<path d="M52 150H1147M52 526H1147" stroke="#9f8665"/>
+<!-- Axonometric study: the irregular plan is a podium, not another enclosed room. -->
+<g stroke-linejoin="round" stroke-linecap="round">
+  <path d="M83 433L343 515L616 396L516 363L229 404L118 388Z" fill="#c4b799"/>
+  <path d="M93 434L344 514L404 468L245 420Z" fill="#d2c8a9" stroke="#b6a48a" stroke-width="2"/>
+  <path d="M161 455l96 31m-88-46l132 42m-87-46l122 39m-180-29l22-8m18 18l25-9m14 19l23-9m19 18l26-9" fill="none" stroke="#b1a184"/>
+  <path d="M141 407V249L405 332V492Z" fill="#d9bc91" stroke="#654b36" stroke-width="3"/>
+  <path d="M405 332L523 240V401L405 492Z" fill="#b79b70" stroke="#654b36" stroke-width="3"/>
+  <path d="M405 341V472L519 385M407 421l115-88M405 335l117-91" fill="none" stroke="#69513a" stroke-width="7"/>
+  <path d="M141 389L405 472L523 382V401L405 492L141 407Z" fill="#969186" stroke="#655d53" stroke-width="2"/>
+  <path d="M141 397L405 480L523 390m-353 8v8m31 1v9m34 2v9m44 5v9m28 0v9m39 3v9m22-1v9m64-9v9m29-33v9m28-31v9m17-21v9" fill="none" stroke="#c6b8a0" stroke-width="1.5"/>
+  <path d="M141 330L405 413M147 261v120m114-108v88m138-11v112" fill="none" stroke="#715239" stroke-width="7"/>
+  <path d="M402 337L464 167L526 240Z" fill="#bfa37c" stroke="#684c35" stroke-width="4"/>
+  <path d="M410 319l48-123l60 41m-54-70v112m-51 26l98-74" fill="none" stroke="#705038" stroke-width="5"/>
+  <path d="M134 245L196 162L465 165L402 334Z" fill="#465b74" stroke="#473c34" stroke-width="4"/>
+  <path d="M196 162L465 165L526 240L464 169Z" fill="#32445a" stroke="#534b45" stroke-width="4"/>
+  <path d="M143 233L410 317M154 219l263 78m-251-89l257 73m-249-85l256 69m-247-81l257 60m-246-72l257 49m-239-54l247 22" fill="none" stroke="#687b91" stroke-opacity=".68" stroke-width="2"/>
+  <path d="M164 232l7-12m22 22l7-12m18 19l7-12m102 11l-5 15m30-6l-5 16m28-8l-5 16m-172-91l-6 10m35-4l-6 12m26-7l-6 12m115 8l-6 14m36-7l-6 14m36-7l-6 14m-143-60l-6 10m32-5l-6 11m32-5l-5 11m33-5l-5 13m26-7l-5 13" fill="none" stroke="#35465d" stroke-opacity=".75" stroke-width="2"/>
+  <!-- Valleys and the front pediment; centre is a shield on a solid field. -->
+  <path d="M231 267L284 206L311 195L318 283L313 294Z" fill="#354960" stroke="#75604b" stroke-width="2"/>
+  <path d="M313 295L284 211L313 195L349 265Z" fill="#5a7087" stroke="#736049" stroke-width="2"/>
+  <path d="M225 278L277 208L319 301Z" fill="#c0a37a" stroke="#694c34" stroke-width="7"/>
+  <g transform="translate(275 265) scale(.75)"><use href="#mark"/></g>
+  <!-- The two dormers open directly above council-floor windows. -->
+  <path d="M173 238L195 211L221 212L219 234L198 250Z" fill="#60768d" stroke="#66523e" stroke-width="3"/>
+  <path d="M169 238L189 218L204 248V260L169 249Z" fill="#a68860" stroke="#654a34" stroke-width="3"/>
+  <use href="#little" transform="translate(176 239) scale(.72)"/>
+  <path d="M337 284L361 254L385 256L383 279L363 312Z" fill="#60768d" stroke="#66523e" stroke-width="3"/>
+  <path d="M330 285L352 261L370 294V309L330 297Z" fill="#ad8c62" stroke="#654a34" stroke-width="3"/>
+  <use href="#little" transform="translate(337 286) scale(.86)"/>
+  <use href="#sash" x="160" y="278"/><use href="#sash" x="343" y="332"/><use href="#little" x="156" y="351"/><use href="#little" x="358" y="421"/>
+  <path d="M432 358L465 332V357L432 383Z" fill="#b78c52" stroke="#654a34" stroke-width="4"/><path d="M448 347v25" stroke="#665038" stroke-width="3"/>
+  <path d="M475 350l29-21v21l-29 21Z" fill="#b98f54" stroke="#674b34" stroke-width="4"/>
+  <path d="M239 363L300 383V456L239 436Z" fill="#774f34" stroke="#543927" stroke-width="5"/>
+  <path d="M269 375V445M246 387l47 15m-48 18l47 14" stroke="#573c2b" stroke-width="3"/><path d="M263 408l13 4" stroke="#d5a967" stroke-width="3"/>
+  <path d="M202 425L337 467L312 489L178 447Z" fill="#aaa191" stroke="#665e52" stroke-width="2"/>
+  <path d="M178 447L312 489V495L178 453ZM178 453L312 495L301 502L168 460ZM168 460L301 502V508L168 465ZM168 465L301 508L291 515L157 473Z" fill="#a69d8f" stroke="#686258" stroke-width="1.3"/>
+  <path d="M204 360V425l11 4v-66m103 34v65l11 3v-64" fill="#855f43" stroke="#634830" stroke-width="4"/>
+  <path d="M198 409l19 6v18l-19-6zm114 36l19 6v18l-19-6z" fill="#a4a091" stroke="#6a6255" stroke-width="2"/>
+  <path d="M209 337L349 381L328 402L185 358Z" fill="#516780" stroke="#614634" stroke-width="4"/>
+  <path d="M198 348l141 44m-146-38l140 44" stroke="#8291a3" stroke-width="1.4"/>
+  <path d="M200 307l18 6v35l-9-6-9 2zM324 347l18 6v35l-9-6-9 2z" fill="#3e5777" stroke="#b28a56" stroke-width="1.4"/>
+</g>
+<g> <path d="M304 221L558 177H628m-284 105l218-3h66m-301 116l227-27h74m-338 122l262-25h76" fill="none" stroke="#94795d" stroke-width="1.5"/><g fill="#f2e3c2" stroke="#94795d" stroke-width="1.5"><circle cx="304" cy="221" r="3"/><circle cx="344" cy="282" r="3"/><circle cx="327" cy="395" r="3"/><circle cx="290" cy="490" r="3"/></g></g>
+<g transform="translate(648 181)">
+  <text class="key">A　中央交叉山墙</text><text class="body" y="24">长脊蓝灰瓦；最显眼的山墙不另造假窗。</text><text class="tiny" y="44">盾徽挂在实墙上，从巷尾就能认出公会。</text>
+  <text class="key" y="100">B　两扇真老虎窗</text><text class="body" y="124">从主坡屋面切出净空；高窗照入二楼。</text><text class="tiny" y="144">屋内没有夹层、阁楼地板或第三条动线。</text>
+  <text class="key" y="190">C　厚柱廊 + 双扇门</text><text class="body" y="214">檐下停留再跨门槛，1.86 m 木门向内打开。</text>
+  <text class="key" y="287">D　开放的石阶与门台</text><text class="body" y="311">4.38 m 三阶宽口面向市集巷，保持排队空间。</text>
+</g>
+<!-- Two same-scale ground/upper sketches. North is up and +Z leads down toward street. -->
+<g transform="translate(54 546)">
+  <text x="0" y="22" class="key">01　登记大厅</text><text x="0" y="42" class="tiny">GROUND  /  FLAGSTONE</text>
+  <g transform="translate(115 54)">
+    <rect width="270" height="221" fill="#d5c6a7"/><rect width="270" height="221" fill="url(#paper)"/><path class="planwall" d="M103 221H0V0H270V221H167"/>
+    <path d="M103 221h64" fill="none" stroke="#59788a" stroke-width="2"/><path d="M104 221v-27a27 27 0 0 1 27 27m36 0v-27a27 27 0 0 0-27 27" fill="none" stroke="#866e4e"/>
+    <path d="M60 224h150v17H60zm0 17h150v7H60zm0 7h150v7H60z" fill="#9c988c" stroke="#6a665b"/>
+    <rect x="45" y="2" width="54" height="17" class="wood"/>
+    <rect x="82" y="64" width="94" height="28" rx="2" class="wood"/>
+    <path d="M83 87h92" stroke="#405c76" stroke-width="5"/>
+    <path d="M4 23v45" stroke="#7a5a38" stroke-width="4"/><path d="M8 28v13m0 4v14" stroke="#dbba89" stroke-width="3"/>
+    <rect x="8" y="73" width="16" height="48" rx="2" fill="#6b7b84" stroke="#805838" stroke-width="3"/>
+    <rect x="8" y="139" width="16" height="48" rx="2" fill="#6b7b84" stroke="#805838" stroke-width="3"/>
+    <rect x="102" y="111" width="57" height="95" fill="#768997" stroke="#aa8656" stroke-width="2"/>
+    <use href="#mark" transform="translate(130 153) scale(.34)"/>
+    <rect x="220" y="37" width="49" height="130" fill="#976e50" stroke="#634b37" stroke-width="2"/>
+    <path d="M221 44h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47m-47 8h47" stroke="#bd9b73" stroke-width="2"/>
+    <path class="path" d="M136 254V100M100 149H44V47M180 144h15V58M174 190h69V55"/>
+    <text class="label" x="-95" y="60">委托公告</text><text class="label" x="-95" y="117">靠墙等候座</text><text class="label" x="-95" y="161">排队与通行</text>
+    <text class="label" x="286" y="60">柜后回路</text><text class="label" x="286" y="117">上楼 ↑</text><text class="tiny" x="-95" y="243">南 · 市集石巷</text>
+  </g>
+</g>
+<path d="M598 554V853" stroke="#aa9476" stroke-width="1"/>
+<g transform="translate(650 546)">
+  <text y="22" class="key">02　议事厅</text><text y="42" class="tiny">UPPER  /  OAK DECK  +2.88 m</text>
+  <g transform="translate(115 54)">
+    <rect width="270" height="221" fill="#d0ae7c"/><rect width="270" height="221" fill="url(#paper)"/><rect width="270" height="221" class="planwall"/>
+    <rect x="10" y="2" width="55" height="17" class="wood"/><rect x="133" y="2" width="42" height="21" class="wood"/>
+    <rect x="34" y="72" width="123" height="104" fill="#768997" stroke="#a5875c" stroke-width="2"/>
+    <rect x="47" y="105" width="92" height="41" rx="2" class="wood"/>
+    <path d="M66 110h20v14H66zm36 15h15v13h-15z" fill="#e6d3ac"/>
+    <g fill="#b78555" stroke="#65452f" stroke-width="1.4"><path d="M53 82h20v20H53zm31 0h20v20H84zm31 0h20v20h-20zm-62 68h20v20H53zm31 0h20v20H84zm31 0h20v20h-20z"/></g>
+    <path d="M217 37h53v130h-53z" fill="#887463" stroke="#5a4d3e" stroke-width="2"/>
+    <path d="M217 37v130h53" fill="none" stroke="#60432e" stroke-width="5"/>
+    <path d="M222 49h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47m-47 10h47" stroke="#ac9480" stroke-width="1.5"/>
+    <path class="path" d="M244 88V21H193V59H40M191 62v111"/>
+    <path d="M34 215h32m145 0h31" stroke="#69869c" stroke-width="5"/>
+    <text class="label" x="-98" y="20">档册与抄录</text><text class="label" x="-98" y="119">六席长桌</text><text class="label" x="284" y="23">上端转身</text><text class="label" x="284" y="104">梯井与护栏</text><text class="tiny" x="43" y="250">同上层高窗入光，无第三层</text>
+  </g>
+</g>
+<text x="51" y="865" class="tiny">平面同尺　|　外壳 8.44 × 7.00 m　·　墙厚 0.25 m　·　室内净平面 7.94 × 6.50 m　|　概念示意，非游戏截图</text>
+</svg>

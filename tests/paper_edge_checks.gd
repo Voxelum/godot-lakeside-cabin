@@ -3,6 +3,7 @@ extends SceneTree
 
 const Hud = preload("res://scripts/ui/field_hud.gd")
 const Book = preload("res://scripts/ui/settings_book.gd")
+const Stats = preload("res://scripts/foundation/actor_stats.gd")
 var _failures := 0
 
 class Sample extends Resource:
@@ -18,28 +19,31 @@ func _initialize() -> void:
 	call_deferred("_run")
 
 func _run() -> void:
-	for dimensions in [Vector2i(960, 540), Vector2i(320, 180)]:
-		await _page(dimensions, false)
-		await _page(dimensions, true)
+	for dimensions in [Vector2i(960, 540), Vector2i(480, 270), Vector2i(320, 180)]:
+		for kind in ["inventory", "settings"]:
+			await _page(dimensions, kind)
 	if _failures == 0:
 		print("paper_edge_checks: PASS")
 	quit(0 if _failures == 0 else 1)
 
-func _page(dimensions: Vector2i, settings: bool) -> void:
+func _page(dimensions: Vector2i, kind: String) -> void:
 	var viewport := SubViewport.new()
 	viewport.size = dimensions
 	viewport.transparent_bg = true
 	viewport.disable_3d = true
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(viewport)
-	var ui: Control = Book.new() if settings else Hud.new()
+	var ui: Control = Book.new() if kind == "settings" else Hud.new()
 	viewport.add_child(ui)
-	if settings:
+	if kind == "settings":
 		ui.open_book(true)
 	else:
-		ui.show_inventory({"item.test": 2}, Sample.new())
-	var panel := ui.get_node_or_null("Shade/Page" if settings else "InventoryOverlay/Parchment") as Control
-	var context := "%s %sx%s" % ["settings" if settings else "inventory", dimensions.x, dimensions.y]
+		ui.actor_sheet.bind(Stats.new())
+		const State := preload("res://scripts/foundation/world_state.gd")
+		ui.show_inventory({"item.spear": 1}, State.DEFINITIONS, 3.0, {"main_hand": "item.sword"}, State.EQUIPMENT_SLOTS)
+	var panel: Control = ui.get_node(
+		"Shade/Page" if kind == "settings" else "InventoryOverlay/Parchment")
+	var context := "%s %sx%s" % [kind, dimensions.x, dimensions.y]
 	if panel == null:
 		_check(false, context + ": missing page")
 		viewport.queue_free()
@@ -64,7 +68,7 @@ func _page(dimensions: Vector2i, settings: bool) -> void:
 			_edge(live, shade, bounds, edge, context)
 		_check(_solid(live, bounds.grow_individual(-bounds.size.x * 0.18, -bounds.size.y * 0.20,
 			-bounds.size.x * 0.18, -bounds.size.y * 0.20)), context + ": continuous opaque core")
-		_controls(live, panel, bounds, settings, context)
+		_controls(live, panel, bounds, kind, context)
 	else:
 		_check(false, context + ": page must fit inside viewport")
 	viewport.queue_free()
@@ -116,8 +120,9 @@ func _solid(image: Image, area: Rect2) -> bool:
 				gaps += 1
 	return count > 0 and gaps == 0
 
-func _controls(image: Image, panel: Control, bounds: Rect2, settings: bool, context: String) -> void:
-	var names := ["Save", "Load", "Bindings", "Resume"] if settings else ["Close", "Items", "Description"]
+func _controls(image: Image, panel: Control, bounds: Rect2, kind: String, context: String) -> void:
+	var names := ["Save", "Load", "Bindings", "Resume"] if kind == "settings" else ["Close"]
+	if kind == "inventory": names.append_array(["Items", "Description", "Attributes", "Slot_main_hand", "EquipmentAction"])
 	for id in names:
 		_check(panel.get_node_or_null(NodePath(id)) is Control, context + ": expected control " + id)
 	for child in panel.get_children():
@@ -132,8 +137,9 @@ func _controls(image: Image, panel: Control, bounds: Rect2, settings: bool, cont
 			var font: Font = child.get_theme_font("font")
 			var font_size: int = child.get_theme_font_size("font_size")
 			if not child is Label or child.autowrap_mode == TextServer.AUTOWRAP_OFF:
-				_check(font.get_string_size(child.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= child.size.x + 1.0,
-					context + ": text fits " + str(child.name))
+				for line in child.text.split("\n"):
+					_check(font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= child.size.x + 1.0,
+						context + ": text fits " + str(child.name))
 
 func _check(condition: bool, description: String) -> void:
 	if not condition:

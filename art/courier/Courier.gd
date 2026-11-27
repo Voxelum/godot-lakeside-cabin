@@ -115,3 +115,24 @@ func _solve(i: int, target: Vector3, boot_pitch: float) -> void:
 	thighs[i].rotation.x = -(aim + hip_offset)
 	calves[i].rotation.x = bend
 	boots[i].rotation.x = boot_pitch - thighs[i].rotation.x - bend
+
+const CombatMotion := preload("res://scripts/foundation/combat_motion.gd")
+const CombatProps := preload("res://scripts/foundation/combat_props.gd")
+var _combat_props: CombatProps
+
+func drive_combat(action: StringName, progress: float, direction: Vector3, weapon: StringName, drawn: bool) -> void:
+	if _combat_props == null:
+		_combat_props = CombatProps.new()
+		_combat_props.bind(arms[1], hips, Vector3(.02, -.49, .10))
+	_combat_props.show_weapon(weapon, drawn)
+	hips.rotation = Vector3.ZERO
+	reset_pose(direction)
+	if action == &"idle": return
+	var pose := CombatMotion.sample(action, progress)
+	var whole_body := action in [&"roll", &"down"]
+	if whole_body:
+		hips.rotation.x = pose.x
+		hips.position.y -= .35 * (sin(PI * progress) if action == &"roll" else progress)
+	chest.rotation = Vector3(0.0 if whole_body else pose.x, pose.y, 0)
+	arms[0].rotation.x = pose.w
+	arms[1].rotation.x = pose.z

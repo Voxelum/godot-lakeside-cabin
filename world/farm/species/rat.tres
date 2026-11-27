@@ -1,0 +1,20 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/GiantRat.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"giant_rat"
+title = "巨鼠"
+coats = PackedStringArray("井边巨鼠", "菌背鼠", "补耳鼠")
+body_names = PackedStringArray("GiantRat", "Loamcap", "PatchEar")
+model_scene = ExtResource("Body")
+health = 16
+power = 3
+armor = 0
+speed = 2.85
+reach = 1.05
+notice = 3.40
+windup = 0.38
+recovery = 0.72
+soil = Color(0.59, 0.44, 0.32, 1)
+cue_height = 1.14

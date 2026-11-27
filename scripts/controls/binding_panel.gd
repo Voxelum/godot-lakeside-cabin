@@ -4,7 +4,12 @@ signal closed
 
 const Store = preload("res://scripts/controls/binding_store.gd")
 const Paper := preload("res://scripts/ui/parchment.gd")
-const LABELS := ["左移", "右移", "前进", "后退", "奔跑", "攻击", "使用", "背包", "绑定设置"]
+const UI := preload("res://scripts/ui/ui_layout.gd")
+var _ui: UI
+var _scroll: ScrollContainer
+var _page: PanelContainer
+const PAGE := Vector2(414, 328)
+const LABELS := ["左移", "右移", "前进", "后退", "奔跑", "攻击", "使用 / 对话", "防御", "翻滚", "拔刀 / 收刀", "背包", "绑定设置"]
 const AXIS_CAPTURE := 0.65
 const AXIS_NEUTRAL := 0.25
 
@@ -29,7 +34,10 @@ func _ready() -> void:
 	_capture_timeout.one_shot = true
 	_capture_timeout.timeout.connect(_cancel_capture)
 	add_child(_capture_timeout)
+	_ui = UI.attach(self)
 	_build()
+	_ui.changed.connect(_layout)
+	_layout()
 	_refresh()
 	hide()
 
@@ -41,6 +49,7 @@ func open_panel() -> void:
 	_refresh()
 	_status.text = _notice if not _notice.is_empty() else "选择要改绑的设备列，修改后自动保存。Esc 返回手册。"
 	_close.grab_focus()
+	_scroll.scroll_vertical = 0
 
 func close_panel() -> void:
 	if not visible:
@@ -59,55 +68,69 @@ func _build() -> void:
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(shade)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var scroll := ScrollContainer.new()
-	scroll.follow_focus = true
-	add_child(scroll)
-	scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var center := CenterContainer.new()
-	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	center.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.add_child(center)
-	var paper_page := PanelContainer.new()
-	center.add_child(paper_page)
+	_page = PanelContainer.new()
+	add_child(_page)
 	var box := VBoxContainer.new()
-	paper_page.add_child(box)
+	_page.add_child(box)
 	var title := Label.new()
-	title.add_theme_font_size_override("font_size", 17)
+	UI.ink(title, UI.TITLE)
 	title.text = "旅途手册   /   操控改绑"
 	box.add_child(title)
+	# Scroll just the action list; confirmation/status and return stay reachable.
+	_scroll = ScrollContainer.new()
+	_scroll.follow_focus = true
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	box.add_child(_scroll)
 	var grid := GridContainer.new()
 	grid.columns = 3
-	box.add_child(grid)
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_scroll.add_child(grid)
 	for text in ["动作", "键鼠", "手柄"]:
 		var heading := Label.new()
+		UI.ink(heading, UI.AUX)
 		heading.text = text
 		grid.add_child(heading)
 	for i in Store.ACTIONS.size():
 		var action: StringName = Store.ACTIONS[i]
 		var label := Label.new()
+		UI.ink(label, UI.BODY)
 		label.text = LABELS[i]
 		grid.add_child(label)
 		var pair := []
 		for pad in [false, true]:
 			var button := Button.new()
+			UI.ink(button, UI.AUX)
 			button.custom_minimum_size.x = 96
+			button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 			button.pressed.connect(_begin.bind(action, pad))
 			grid.add_child(button)
 			pair.append(button)
 		_buttons[action] = pair
 	_status = Label.new()
+	UI.ink(_status, UI.AUX)
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_status.custom_minimum_size.y = 32
 	box.add_child(_status)
 	var tools := HBoxContainer.new()
 	box.add_child(tools)
 	var reset := Button.new()
+	UI.ink(reset, UI.BODY)
 	reset.text = "恢复默认"
 	reset.pressed.connect(_restore)
 	tools.add_child(reset)
 	_close = Button.new()
+	UI.ink(_close, UI.BODY)
 	_close.text = "返回手册"
 	_close.pressed.connect(close_panel)
 	tools.add_child(_close)
+	var last: Button = _buttons[Store.ACTIONS[-1]][1]
+	_close.focus_neighbor_top = _close.get_path_to(last)
+	last.focus_neighbor_bottom = last.get_path_to(_close)
+
+func _layout() -> void:
+	_ui.place(_page, Rect2(UI.SAFE.get_center() - PAGE * .5, PAGE))
 
 func _refresh() -> void:
 	for action in Store.ACTIONS:

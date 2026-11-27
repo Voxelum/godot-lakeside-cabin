@@ -1,0 +1,33 @@
+{
+  "building_id": "clearing.market_court.guild", "room_id": "place.guild", "kind": "town", "sign": "guild",
+  "size": [8.44, 7.00], "center": [0, -0.51], "wall_thickness": 0.25, "wall_panel": "masonry_plinth",
+  "floors": [0, 2.88], "slab_thickness": 0.22, "stoop_rise": 0.36, "stoop_run": 1.06, "stoop_landing": 1.12,
+  "eave_height": 5.14, "roof_rise": 2.58, "roof_profile": "steep", "ridge_axis": "x",
+  "chimney": "none", "seed": 72319, "entry_style": "double", "floor_finish": "flags", "upper_floor_finish": "boards",
+  "style": {"facade":"d6bf96", "timber":"60442f", "stone":"9a998d", "roof":"465c7a", "fascia":"735239", "door":"845c3a", "lining":"dbc39a", "interior_timber":"705039", "floor":"ae9474", "shutter":"425d77", "window_trim":"86623e", "glass":"d7bc82"},
+  "portico": {"width":4.54, "steps_width":4.38, "columns":1.77, "project":1.19, "roof":2.79},
+  "front_roof": [
+    {"id":"west_dormer", "u":-2.67, "width":1.37, "setback":0.44, "shoulder":6.27, "peak":6.94,
+     "window":{"width":0.87,"base":5.78,"height":0.42}},
+    {"id":"guild_gable", "u":0, "width":3.26, "setback":-0.42, "shoulder":5.26, "peak":7.25},
+    {"id":"east_dormer", "u":2.67, "width":1.37, "setback":0.44, "shoulder":6.27, "peak":6.94,
+     "window":{"width":0.87,"base":5.78,"height":0.42}}
+  ],
+  "openings": [
+    {"id":"guild_door", "kind":"door", "side":"south", "u":0, "floor":0, "sill":0, "width":1.86, "height":2.39},
+    {"id":"waiting_light", "kind":"window", "side":"south", "u":-3.04, "floor":0, "sill":0.88, "width":1.18, "height":1.17, "component":"casement"},
+    {"id":"office_light", "kind":"window", "side":"south", "u":3.04, "floor":0, "sill":0.88, "width":1.18, "height":1.17, "component":"casement"},
+    {"id":"lobby_west", "kind":"window", "side":"west", "u":0.72, "floor":0, "sill":0.93, "width":1.52, "height":1.14, "component":"triplet"},
+    {"id":"stair_light", "kind":"window", "side":"east", "u":-0.12, "floor":0, "sill":1.13, "width":1.48, "height":1.08, "component":"triplet"},
+    {"id":"registry_light", "kind":"window", "side":"north", "u":-0.21, "floor":0, "sill":1.12, "width":1.70, "height":1.05, "component":"triplet"},
+    {"id":"council_a", "kind":"window", "side":"south", "u":-2.66, "floor":1, "sill":0.67, "width":1.50, "height":1.18, "component":"shuttered_triplet"},
+    {"id":"council_b", "kind":"window", "side":"south", "u":2.66, "floor":1, "sill":0.67, "width":1.50, "height":1.18, "component":"shuttered_triplet"},
+    {"id":"council_west", "kind":"window", "side":"west", "u":0.01, "floor":1, "sill":0.73, "width":1.64, "height":1.17, "component":"triplet"},
+    {"id":"council_east", "kind":"window", "side":"east", "u":-0.82, "floor":1, "sill":0.79, "width":1.56, "height":1.13, "component":"triplet"},
+    {"id":"council_north", "kind":"window", "side":"north", "u":0.80, "floor":1, "sill":0.98, "width":1.58, "height":1.10, "component":"triplet"}
+  ],
+  "stairs": {
+    "x": -0.78, "width": 1.46, "bottom_z": -1.57, "top_z": -5.42, "steps": 16,
+    "opening": {"min_x": -1.55, "max_x": 0, "min_z": -5.42, "max_z": -1.46}
+  }
+}

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Goblin.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"fern_goblin"
+title = "哥布林"
+coats = PackedStringArray("蕨林斥候", "铜冠矛兵", "荆兜护手")
+body_names = PackedStringArray("FernGoblin", "CopperPike", "BriarBuckler")
+model_scene = ExtResource("Body")
+health = 24
+power = 6
+armor = 1
+speed = 2.42
+reach = 1.36
+notice = 4.8
+windup = 0.47
+recovery = 0.94
+soil = Color(0.62, 0.52, 0.35, 1)
+cue_height = 1.92

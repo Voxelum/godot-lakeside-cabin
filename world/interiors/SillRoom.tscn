@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/SillHouseStructure.scn" id="Structure"]
+[ext_resource type="PackedScene" path="res://world/interiors/ParlorBench.tscn" id="ParlorBench"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/Cot.tscn" id="Cot"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/DiningChair.tscn" id="DiningChair"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/DiningTable.tscn" id="DiningTable"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/MendingDesk.tscn" id="MendingDesk"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/LinenScreen.tscn" id="LinenScreen"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockCrate.tscn" id="StockCrate"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockRack.tscn" id="StockRack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/WovenMat.tscn" id="WovenMat"]
+
+[node name="SillRoom" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="DiningTable1" parent="Furnishing" instance=ExtResource("DiningTable")]
+position = Vector3(-1.44, 0, -0.93)
+rotation_degrees = Vector3(0, 0, 0)
+
+[node name="DiningChair1" parent="Furnishing" instance=ExtResource("DiningChair")]
+position = Vector3(-1.46, 0, 0.16)
+rotation_degrees = Vector3(0, 0, 0)
+
+[node name="DiningChair2" parent="Furnishing" instance=ExtResource("DiningChair")]
+position = Vector3(-1.46, 0, -2.06)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="VisitorSeat" parent="Furnishing" instance=ExtResource("ParlorBench")]
+position = Vector3(0.02, 0, -1.82)
+
+[node name="ParlorMat" parent="Furnishing" instance=ExtResource("WovenMat")]
+position = Vector3(-1.44, 0, -0.92)
+rotation_degrees = Vector3(0, 90, 0)
+
+
+[node name="Loft" type="Node3D" parent="Furnishing"]
+
+[node name="Cot1" parent="Furnishing/Loft" instance=ExtResource("Cot")]
+position = Vector3(-1.28, 0, -0.62)
+
+[node name="SleepScreen" parent="Furnishing/Loft" instance=ExtResource("LinenScreen")]
+position = Vector3(-1.48, 0, 0.5)
+
+[node name="MendingDesk" parent="Furnishing/Loft" instance=ExtResource("MendingDesk")]
+position = Vector3(-0.54, 0, 2.92)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="LinenShelf" parent="Furnishing/Loft" instance=ExtResource("StockRack")]
+position = Vector3(-1.26, 0, -1.92)
+rotation_degrees = Vector3(0, 0, 0)
+
+[node name="LinenChest" parent="Furnishing/Loft" instance=ExtResource("StockCrate")]
+position = Vector3(-1.45, 0, 1.59)
+rotation_degrees = Vector3(0, 10, 0)

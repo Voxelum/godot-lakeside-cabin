@@ -1,6 +1,6 @@
-extends Node3D
-## A short readable idle / moving / signature cycle on the habitat floor. No
-## character, target, attack, health, save entry, hitbox or pursuit is created.
+extends "res://art/field_cast/field_body.gd"
+## Short, local habitat movements only. Neither player proximity nor an attack
+## event starts a clip. The authored Rig translation belongs to the body here.
 const Survey := preload("res://world/outskirts/outskirts_profile.gd")
 const SIGNATURES := [&"rebound", &"feint", &"pounce"]
 const MOVE_AT := 1.85
@@ -12,47 +12,62 @@ const PERIOD := 8.0
 @export var step_radius := .44
 @onready var model: Node3D = get_child(0)
 @onready var animator: AnimationPlayer = model.get_node("AnimationPlayer")
+@onready var visual_rig: Node3D = model.get_node("Rig")
 var clock := 0.0
 var home: Transform3D
 
 func _ready() -> void:
-	home = model.transform
+	super._ready()
+	home = global_transform
 	_ground_facing_pigments()
 	animator.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	clock = phase_offset
 	pose_at(clock)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var vp := get_viewport() as SubViewport
 	if vp and vp.render_target_update_mode == SubViewport.UPDATE_DISABLED:
 		return
-	clock = fposmod(clock+delta,PERIOD)
-	pose_at(clock)
+	clock = fposmod(clock + delta, PERIOD)
+	var target := _sample(clock)
+	try_yaw(lerp_angle(global_rotation.y, target.basis.get_euler().y, minf(1., delta * 8.)))
+	move_to_mark(target.origin, delta * 3.8)
 
 func pose_at(phase: float) -> void:
-	model.transform = home
-	var clip: StringName = &"idle"
+	# Explicit frame placement for startup and the existing render review only.
+	global_transform = _sample(phase)
+
+func _sample(phase: float) -> Transform3D:
+	var facing := home.basis
+	var point := home.origin
+	var clip := &"idle"
 	var elapsed := phase
 	if phase >= MOVE_AT and phase < SIGNATURE_AT:
 		clip = &"move"
-		elapsed = phase-MOVE_AT
-		var a := TAU*elapsed/(SIGNATURE_AT-MOVE_AT)
-		model.position += home.basis * Vector3((1.0-cos(a))*.63,0.,sin(a)) * step_radius
-		model.rotate_y(a)
+		elapsed = phase - MOVE_AT
+		var a := TAU * elapsed / (SIGNATURE_AT - MOVE_AT)
+		point += home.basis * Vector3((1.0 - cos(a)) * .63, 0., sin(a)) * step_radius
+		facing = facing.rotated(Vector3.UP, a)
 	elif phase >= SIGNATURE_AT:
-		elapsed = phase-SIGNATURE_AT
+		elapsed = phase - SIGNATURE_AT
 		var signature: StringName = SIGNATURES[species]
 		var duration := animator.get_animation(signature).length
 		if elapsed < duration:
 			clip = signature
 		else:
 			elapsed -= duration
-	var p := model.global_position
-	model.global_position.y = Survey.surface(Survey.xz(p))+.008
 	var animation := animator.get_animation(clip)
+	var timestamp := fposmod(elapsed, animation.length) if animation.loop_mode != Animation.LOOP_NONE else elapsed
 	if animator.current_animation != clip:
 		animator.play(clip)
-	animator.seek(fposmod(elapsed,animation.length) if animation.loop_mode != Animation.LOOP_NONE else elapsed,true)
+	animator.seek(timestamp, true)
+	var authored_motion := facing * visual_rig.position
+	# The same swept transform raises the collision and the visible jelly (or
+	# advances the wolf). Local squash/limb/tilt tracks stay on the visual rig.
+	visual_rig.position = Vector3.ZERO
+	point += authored_motion.slide(Vector3.UP)
+	point.y = Survey.surface(Survey.xz(point)) + .014 + authored_motion.y
+	return Transform3D(facing,point)
 
 func _ground_facing_pigments() -> void:
 	# Only the Clearing instances get the matte reed glaze, fern skin and stone

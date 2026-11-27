@@ -53,6 +53,9 @@ func frame(p: Vector2, height: float, hour: float, focus: Variant = null) -> voi
 		orbit._apply()
 
 func save(label: String, image: Image) -> void:
+	if out.is_empty():
+		check(image.get_size() == field.size, label + " native frame")
+		return
 	var path := out.path_join(label + ".png")
 	check(image.get_size() == field.size and not FileAccess.file_exists(path) and image.save_png(path) == OK, "save " + path)
 
@@ -65,8 +68,8 @@ func _run() -> void:
 	for arg in args:
 		if arg.begins_with("--output="):
 			out = arg.trim_prefix("--output=")
-	if out.is_empty() or DirAccess.dir_exists_absolute(out) or DirAccess.make_dir_recursive_absolute(out) != OK:
-		printerr("Provide --output=<new directory> after --; no captures are overwritten.")
+	if (out.is_empty() and not "--checks-only" in args) or (not out.is_empty() and (DirAccess.dir_exists_absolute(out) or DirAccess.make_dir_recursive_absolute(out) != OK)):
+		printerr("Provide --checks-only or --output=<new directory> after --; no captures are overwritten.")
 		quit(2)
 		return
 	var token := Crypto.new().generate_random_bytes(16).hex_encode()
@@ -96,7 +99,7 @@ func _run() -> void:
 		for item in VISITS:
 			frame(item[1], Survey.surface(item[1]), item[2])
 			save(item[0],await grab())
-		await _specimens(outskirts.get_node("Habitats"))
+		await _specimens(clearing.get_node("MonsterFarm"))
 		await _facades(outskirts.get_node("Lots"))
 	print("clearing_render_checks: ", failures, " failures; native ", field.size, "; ", out)
 	quit(int(failures != 0))
@@ -116,26 +119,30 @@ func _mask_positions(marked: Image) -> PackedVector2Array:
 				points.append(Vector2(x,y))
 	return points
 
-func _specimens(habitats: Node3D) -> void:
+func _specimens(farm: Node3D) -> void:
 	var names := ["slime","goblin","wolf"]
 	var matte := _matte()
-	var poses := [0.64, 2.67, 5.39]
-	for i in habitats.get_child_count():
-		var specimen = habitats.get_child(i)
-		specimen.set_process(false)
+	var poses := [.18, .32, .42]
+	farm.set_physics_process(false)
+	for i in names.size():
+		var specimen = farm.pens[i].residents[0].actor
+		# The jelly's authored .34 squash is its held anticipation; .42 is the
+		# in-between as it crosses its ordinary silhouette on the way up.
+		poses[2] = .34 if i==0 else .42
+		specimen.set_physics_process(false)
 		var model: Node3D = specimen.model
 		var parts := model.find_children("*", "MeshInstance3D", true, false)
 		var field_inks: Array[Material] = []
 		for part: MeshInstance3D in parts:
 			field_inks.append(part.material_override)
-		var perch: Vector2 = Survey.PULLOUTS[i]
+		var perch: Vector2 = farm.pens[i].gate + Vector2(.66,.49)
 		for hour in [14.0,18.66667]:
 			var suffix := "day" if hour==14.0 else "dusk"
 			frame(perch, Survey.surface(perch), hour)
 			var still_pixels := {}
 			var signature_change := 0.0
 			for j in poses.size():
-				specimen.pose_at(poses[j])
+				specimen.set_display_pose([&"idle", &"move", specimen.signature()][j],poses[j])
 				var rendered := await grab()
 				if j == 2:
 					save(names[i]+"-"+suffix,rendered)
@@ -177,6 +184,11 @@ func _facades(lots: Node3D) -> void:
 	for i in lots.get_child_count():
 		var lot = lots.get_child(i)
 		var where: Vector2 = VISITS[0 if i<3 else 4][1]
+		if lot.name == &"Blacksmith" or String(lot.lot_id).begins_with("clearing.market_court."):
+			var approach: Marker3D = lot.marker("Approach")
+			# Test the road serving this lot: the later Inn/Guild cannot be seen
+			# through the first row of houses from the old Stone Street station.
+			where = Survey.nearest_on(Survey.xz(approach.global_position),Survey.ROUTE if lot.name==&"Blacksmith" else Survey.MARKET_ROUTE)
 		frame(where,Survey.surface(where),14.0)
 		lot.mesh_view.material_override = matte
 		var mask := _mask_positions(await grab())

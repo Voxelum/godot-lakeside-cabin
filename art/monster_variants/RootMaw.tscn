@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://art/monster_variants/specimen.gd" id="Specimen"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.32
+height = 1.03
+
+[node name="RootMaw" type="CharacterBody3D"]
+script = ExtResource("Specimen")
+body_shape = SubResource("Body")
+body_center = Vector3(0, 0.515, 0.058)
+species = 5

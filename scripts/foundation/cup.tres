@@ -9,4 +9,5 @@ definition_id = "item.cup"
 title = "茶杯"
 description = "小屋餐桌上的茶杯。"
 rarity = 1
+unit_weight_kg = 0.25
 icon = ExtResource("2")

@@ -1,0 +1,68 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="wood"]
+albedo_color = Color(0.60, 0.41, 0.27, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="clay"]
+albedo_color = Color(0.74, 0.43, 0.30, 1)
+roughness = 0.93
+
+[sub_resource type="StandardMaterial3D" id="soil"]
+albedo_color = Color(0.36, 0.26, 0.20, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="seed"]
+albedo_color = Color(0.82, 0.66, 0.38, 1)
+roughness = 0.96
+
+[sub_resource type="BoxMesh" id="tray"]
+material = SubResource("wood")
+size = Vector3(0.86, 0.06, 0.45)
+
+[sub_resource type="CylinderMesh" id="pot"]
+material = SubResource("clay")
+top_radius = 0.105
+bottom_radius = 0.072
+height = 0.15
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="soilTop"]
+material = SubResource("soil")
+top_radius = 0.091
+bottom_radius = 0.091
+height = 0.01
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxMesh" id="seedPacket"]
+material = SubResource("seed")
+size = Vector3(0.15, 0.037, 0.21)
+
+[node name="SeedTray" type="Node3D"]
+
+[node name="Tray" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("tray")
+
+[node name="PotLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.25, 0.135, -0.07)
+mesh = SubResource("pot")
+
+[node name="SoilLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.25, 0.21, -0.07)
+mesh = SubResource("soilTop")
+
+[node name="PotCenter" type="MeshInstance3D" parent="."]
+position = Vector3(0.04, 0.135, 0.06)
+mesh = SubResource("pot")
+
+[node name="SoilCenter" type="MeshInstance3D" parent="."]
+position = Vector3(0.04, 0.21, 0.06)
+mesh = SubResource("soilTop")
+
+[node name="SeedPacket" type="MeshInstance3D" parent="."]
+position = Vector3(0.27, 0.079, 0.036)
+rotation_degrees = Vector3(0, -13, 0)
+mesh = SubResource("seedPacket")

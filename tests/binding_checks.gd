@@ -47,8 +47,9 @@ func _run() -> void:
 	panel.open_panel()
 	await process_frame
 	await process_frame
-	var scroll := panel.find_children("*", "ScrollContainer", false, false)[0] as ScrollContainer
-	check(panel.size == Vector2(320, 180) and scroll.get_v_scroll_bar().visible, "320x180 modal does not scroll")
+	var scroll := panel._scroll
+	check(panel.size == Vector2(320, 180) and scroll.get_v_scroll_bar().visible, "320x180 action rows scroll")
+	check(panel._close.has_focus() and not scroll.get_global_rect().intersects(panel._close.get_global_rect()), "return button stays visible outside scrolling rows")
 	panel._begin(&"walk_left", false)
 	check(panel.handle_modal_input(key(KEY_F5)), "reserved key leaked")
 	check(panel.handle_modal_input(key(KEY_F6)), "reserved key leaked")

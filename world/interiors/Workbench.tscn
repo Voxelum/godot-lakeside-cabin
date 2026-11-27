@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.68, 0.87, 0.74)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leg00"]
+material = SubResource("Material_dark")
+size = Vector3(0.105, 0.81, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="Material_ash"]
+albedo_color = Color(0.7176, 0.5961, 0.4471, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Top"]
+material = SubResource("Material_ash")
+size = Vector3(1.68, 0.11, 0.74)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_BackApron"]
+material = SubResource("Material_oak")
+size = Vector3(1.5, 0.2, 0.1)
+
+[sub_resource type="BoxMesh" id="Mesh_Drawer"]
+material = SubResource("Material_oak")
+size = Vector3(0.64, 0.15, 0.16)
+
+[sub_resource type="BoxMesh" id="Mesh_DrawerPull"]
+material = SubResource("Material_dark")
+size = Vector3(0.21, 0.045, 0.065)
+
+[sub_resource type="BoxMesh" id="Mesh_BottomDeck"]
+material = SubResource("Material_oak")
+size = Vector3(1.49, 0.075, 0.55)
+
+[node name="Workbench" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.435, 0)
+shape = SubResource("Footprint")
+
+[node name="Leg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.71, 0.405, -0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.71, 0.405, 0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.71, 0.405, -0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.71, 0.405, 0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.82, 0)
+mesh = SubResource("Mesh_Top")
+
+[node name="BackApron" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.68, -0.28)
+mesh = SubResource("Mesh_BackApron")
+
+[node name="Drawer" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.69, 0.24)
+mesh = SubResource("Mesh_Drawer")
+
+[node name="DrawerPull" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.695, 0.33)
+mesh = SubResource("Mesh_DrawerPull")
+
+[node name="BottomDeck" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.23, 0)
+mesh = SubResource("Mesh_BottomDeck")

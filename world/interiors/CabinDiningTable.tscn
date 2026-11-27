@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/CabinTableSetting.tscn" id="Setting"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/DiningTable.tscn" id="Table"]
+
+[node name="Dining" instance=ExtResource("Table")]
+
+[node name="CabinSetting" parent="Tabletop" instance=ExtResource("Setting")]
+position = Vector3(0, 0, 0)

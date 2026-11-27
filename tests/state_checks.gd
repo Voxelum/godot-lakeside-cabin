@@ -49,8 +49,21 @@ func _initialize() -> void:
 	if baseline is Dictionary:
 		check(baseline.world_changes == {CHEST: {"remaining": 0}}, "persist instance field patch")
 		check(baseline.stocks == {State.BANK: 7, State.RISE: 5}, "persist both route endpoints")
+		for version in [1, State.VERSION]:
+			var legacy: Dictionary = baseline.duplicate(true)
+			legacy.erase("equipment")
+			legacy.version = version
+			if version == 1: legacy.erase("player_stats")
+			var migrated := State.new()
+			_write(path, var_to_bytes(legacy))
+			check(migrated.load_slot(path).is_empty() and migrated.equipment.is_empty(), "old slot loads with empty equipment")
+			migrated.grant_test_weapons()
+			check(migrated.equip("main_hand", "item.sword") and migrated.equip("main_hand", "item.spear"), "weapon replacement succeeds")
+			migrated.grant_test_weapons()
+			check(migrated.inventory.get("item.sword") == 1 and not migrated.inventory.has("item.spear"), "migration preserves ownership")
 		var invalid := [
-			{"version": 2}, {"position": Vector3(INF, 0, 0)}, {"inventory": {ITEM: 3.0}},
+			{"equipment": {"off_hand": "item.sword"}}, {"equipment": {"main_hand": "item.cup"}}, {"equipment": []},
+			{"version": 99}, {"position": Vector3(INF, 0, 0)}, {"inventory": {ITEM: 3.0}},
 			{"extra": 1}, {"location_id": "place.other"},
 			{"world_changes": {CHEST: {"remaining": -1}}},
 			{"world_changes": {CHEST: 0}},

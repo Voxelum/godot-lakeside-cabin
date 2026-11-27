@@ -1,0 +1,18 @@
+{
+  "building_id": "clearing.lakeside.cottage", "room_id": "place.cabin", "kind": "cabin",
+  "size": [6.28, 5.08], "center": [-0.09, -0.09], "wall_thickness": 0.14,
+  "wall_panel":"plaster_posts", "floors": [0], "slab_thickness": 0.16,
+  "stoop_rise": 0.232, "stoop_landing": 0.41, "stoop_run": 0.87,
+  "eave_height": 2.86, "roof_rise": 2.28, "roof_profile": "sweep", "ridge_axis": "z",
+  "chimney": "cabin", "seed": 19129, "entry_style": "arched", "floor_finish": "boards",
+  "style": {"facade":"dfc9a6", "timber":"704837", "stone":"ab8470", "roof":"ab5f4c", "door":"3e7373", "lining":"d4bf9e", "interior_timber":"6e4a37", "floor":"ae8059", "shutter":"728465", "window_trim":"9b724d", "glass":"90aaaa", "fascia":"824b48"},
+  "openings": [
+    {"id":"front_door", "kind":"door", "side":"south", "u":-0.36, "floor":0, "sill":0, "width":1.27, "height":2.04},
+    {"id":"parlor", "kind":"window", "side":"south", "u":-2.19, "floor":0, "sill":0.91, "width":0.86, "height":0.96, "component":"shuttered_casement"},
+    {"id":"kitchen", "kind":"window", "side":"south", "u":1.85, "floor":0, "sill":0.91, "width":1.08, "height":1.05, "component":"shuttered_casement"},
+    {"id":"east_near", "kind":"window", "side":"east", "u":-1.13, "floor":0, "sill":0.88, "width":0.94, "height":1.04, "component":"shuttered_casement"},
+    {"id":"east_back", "kind":"window", "side":"east", "u":0.96, "floor":0, "sill":0.93, "width":0.89, "height":0.98, "component":"casement"},
+    {"id":"west_small", "kind":"window", "side":"west", "u":0.54, "floor":0, "sill":0.94, "width":0.67, "height":0.88, "component":"shuttered_casement"},
+    {"id":"gable_light", "kind":"window", "side":"south", "u":0, "floor":0, "sill":3.17, "width":0.76, "height":0.68, "gable":true, "component":"casement"}
+  ]
+}

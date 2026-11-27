@@ -1,0 +1,108 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.48, 1.43, 0.34)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Stile0"]
+material = SubResource("Material_oak")
+size = Vector3(0.082, 1.46, 0.093)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Foot0"]
+material = SubResource("Material_dark")
+size = Vector3(0.116, 0.093, 0.34)
+
+[sub_resource type="StandardMaterial3D" id="Material_linen"]
+albedo_color = Color(0.8000, 0.7020, 0.5255, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Panel0"]
+material = SubResource("Material_linen")
+size = Vector3(0.622, 1.17, 0.064)
+
+[sub_resource type="StandardMaterial3D" id="Material_cream"]
+albedo_color = Color(0.8784, 0.8196, 0.6784, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Stipple00"]
+material = SubResource("Material_cream")
+size = Vector3(0.066, 1.16, 0.009)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Rail0"]
+material = SubResource("Material_edge")
+size = Vector3(1.45, 0.088, 0.108)
+
+[node name="LinenScreen" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.715, 0)
+shape = SubResource("Footprint")
+
+[node name="Stile0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.69, 0.73, 0)
+mesh = SubResource("Mesh_Stile0")
+
+[node name="Foot0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.69, 0.047, 0)
+mesh = SubResource("Mesh_Foot0")
+
+[node name="Stile1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.73, 0)
+mesh = SubResource("Mesh_Stile0")
+
+[node name="Foot1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.047, 0)
+mesh = SubResource("Mesh_Foot0")
+
+[node name="Stile2" type="MeshInstance3D" parent="."]
+position = Vector3(0.69, 0.73, 0)
+mesh = SubResource("Mesh_Stile0")
+
+[node name="Foot2" type="MeshInstance3D" parent="."]
+position = Vector3(0.69, 0.047, 0)
+mesh = SubResource("Mesh_Foot0")
+
+[node name="Panel0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.35, 0.76, 0)
+mesh = SubResource("Mesh_Panel0")
+
+[node name="Stipple00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.54, 0.76, 0.038)
+mesh = SubResource("Mesh_Stipple00")
+
+[node name="Stipple01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.16, 0.76, 0.038)
+mesh = SubResource("Mesh_Stipple00")
+
+[node name="Panel1" type="MeshInstance3D" parent="."]
+position = Vector3(0.35, 0.76, 0)
+mesh = SubResource("Mesh_Panel0")
+
+[node name="Stipple10" type="MeshInstance3D" parent="."]
+position = Vector3(0.16, 0.76, 0.038)
+mesh = SubResource("Mesh_Stipple00")
+
+[node name="Stipple11" type="MeshInstance3D" parent="."]
+position = Vector3(0.54, 0.76, 0.038)
+mesh = SubResource("Mesh_Stipple00")
+
+[node name="Rail0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.19, 0)
+mesh = SubResource("Mesh_Rail0")
+
+[node name="Rail1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.36, 0)
+mesh = SubResource("Mesh_Rail0")

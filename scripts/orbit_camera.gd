@@ -26,7 +26,13 @@ func wanted_focus() -> Vector3:
 	var wide := clampf((size-6.2)/7.2,0.0,1.0)
 	var bias := ((cottage.global_position-p).slide(Vector3.UP)*0.49).limit_length(3.7*wide)
 	var framed_height := lerpf(0.95, 1.89 + maxf(0.0, cottage.global_position.y-p.y), wide)
-	return p + bias + Vector3.UP*framed_height
+	# Keep the original lens and orbit. Beyond the new smith-side gateway, gently
+	# stop aiming metres back at the distant cottage: both rows fit from the aisle.
+	const Park := preload("res://world/farm/farm_layout.gd")
+	var park_weight := smoothstep(26.9, Park.START+.7, p.x) * (1.0-smoothstep(Park.HALF_AISLE+Park.DEPTH, Park.HALF_AISLE+Park.DEPTH+3.0, absf(p.z-Park.AISLE)))
+	# The roadside paddock is below the old cottage-biased frame at the bend.
+	park_weight = maxf(park_weight,1.0-smoothstep(3.,8.,Vector2(p.x,p.z).distance_to(Vector2(4.,22.))))
+	return p + bias*(1.0-park_weight) + Vector3.UP*lerpf(framed_height,lerpf(.95,1.24,wide),park_weight)
 
 func _process(dt: float) -> void:
 	if frozen: return
@@ -53,7 +59,7 @@ func end_drag() -> void:
 func drag_input(event: InputEvent, fitted: Rect2, scale_factor: float) -> bool:
 	if frozen: return false
 	var key := event as InputEventKey
-	if dragging and key and key.keycode == KEY_CTRL and not key.pressed:
+	if dragging and key and (key.keycode == KEY_CTRL or key.physical_keycode == KEY_CTRL) and not key.pressed:
 		end_drag()
 		return true
 	var button := event as InputEventMouseButton

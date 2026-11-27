@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="M0"]
+albedo_color = Color(0.6, 0.44, 0.17, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B0"]
+material = SubResource("M0")
+size = Vector3(1.04, 0.56, 0.67)
+
+[sub_resource type="StandardMaterial3D" id="M1"]
+albedo_color = Color(0.21, 0.12, 0.075, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B1"]
+material = SubResource("M1")
+size = Vector3(0.04, 0.578, 0.69)
+
+[sub_resource type="StandardMaterial3D" id="M2"]
+albedo_color = Color(0.21, 0.12, 0.075, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B2"]
+material = SubResource("M2")
+size = Vector3(0.04, 0.578, 0.69)
+
+[sub_resource type="StandardMaterial3D" id="M3"]
+albedo_color = Color(0.71, 0.55, 0.24, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B3"]
+material = SubResource("M3")
+size = Vector3(0.23, 0.026, 0.018)
+
+[sub_resource type="StandardMaterial3D" id="M4"]
+albedo_color = Color(0.71, 0.55, 0.24, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B4"]
+material = SubResource("M4")
+size = Vector3(0.23, 0.026, 0.018)
+
+[sub_resource type="StandardMaterial3D" id="M5"]
+albedo_color = Color(0.71, 0.55, 0.24, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B5"]
+material = SubResource("M5")
+size = Vector3(0.23, 0.026, 0.018)
+
+[sub_resource type="StandardMaterial3D" id="M6"]
+albedo_color = Color(0.71, 0.55, 0.24, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="B6"]
+material = SubResource("M6")
+size = Vector3(0.23, 0.026, 0.018)
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.05, 0.57, 0.69)
+
+[node name="HayBale" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.285, 0)
+shape = SubResource("Footprint")
+
+[node name="Straw" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.28, 0)
+mesh = SubResource("B0")
+
+[node name="Binding0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.28, 0.28, 0)
+mesh = SubResource("B1")
+
+[node name="Binding1" type="MeshInstance3D" parent="."]
+position = Vector3(0.28, 0.28, 0)
+mesh = SubResource("B2")
+
+[node name="StrawEnd0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.26, 0.15, 0.343)
+mesh = SubResource("B3")
+
+[node name="StrawEnd1" type="MeshInstance3D" parent="."]
+position = Vector3(0.2, 0.24, 0.343)
+mesh = SubResource("B4")
+
+[node name="StrawEnd2" type="MeshInstance3D" parent="."]
+position = Vector3(-0.11, 0.4, 0.343)
+mesh = SubResource("B5")
+
+[node name="StrawEnd3" type="MeshInstance3D" parent="."]
+position = Vector3(0.33, 0.46, 0.343)
+mesh = SubResource("B6")

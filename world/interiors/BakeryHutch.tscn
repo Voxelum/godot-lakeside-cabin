@@ -1,0 +1,320 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.88, 1.88, 0.59)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leg00"]
+material = SubResource("Material_dark")
+size = Vector3(0.105, 1.78, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="Material_teal"]
+albedo_color = Color(0.3255, 0.4706, 0.4275, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_LinenBack"]
+material = SubResource("Material_teal")
+size = Vector3(1.86, 1.72, 0.081)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Shelf0"]
+material = SubResource("Material_oak")
+size = Vector3(1.88, 0.095, 0.59)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Lip0"]
+material = SubResource("Material_edge")
+size = Vector3(1.88, 0.11, 0.046)
+
+[sub_resource type="StandardMaterial3D" id="Material_wheat"]
+albedo_color = Color(0.8431, 0.6667, 0.3373, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_Loaf00"]
+material = SubResource("Material_wheat")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="StandardMaterial3D" id="Material_crumb"]
+albedo_color = Color(0.9373, 0.8314, 0.6039, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Loaf00Score0"]
+material = SubResource("Material_crumb")
+size = Vector3(0.022, 0.015, 0.1536)
+
+[sub_resource type="StandardMaterial3D" id="Material_glaze"]
+albedo_color = Color(0.8078, 0.5569, 0.2902, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_Loaf01"]
+material = SubResource("Material_glaze")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="SphereMesh" id="Mesh_Loaf10"]
+material = SubResource("Material_glaze")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="SphereMesh" id="Mesh_Loaf11"]
+material = SubResource("Material_wheat")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[node name="BakeryHutch" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.94, 0)
+shape = SubResource("Footprint")
+
+[node name="Leg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.86, 0.89, -0.24)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.86, 0.89, 0.24)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.86, 0.89, -0.24)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.86, 0.89, 0.24)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="LinenBack" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.98, -0.25)
+mesh = SubResource("Mesh_LinenBack")
+
+[node name="Shelf0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.19, 0)
+mesh = SubResource("Mesh_Shelf0")
+
+[node name="Lip0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.19, 0.295)
+mesh = SubResource("Mesh_Lip0")
+
+[node name="Loaf00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.55, 0.317, -0.01)
+scale = Vector3(0.41, 0.16, 0.32)
+mesh = SubResource("Mesh_Loaf00")
+
+[node name="Loaf00Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.6361, 0.3858, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf00Score1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5049, 0.3858, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf01" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.317, -0.01)
+scale = Vector3(0.41, 0.16, 0.32)
+mesh = SubResource("Mesh_Loaf01")
+
+[node name="Loaf01Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.0861, 0.3858, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf01Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0451, 0.3858, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf02" type="MeshInstance3D" parent="."]
+position = Vector3(0.55, 0.317, -0.01)
+scale = Vector3(0.41, 0.16, 0.32)
+mesh = SubResource("Mesh_Loaf00")
+
+[node name="Loaf02Score0" type="MeshInstance3D" parent="."]
+position = Vector3(0.4639, 0.3858, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf02Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.5951, 0.3858, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Shelf1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.67, 0)
+mesh = SubResource("Mesh_Shelf0")
+
+[node name="Lip1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.67, 0.295)
+mesh = SubResource("Mesh_Lip0")
+
+[node name="Loaf10" type="MeshInstance3D" parent="."]
+position = Vector3(-0.55, 0.8195, -0.01)
+scale = Vector3(0.36, 0.21, 0.32)
+mesh = SubResource("Mesh_Loaf10")
+
+[node name="Loaf10Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.6256, 0.9098, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf10Score1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5104, 0.9098, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf11" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8195, -0.01)
+scale = Vector3(0.36, 0.21, 0.32)
+mesh = SubResource("Mesh_Loaf11")
+
+[node name="Loaf11Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.0756, 0.9098, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf11Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0396, 0.9098, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf12" type="MeshInstance3D" parent="."]
+position = Vector3(0.55, 0.8195, -0.01)
+scale = Vector3(0.36, 0.21, 0.32)
+mesh = SubResource("Mesh_Loaf11")
+
+[node name="Loaf12Score0" type="MeshInstance3D" parent="."]
+position = Vector3(0.4744, 0.9098, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf12Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.5896, 0.9098, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Shelf2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.14, 0)
+mesh = SubResource("Mesh_Shelf0")
+
+[node name="Lip2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.14, 0.295)
+mesh = SubResource("Mesh_Lip0")
+
+[node name="Loaf20" type="MeshInstance3D" parent="."]
+position = Vector3(-0.55, 1.267, -0.01)
+scale = Vector3(0.41, 0.16, 0.32)
+mesh = SubResource("Mesh_Loaf00")
+
+[node name="Loaf20Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.6361, 1.3358, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf20Score1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5049, 1.3358, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf21" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.267, -0.01)
+scale = Vector3(0.41, 0.16, 0.32)
+mesh = SubResource("Mesh_Loaf00")
+
+[node name="Loaf21Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.0861, 1.3358, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf21Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0451, 1.3358, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf22" type="MeshInstance3D" parent="."]
+position = Vector3(0.55, 1.267, -0.01)
+scale = Vector3(0.41, 0.16, 0.32)
+mesh = SubResource("Mesh_Loaf01")
+
+[node name="Loaf22Score0" type="MeshInstance3D" parent="."]
+position = Vector3(0.4639, 1.3358, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf22Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.5951, 1.3358, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Shelf3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.58, 0)
+mesh = SubResource("Mesh_Shelf0")
+
+[node name="Lip3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.58, 0.295)
+mesh = SubResource("Mesh_Lip0")
+
+[node name="Loaf30" type="MeshInstance3D" parent="."]
+position = Vector3(-0.55, 1.7295, -0.01)
+scale = Vector3(0.36, 0.21, 0.32)
+mesh = SubResource("Mesh_Loaf11")
+
+[node name="Loaf30Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.6256, 1.8198, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf30Score1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.5104, 1.8198, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf31" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.7295, -0.01)
+scale = Vector3(0.36, 0.21, 0.32)
+mesh = SubResource("Mesh_Loaf10")
+
+[node name="Loaf31Score0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.0756, 1.8198, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf31Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.0396, 1.8198, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf32" type="MeshInstance3D" parent="."]
+position = Vector3(0.55, 1.7295, -0.01)
+scale = Vector3(0.36, 0.21, 0.32)
+mesh = SubResource("Mesh_Loaf11")
+
+[node name="Loaf32Score0" type="MeshInstance3D" parent="."]
+position = Vector3(0.4744, 1.8198, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")
+
+[node name="Loaf32Score1" type="MeshInstance3D" parent="."]
+position = Vector3(0.5896, 1.8198, -0.01)
+rotation_degrees = Vector3(0, -24, 0)
+mesh = SubResource("Mesh_Loaf00Score0")

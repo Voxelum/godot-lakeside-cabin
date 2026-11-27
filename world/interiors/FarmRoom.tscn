@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/LimeHouseStructure.scn" id="Structure"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/BootBench.tscn" id="BootBench"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/Cot.tscn" id="Cot"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/DiningChair.tscn" id="DiningChair"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/DiningTable.tscn" id="DiningTable"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/GrainSack.tscn" id="GrainSack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/SeedTray.tscn" id="SeedTray"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockCrate.tscn" id="StockCrate"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockRack.tscn" id="StockRack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/Workbench.tscn" id="Workbench"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/WovenMat.tscn" id="WovenMat"]
+
+[node name="FarmRoom" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="Cot1" parent="Furnishing" instance=ExtResource("Cot")]
+position = Vector3(2.61, 0, -1.33)
+
+[node name="SleepRack" parent="Furnishing" instance=ExtResource("StockRack")]
+position = Vector3(3.21, 0, 0.4)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="BootBench" parent="Furnishing" instance=ExtResource("BootBench")]
+position = Vector3(-3.04, 0, 1.48)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="SeedWorkbench" parent="Furnishing" instance=ExtResource("Workbench")]
+position = Vector3(-2.97, 0, -0.99)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="SeedTray" parent="Furnishing/SeedWorkbench" instance=ExtResource("SeedTray")]
+position = Vector3(-0.15, 0.875, 0.015)
+
+[node name="SeedSack" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(-2.85, 0, -2.03)
+rotation_degrees = Vector3(0, 9, 0)
+
+[node name="SupplyCrate" parent="Furnishing" instance=ExtResource("StockCrate")]
+position = Vector3(2.93, 0, 1.67)
+rotation_degrees = Vector3(0, -14, 0)
+
+[node name="DiningTable1" parent="Furnishing" instance=ExtResource("DiningTable")]
+position = Vector3(0.35, 0, -0.36)
+
+[node name="DiningChair1" parent="Furnishing" instance=ExtResource("DiningChair")]
+position = Vector3(0.35, 0, 0.9)
+
+[node name="DiningChair2" parent="Furnishing" instance=ExtResource("DiningChair")]
+position = Vector3(0.35, 0, -1.59)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="DiningMat" parent="Furnishing" instance=ExtResource("WovenMat")]
+position = Vector3(0.35, 0, -0.36)
+rotation_degrees = Vector3(0, 90, 0)

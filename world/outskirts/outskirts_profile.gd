@@ -33,6 +33,37 @@ const EAST_VERGE := [
 	Vector2(39.80, 72.04), Vector2(37.99, 77.32),
 ]
 
+# Market spur on the dry shoulder behind the old Stone Street. The entrance
+# cuts only the far rail; none of the original walk stations or lot datums move.
+const MARKET_LEVEL := 1.12
+const MARKET_PAD := Rect2(15.0, 80.0, 22.4, 21.3)
+const MARKET_ROUTE := [
+	Vector2(25.43, 74.16), Vector2(25.23, 76.70), Vector2(25.44, 79.43),
+	Vector2(25.73, 82.40), Vector2(25.96, 86.06), Vector2(25.86, 89.46),
+	Vector2(25.15, 93.74), Vector2(25.18, 97.31), Vector2(26.25, 100.20),
+]
+const MARKET_WIDTH := [1.95, 2.12, 2.52, 2.74, 3.03, 3.23, 3.31, 3.25, 2.70]
+# Endpoints interpolate the old fence segments; the interior points run around
+# all four lots with space behind roofs, and no new fence across the approach.
+const MARKET_VERGE := [
+	Vector2(23.55, 78.949), Vector2(20.64, 79.09), Vector2(16.55, 79.25),
+	Vector2(13.71, 81.51), Vector2(13.65, 89.41), Vector2(14.20, 98.42),
+	Vector2(17.16, 102.24), Vector2(25.30, 103.15), Vector2(34.85, 102.78),
+	Vector2(38.91, 100.29), Vector2(39.15, 91.78), Vector2(38.12, 83.10),
+	Vector2(34.91, 80.91), Vector2(27.30, 79.638),
+]
+
+# The mountain branch folds one short stretch of the existing west boundary
+# around level meadow. Its end points lie on the two old verge segments.
+const MOUNTAIN_VERGE := [
+	Vector2(-4.254, 20.05), Vector2(-5.30, 18.40), Vector2(-5.85, 16.22),
+	Vector2(-7.35, 14.72), Vector2(-9.45, 12.65), Vector2(-12.55, 11.86),
+	Vector2(-16.15, 12.00), Vector2(-20.95, 14.70),
+	Vector2(-23.10, 18.50), Vector2(-23.70, 23.70), Vector2(-21.15, 28.0),
+	Vector2(-17.05, 30.40), Vector2(-12.15, 31.52), Vector2(-9.20, 30.15),
+	Vector2(-7.02, 26.92), Vector2(-6.20, 24.62), Vector2(-4.132, 22.87),
+]
+
 # Each little habitat sits across a walkable open shoulder, not on the road.
 const HABITATS := [Vector2(14.72, 36.22), Vector2(8.78, 45.23), Vector2(12.64, 57.57)]
 const PULLOUTS := [Vector2(17.34, 36.45), Vector2(10.84, 45.84), Vector2(15.14, 58.00)]
@@ -63,7 +94,21 @@ static func _grade(p: Vector2) -> float:
 	# Set the inhabited stone bench level under lots, ramps and alley.
 	var to_bench := (p - Vector2(30, 70)).abs() - Vector2(9.5, 6.2)
 	h = lerpf(h, .27, 1.0 - smoothstep(0.0, 3.20, maxf(to_bench.x, to_bench.y)))
+	if p.y >= 77.0:
+		var to_market := (p - MARKET_PAD.get_center()).abs() - MARKET_PAD.size*.5
+		# Retain the old grade through the original fence, including the last
+		# grid row that supported old outdoor saves. The new ramp is beyond it.
+		var original_edge := ceilf(_old_street_edge_z(p.x))
+		var blend := smoothstep(original_edge, original_edge+1.0, p.y)
+		h = lerpf(h, MARKET_LEVEL, blend * (1.0 - smoothstep(0.0, 3.0, maxf(to_market.x, to_market.y))))
 	return h * smoothstep(JOIN_Z, 45.7, p.y)
+
+static func _old_street_edge_z(x: float) -> float:
+	for i in range(WEST_VERGE.size()-5,WEST_VERGE.size()-1):
+		var a: Vector2 = WEST_VERGE[i]
+		var b: Vector2 = WEST_VERGE[i+1]
+		if x <= b.x: return lerpf(a.y,b.y,clampf(inverse_lerp(a.x,b.x,x),0.0,1.0))
+	return WEST_VERGE[-1].y
 
 # Same lower-left -> upper-right split as the original terrace, sampled on the
 # extension's 1 m grid. This matches the dry soil bake even between vertices.
@@ -79,9 +124,12 @@ static func surface(p: Vector2) -> float:
 	return a*(1.0-f.y) + _grade(q+Vector2.DOWN)*(f.y-f.x) + d*f.x
 
 static func nearest_track(p: Vector2) -> Vector2:
-	var nearest: Vector2 = ROUTE[0]
-	for i in range(ROUTE.size()-1):
-		var q := Geometry2D.get_closest_point_to_segment(p, ROUTE[i], ROUTE[i+1])
+	return nearest_on(p, ROUTE)
+
+static func nearest_on(p: Vector2, path: Array) -> Vector2:
+	var nearest: Vector2 = path[0]
+	for i in range(path.size()-1):
+		var q := Geometry2D.get_closest_point_to_segment(p, path[i], path[i+1])
 		if p.distance_squared_to(q) < p.distance_squared_to(nearest):
 			nearest = q
 	return nearest

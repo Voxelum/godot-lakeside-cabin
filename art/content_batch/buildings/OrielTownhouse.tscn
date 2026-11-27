@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://art/content_batch/buildings/house_variants.gd" id="1"]
+
+[node name="OrielTownhouse" type="Node3D"]
+script = ExtResource("1")
+archetype = 1
+parcel = Vector2(4.01, 4.83)
+threshold_rise = 0.25
+appearance_seed = 603428
+body_lock = 1
+roof_lock = 4
+chimney_lock = 1
+wing_lock = 1
+entry_lock = 1
+shutters_lock = 1
+field_inks = PackedStringArray("d3bea2", "624939", "777971", "577e74", "a39b85")

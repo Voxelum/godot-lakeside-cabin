@@ -1,0 +1,267 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.72, 1.56, 0.63)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leg00"]
+material = SubResource("Material_dark")
+size = Vector3(0.105, 1.54, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Deck0"]
+material = SubResource("Material_oak")
+size = Vector3(1.72, 0.1, 0.62)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Edge0"]
+material = SubResource("Material_edge")
+size = Vector3(1.72, 0.08, 0.048)
+
+[sub_resource type="StandardMaterial3D" id="Material_sack"]
+albedo_color = Color(0.7333, 0.6314, 0.4627, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_Bag0Body"]
+material = SubResource("Material_sack")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="CylinderMesh" id="Mesh_Bag0Cuff"]
+material = SubResource("Material_sack")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Material_tie"]
+albedo_color = Color(0.5098, 0.3882, 0.2431, 1)
+roughness = 0.94
+
+[sub_resource type="CylinderMesh" id="Mesh_Bag0Tie"]
+material = SubResource("Material_tie")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="Material_patch"]
+albedo_color = Color(0.8784, 0.7804, 0.6000, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Bag0Patch"]
+material = SubResource("Material_patch")
+size = Vector3(0.14013, 0.10287, 0.01377)
+
+[sub_resource type="BoxMesh" id="Mesh_Bag0Stitch"]
+material = SubResource("Material_tie")
+size = Vector3(0.09801, 0.01539, 0.00972)
+
+[sub_resource type="BoxMesh" id="Mesh_Crate0"]
+material = SubResource("Material_edge")
+size = Vector3(0.62, 0.19, 0.42)
+
+[sub_resource type="BoxMesh" id="Mesh_CrateGrip0"]
+material = SubResource("Material_dark")
+size = Vector3(0.2, 0.045, 0.02)
+
+[sub_resource type="SphereMesh" id="Mesh_TopBagBody"]
+material = SubResource("Material_sack")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="CylinderMesh" id="Mesh_TopBagCuff"]
+material = SubResource("Material_sack")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_TopBagTie"]
+material = SubResource("Material_tie")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_TopBagPatch"]
+material = SubResource("Material_patch")
+size = Vector3(0.11245, 0.08255, 0.01105)
+
+[sub_resource type="BoxMesh" id="Mesh_TopBagStitch"]
+material = SubResource("Material_tie")
+size = Vector3(0.07865, 0.01235, 0.0078)
+
+[sub_resource type="StandardMaterial3D" id="Material_teal"]
+albedo_color = Color(0.3255, 0.4706, 0.4275, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_TopFoldedTarp"]
+material = SubResource("Material_teal")
+size = Vector3(0.65, 0.16, 0.42)
+
+[node name="GranaryShelf" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.78, 0)
+shape = SubResource("Footprint")
+
+[node name="Leg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.78, 0.77, -0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.78, 0.77, 0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.78, 0.77, -0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.78, 0.77, 0.26)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Deck0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.16, 0)
+mesh = SubResource("Mesh_Deck0")
+
+[node name="Edge0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.16, 0.31)
+mesh = SubResource("Mesh_Edge0")
+
+[node name="Deck1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.77, 0)
+mesh = SubResource("Mesh_Deck0")
+
+[node name="Edge1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.77, 0.31)
+mesh = SubResource("Mesh_Edge0")
+
+[node name="Deck2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.38, 0)
+mesh = SubResource("Mesh_Deck0")
+
+[node name="Edge2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.38, 0.31)
+mesh = SubResource("Mesh_Edge0")
+
+[node name="Bag0Body" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.4287, 0)
+scale = Vector3(0.4941, 0.4455, 0.3969)
+mesh = SubResource("Mesh_Bag0Body")
+
+[node name="Bag0Cuff" type="MeshInstance3D" parent="."]
+position = Vector3(-0.4657, 0.6474, 0)
+rotation_degrees = Vector3(0, 0, -12)
+scale = Vector3(0.13122, 0.0891, 0.1134)
+mesh = SubResource("Mesh_Bag0Cuff")
+
+[node name="Bag0Tie" type="MeshInstance3D" parent="."]
+position = Vector3(-0.46327, 0.61257, 0.00243)
+rotation_degrees = Vector3(0, 0, -12)
+scale = Vector3(0.13527, 0.03321, 0.1215)
+mesh = SubResource("Mesh_Bag0Tie")
+
+[node name="Bag0Patch" type="MeshInstance3D" parent="."]
+position = Vector3(-0.571, 0.4125, 0.18225)
+rotation_degrees = Vector3(-12, 0, -10)
+mesh = SubResource("Mesh_Bag0Patch")
+
+[node name="Bag0Stitch" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57505, 0.45138, 0.19278)
+rotation_degrees = Vector3(-12, 0, -10)
+mesh = SubResource("Mesh_Bag0Stitch")
+
+[node name="Bag1Body" type="MeshInstance3D" parent="."]
+position = Vector3(0.46, 0.4287, 0)
+scale = Vector3(0.4941, 0.4455, 0.3969)
+mesh = SubResource("Mesh_Bag0Body")
+
+[node name="Bag1Cuff" type="MeshInstance3D" parent="."]
+position = Vector3(0.4843, 0.6474, 0)
+rotation_degrees = Vector3(0, 0, -12)
+scale = Vector3(0.13122, 0.0891, 0.1134)
+mesh = SubResource("Mesh_Bag0Cuff")
+
+[node name="Bag1Tie" type="MeshInstance3D" parent="."]
+position = Vector3(0.48673, 0.61257, 0.00243)
+rotation_degrees = Vector3(0, 0, -12)
+scale = Vector3(0.13527, 0.03321, 0.1215)
+mesh = SubResource("Mesh_Bag0Tie")
+
+[node name="Bag1Patch" type="MeshInstance3D" parent="."]
+position = Vector3(0.379, 0.4125, 0.18225)
+rotation_degrees = Vector3(-12, 0, -10)
+mesh = SubResource("Mesh_Bag0Patch")
+
+[node name="Bag1Stitch" type="MeshInstance3D" parent="."]
+position = Vector3(0.37495, 0.45138, 0.19278)
+rotation_degrees = Vector3(-12, 0, -10)
+mesh = SubResource("Mesh_Bag0Stitch")
+
+[node name="Crate0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.45, 0.91, 0)
+mesh = SubResource("Mesh_Crate0")
+
+[node name="CrateGrip0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.45, 0.92, 0.217)
+mesh = SubResource("Mesh_CrateGrip0")
+
+[node name="Crate1" type="MeshInstance3D" parent="."]
+position = Vector3(0.44, 0.91, 0)
+mesh = SubResource("Mesh_Crate0")
+
+[node name="CrateGrip1" type="MeshInstance3D" parent="."]
+position = Vector3(0.44, 0.92, 0.217)
+mesh = SubResource("Mesh_CrateGrip0")
+
+[node name="TopBagBody" type="MeshInstance3D" parent="."]
+position = Vector3(0.38, 1.6055, -0.03)
+scale = Vector3(0.3965, 0.3575, 0.3185)
+mesh = SubResource("Mesh_TopBagBody")
+
+[node name="TopBagCuff" type="MeshInstance3D" parent="."]
+position = Vector3(0.3995, 1.781, -0.03)
+rotation_degrees = Vector3(0, 0, -12)
+scale = Vector3(0.1053, 0.0715, 0.091)
+mesh = SubResource("Mesh_TopBagCuff")
+
+[node name="TopBagTie" type="MeshInstance3D" parent="."]
+position = Vector3(0.40145, 1.753, -0.02805)
+rotation_degrees = Vector3(0, 0, -12)
+scale = Vector3(0.10855, 0.02665, 0.0975)
+mesh = SubResource("Mesh_TopBagTie")
+
+[node name="TopBagPatch" type="MeshInstance3D" parent="."]
+position = Vector3(0.315, 1.5925, 0.11625)
+rotation_degrees = Vector3(-12, 0, -10)
+mesh = SubResource("Mesh_TopBagPatch")
+
+[node name="TopBagStitch" type="MeshInstance3D" parent="."]
+position = Vector3(0.31175, 1.6237, 0.1247)
+rotation_degrees = Vector3(-12, 0, -10)
+mesh = SubResource("Mesh_TopBagStitch")
+
+[node name="TopFoldedTarp" type="MeshInstance3D" parent="."]
+position = Vector3(-0.4, 1.5, 0.01)
+mesh = SubResource("Mesh_TopFoldedTarp")

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/farm_creatures/Bee.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"giant_bee"
+title = "巨蜂"
+coats = PackedStringArray("条纹蜂", "采粉蜂", "锈针蜂")
+body_names = PackedStringArray("Bee", "BeeI", "BeeII")
+tier = 2
+model_scene = ExtResource("Body")
+health = 23
+power = 8
+armor = 1
+speed = 3.50
+reach = 1.27
+notice = 5.08
+windup = 0.43
+contact_pose = 0.512
+follow_through = 0.41
+recovery = 0.82
+verge_inset = 0.96
+solid_radius = 0.30
+solid_height = 0.66
+body_lift = 0.48
+soil = Color(0.69, 0.61, 0.38, 1)
+cue_height = 1.79

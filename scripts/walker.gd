@@ -1,11 +1,13 @@
 extends CharacterBody3D
 ## Movement and collision are world-space; the input axes belong to the active camera.
 signal stepped(previous: Vector3, current: Vector3)
+signal walked(metres: float)
 @export_range(1.0, 8.0, 0.1) var walk_speed: float = 2.45
 @export_range(1.0, 12.0, 0.1) var sprint_speed: float = 4.1
 @onready var artwork: Node3D = $Appearance
 const MOVE_ACTIONS := [&"walk_left", &"walk_right", &"walk_up", &"walk_down", &"sprint"]
 var _wait_for_neutral := false
+var combat: Node
 var locked := false:
 	set(value):
 		if locked != value:
@@ -15,6 +17,7 @@ var locked := false:
 func settle_input() -> void:
 	_wait_for_neutral = true
 	velocity = Vector3.ZERO
+	if combat: combat.reset()
 
 func _controls_neutral(axis: Vector2) -> bool:
 	if not axis.is_zero_approx():
@@ -41,6 +44,14 @@ func _controls_neutral(axis: Vector2) -> bool:
 						return false
 	return true
 
+func combat_heading() -> Vector3:
+	if _wait_for_neutral: return Vector3.ZERO
+	var camera := get_viewport().get_camera_3d()
+	if camera == null: return Vector3.ZERO
+	var axis := Input.get_vector("walk_left", "walk_right", "walk_up", "walk_down")
+	var right := camera.global_basis.x.slide(Vector3.UP).normalized()
+	return right * axis.x + right.cross(Vector3.UP) * axis.y
+
 func _physics_process(dt: float) -> void:
 	if locked:
 		return
@@ -53,7 +64,13 @@ func _physics_process(dt: float) -> void:
 		return
 	var right := camera.global_basis.x.slide(Vector3.UP).normalized()
 	var heading := right * axis.x + right.cross(Vector3.UP) * axis.y
-	var speed := sprint_speed if Input.is_action_pressed(&"sprint") else walk_speed
+	if combat:
+		combat.tick(dt)
+		if combat.action == &"idle": combat.face(heading)
+		heading = combat.movement(heading)
+	var combat_pose: bool = combat != null and combat.action != &"idle"
+	var sprinting := Input.is_action_pressed(&"sprint") and not combat_pose
+	var speed := sprint_speed if sprinting else walk_speed
 	velocity.x = heading.x * speed
 	velocity.z = heading.z * speed
 	# With a nonzero downward push, contacts on a shallow grade can steal part
@@ -62,8 +79,16 @@ func _physics_process(dt: float) -> void:
 	var start := global_position
 	move_and_slide()
 	var stride := (global_position-start).slide(Vector3.UP)
-	if artwork.has_method(&"pose_world"):
+	if combat_pose:
+		pass # The combat driver owns the view during a combat action.
+	elif artwork.has_method(&"pose_motion"):
+		artwork.call(&"pose_motion", heading, stride.length(), dt, sprinting)
+	elif artwork.has_method(&"pose_world"):
 		artwork.call(&"pose_world", heading, stride.length(), dt)
 	elif artwork.has_method(&"pose"):
 		artwork.call(&"pose", axis, stride.length())
+	# Only the movement solver can produce training distance. No distance across
+	# spawn/door/load transforms, idle snap, or locked/inactive actors.
+	if not combat_pose and not heading.is_zero_approx() and stride.dot(heading) > 0.00001:
+		walked.emit(minf(stride.length(), speed * dt * heading.length()))
 	stepped.emit(start, global_position)

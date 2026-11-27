@@ -1,0 +1,20 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Wolf.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"stone_wolf"
+title = "野狼"
+coats = PackedStringArray("石狼", "霜鬃狼", "镰尾狼")
+body_names = PackedStringArray("StoneWolf", "FrostRuff", "SickleTail")
+model_scene = ExtResource("Body")
+health = 27
+power = 7
+armor = 1
+speed = 3.25
+reach = 1.46
+notice = 5.25
+windup = 0.40
+recovery = 1.12
+soil = Color(0.54, 0.54, 0.41, 1)
+cue_height = 1.53

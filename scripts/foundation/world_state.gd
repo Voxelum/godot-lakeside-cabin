@@ -1,13 +1,21 @@
 extends RefCounted
 
+const Rooms := preload("res://world/interiors/room_catalog.gd")
+
 const SAMPLE = preload("res://scripts/foundation/sample.tres")
+const EQUIPMENT_SLOTS := {"head":"头部", "main_hand":"主手", "off_hand":"副手", "clothes":"衣服", "pants":"裤子", "shoes":"鞋", "ring":"戒指", "pendant":"吊坠", "bracelet":"手环"}
+const STARTER_WEAPONS := ["item.sword", "item.spear"]
 const DEFINITIONS := {
+	"item.sword": preload("res://scripts/foundation/sword.tres"),
+	"item.spear": preload("res://scripts/foundation/spear.tres"),
 	"item.sample": SAMPLE,
 	"item.bread": preload("res://scripts/foundation/bread.tres"),
 	"item.cup": preload("res://scripts/foundation/cup.tres"),
 }
 const SLOT := "user://foundation.slot"
-const VERSION := 1
+const ActorStats := preload("res://scripts/foundation/actor_stats.gd")
+const VERSION := 2
+const BUILDING_VERSION := 3 # Tagged building-local feet; outdoors stays on v2.
 const BANK := "region.bank"
 const RISE := "region.rise"
 const TEST_ROUTE := {"source": BANK, "destination": RISE}
@@ -15,12 +23,72 @@ const TOTAL := 12
 const MAX_INT := 9223372036854775807
 const MAX_SAVE_BYTES := 1024 * 1024
 
+const Ledger := preload("res://scripts/foundation/village_ledger.gd")
+var village := Ledger.new()
+var player_stats := ActorStats.new()
 var inventory: Dictionary = {}
+var equipment: Dictionary = {}
 var location_id: String = "place.clearing"
 var position: Vector3 = Vector3.ZERO
+var loaded_building_revision := ""
 var simulated_until: int = 0
 var _world_changes: Dictionary = {}
 var _stocks: Dictionary = {TEST_ROUTE.source: TOTAL, TEST_ROUTE.destination: 0}
+
+
+func _init() -> void:
+	player_stats.growth_enabled = true
+
+
+# Carried load includes bag stacks and equipped units, which are disjoint.
+func inventory_weight_kg() -> float:
+	var kg := 0.0
+	for id in inventory:
+		if DEFINITIONS.has(id):
+			kg += float(inventory[id]) * DEFINITIONS[id].unit_weight_kg
+	for id in equipment.values():
+		kg += DEFINITIONS[id].unit_weight_kg
+	return kg
+
+
+func grant_test_weapons() -> void:
+	for id in STARTER_WEAPONS:
+		var source := "starter." + String(id)
+		# Respect ownership in snapshots even without the starter source marker.
+		if inventory.has(id) or id in equipment.values():
+			_world_changes[source] = {"remaining": 0}
+		else:
+			take_stack(source, id, 1)
+
+
+func equip(slot: String, id: String) -> bool:
+	if not _fits(slot, id) or not inventory.has(id) or equipment.get(slot) == id:
+		return false
+	var previous: String = equipment.get(slot, "")
+	if not previous.is_empty() and inventory.get(previous, 0) == MAX_INT:
+		return false
+	inventory[id] -= 1
+	if inventory[id] == 0:
+		inventory.erase(id)
+	if not previous.is_empty():
+		inventory[previous] = inventory.get(previous, 0) + 1
+	equipment[slot] = id
+	return true
+
+
+func unequip(slot: String) -> bool:
+	if not equipment.has(slot):
+		return false
+	var id: String = equipment[slot]
+	if inventory.get(id, 0) == MAX_INT:
+		return false
+	inventory[id] = inventory.get(id, 0) + 1
+	equipment.erase(slot)
+	return true
+
+
+static func _fits(slot: String, id: String) -> bool:
+	return EQUIPMENT_SLOTS.has(slot) and DEFINITIONS.has(id) and DEFINITIONS[id].equipment_slot == slot
 
 
 func remaining(instance_id: String, initial: int) -> int:
@@ -62,12 +130,16 @@ func advance_interval(start: int, elapsed: int, route_open: bool = true) -> bool
 	return true
 
 
-func save_slot(path: String = SLOT) -> String:
+func save_slot(path: String = SLOT, building_revision := "", building_foot := Vector3.ZERO) -> String:
 	var snapshot := {
-		"version": VERSION, "inventory": inventory, "location_id": location_id,
+		"version": VERSION, "equipment": equipment, "player_stats": player_stats.snapshot(), "inventory": inventory, "location_id": location_id,
 		"position": position, "world_changes": _world_changes,
-		"simulated_until": simulated_until, "stocks": _stocks,
+		"simulated_until": simulated_until, "stocks": _stocks, "village": village.d,
 	}
+	if not building_revision.is_empty():
+		snapshot.version = BUILDING_VERSION
+		snapshot["building_revision"] = building_revision
+		snapshot.position = building_foot
 	var problem := _validate(snapshot)
 	if not problem.is_empty():
 		return problem
@@ -109,12 +181,18 @@ func load_slot(path: String = SLOT) -> String:
 		return problem
 	if var_to_bytes(snapshot) != payload:
 		return "存档编码无效或含有多余数据。"
+	village.d = snapshot.get("village", Ledger.INITIAL.duplicate(true))
+	if not village.d.has("visit"): village.d.visit = -1.0
 	inventory = snapshot.inventory
+	equipment = snapshot.get("equipment", {})
 	location_id = snapshot.location_id
 	position = snapshot.position
+	loaded_building_revision = snapshot.get("building_revision", "")
 	_world_changes = snapshot.world_changes
 	simulated_until = snapshot.simulated_until
 	_stocks = snapshot.stocks
+	# Keep the same component and its UI subscriptions across loads.
+	player_stats.restore(snapshot.get("player_stats", ActorStats.new().snapshot()))
 	return ""
 
 
@@ -126,17 +204,24 @@ static func _validate(data: Variant) -> String:
 	if typeof(data) != TYPE_DICTIONARY:
 		return "存档格式无效。"
 	var version: Variant = data.get("version")
-	if typeof(version) != TYPE_INT or version != VERSION:
+	if typeof(version) != TYPE_INT or version not in [1, VERSION, BUILDING_VERSION]:
 		return "不支持此存档版本。"
 	for key in data:
 		if typeof(key) != TYPE_STRING:
 			return "存档字段类型无效。"
-	if data.size() != 7:
+	if data.has("village") and not Ledger.valid(data.village): return "村落账册无效。"
+	if data.size() != (7 if version == 1 else 8 if version == VERSION else 9) + int(data.has("equipment")) + int(data.has("village")):
 		return "存档字段数量无效。"
+	if version != 1 and not ActorStats.valid_snapshot(data.get("player_stats")):
+		return "存档角色属性无效。"
 	var place: Variant = data.get("location_id")
 	var pos: Variant = data.get("position")
-	if typeof(place) != TYPE_STRING or place not in ["place.clearing", "place.cabin"]:
+	if typeof(place) != TYPE_STRING or not Rooms.valid_place(place):
 		return "存档地点无效。"
+	if version == BUILDING_VERSION:
+		var revision: Variant = data.get("building_revision")
+		if not Rooms.ROOMS.has(place) or typeof(revision) != TYPE_STRING or revision.length() != 64 or not revision.is_valid_hex_number():
+			return "存档建筑结构版本无效。"
 	if typeof(pos) != TYPE_VECTOR3 or not pos.is_finite():
 		return "存档位置无效。"
 	var bag: Variant = data.get("inventory")
@@ -146,6 +231,12 @@ static func _validate(data: Variant) -> String:
 	for key in bag:
 		if typeof(key) != TYPE_STRING or not DEFINITIONS.has(key) or not _is_count(bag[key]) or bag[key] == 0:
 			return "存档背包条目无效。"
+	var kit: Variant = data.get("equipment", {})
+	if typeof(kit) != TYPE_DICTIONARY:
+		return "存档装备格式无效。"
+	for slot in kit:
+		if typeof(slot) != TYPE_STRING or typeof(kit[slot]) != TYPE_STRING or not _fits(slot, kit[slot]):
+			return "存档装备条目无效。"
 	for key in changes:
 		var patch: Variant = changes[key]
 		if typeof(key) != TYPE_STRING or key.strip_edges().is_empty() or typeof(patch) != TYPE_DICTIONARY or patch.size() != 1:

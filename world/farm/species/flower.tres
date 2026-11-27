@@ -1,0 +1,22 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/RootMaw.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"root_maw"
+title = "食人花"
+coats = PackedStringArray("咬根花", "棘冠花", "暮兰咬根")
+body_names = PackedStringArray("RootMaw", "ThornCrown", "DuskOrchid")
+tier = 2
+model_scene = ExtResource("Body")
+health = 36
+power = 12
+armor = 2
+speed = 0.0
+reach = 1.62
+notice = 2.1
+windup = 0.57
+contact_pose = 0.82
+recovery = 1.44
+soil = Color(0.49, 0.56, 0.38, 1)
+cue_height = 1.83

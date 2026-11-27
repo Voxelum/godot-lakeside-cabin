@@ -1,0 +1,106 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/HayBarnStructure.scn" id="Structure"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/GrainSack.tscn" id="GrainSack"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/GranaryShelf.tscn" id="GranaryShelf"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/HayBale.tscn" id="HayBale"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockCrate.tscn" id="StockCrate"]
+
+[ext_resource type="PackedScene" path="res://world/interiors/StockRack.tscn" id="StockRack"]
+
+[sub_resource type="StandardMaterial3D" id="SledWear"]
+albedo_color = Color(0.52, 0.35, 0.22, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Runner"]
+material = SubResource("SledWear")
+size = Vector3(0.105, 0.004, 4.70)
+
+[sub_resource type="BoxMesh" id="RunEnd"]
+material = SubResource("SledWear")
+size = Vector3(2.24, 0.004, 0.13)
+
+[node name="HayStorage" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="RunnerWest" type="MeshInstance3D" parent="Furnishing"]
+position = Vector3(-1.065, 0.003, 0)
+cast_shadow = 0
+mesh = SubResource("Runner")
+
+[node name="RunnerEast" type="MeshInstance3D" parent="Furnishing"]
+position = Vector3(1.065, 0.003, 0)
+cast_shadow = 0
+mesh = SubResource("Runner")
+
+[node name="UnloadingStop" type="MeshInstance3D" parent="Furnishing"]
+position = Vector3(0, 0.003, -2.11)
+cast_shadow = 0
+mesh = SubResource("RunEnd")
+
+[node name="HayBale1" parent="Furnishing" instance=ExtResource("HayBale")]
+position = Vector3(-2.51, 0, -1.35)
+rotation_degrees = Vector3(0, 65, 0)
+
+[node name="HayBale2" parent="Furnishing" instance=ExtResource("HayBale")]
+position = Vector3(-2.6, 0, -0.34)
+rotation_degrees = Vector3(0, 83, 0)
+
+[node name="HayBale3" parent="Furnishing" instance=ExtResource("HayBale")]
+position = Vector3(-2.55, 0, 0.74)
+rotation_degrees = Vector3(0, 80, 0)
+
+[node name="HayTop" parent="Furnishing" instance=ExtResource("HayBale")]
+position = Vector3(-2.55, 0.565, -0.86)
+rotation_degrees = Vector3(0, 65, 0)
+
+[node name="HayBaleRear" parent="Furnishing" instance=ExtResource("HayBale")]
+position = Vector3(-2.55, 0, -2.3)
+rotation_degrees = Vector3(0, -3, 0)
+
+[node name="Grain1" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(1.23, 0, -0.18)
+rotation_degrees = Vector3(0, 17, 0)
+
+[node name="Grain2" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(2.1, 0, -1.77)
+rotation_degrees = Vector3(0, -7, 0)
+
+[node name="Grain3" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(2.69, 0, -1.52)
+rotation_degrees = Vector3(0, 18, 0)
+
+[node name="Grain4" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(2.15, 0, -1.16)
+rotation_degrees = Vector3(0, -14, 0)
+
+[node name="GranaryShelf" parent="Furnishing" instance=ExtResource("GranaryShelf")]
+position = Vector3(2.36, 0, -2.41)
+
+[node name="EastStockShelf" parent="Furnishing" instance=ExtResource("StockRack")]
+position = Vector3(3.06, 0, -0.08)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="DispatchCrate" parent="Furnishing" instance=ExtResource("StockCrate")]
+position = Vector3(2.33, 0, 0.85)
+rotation_degrees = Vector3(0, 12, 0)
+
+[node name="DispatchCrate2" parent="Furnishing" instance=ExtResource("StockCrate")]
+position = Vector3(2.93, 0, 1.56)
+rotation_degrees = Vector3(0, -6, 0)
+
+[node name="SpareSack" parent="Furnishing" instance=ExtResource("GrainSack")]
+position = Vector3(3.02, 0, 0.82)
+rotation_degrees = Vector3(0, 5, 0)
+
+[node name="SpareSackOnCrate" parent="Furnishing/DispatchCrate" instance=ExtResource("GrainSack")]
+position = Vector3(0, 0.62, 0)
+rotation_degrees = Vector3(0, -12, 0)

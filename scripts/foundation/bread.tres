@@ -9,4 +9,5 @@ definition_id = "item.bread"
 title = "面包"
 description = "从餐桌上拿起的一整条面包。"
 rarity = 1
+unit_weight_kg = 0.35
 icon = ExtResource("2")

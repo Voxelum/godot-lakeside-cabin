@@ -1,0 +1,214 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.29, 0.73, 0.77)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leg00"]
+material = SubResource("Material_dark")
+size = Vector3(0.105, 0.28, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Bin"]
+material = SubResource("Material_oak")
+size = Vector3(1.29, 0.21, 0.76)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Rail0"]
+material = SubResource("Material_edge")
+size = Vector3(1.29, 0.16, 0.058)
+
+[sub_resource type="StandardMaterial3D" id="Material_ash"]
+albedo_color = Color(0.7176, 0.5961, 0.4471, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Divider0"]
+material = SubResource("Material_ash")
+size = Vector3(0.064, 0.18, 0.76)
+
+[sub_resource type="StandardMaterial3D" id="Material_tomato"]
+albedo_color = Color(0.7333, 0.3176, 0.2627, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_Fruit0"]
+material = SubResource("Material_tomato")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[sub_resource type="StandardMaterial3D" id="Material_leaf"]
+albedo_color = Color(0.4431, 0.5098, 0.3176, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leaf0"]
+material = SubResource("Material_leaf")
+size = Vector3(0.085, 0.028, 0.052)
+
+[sub_resource type="StandardMaterial3D" id="Material_wheat"]
+albedo_color = Color(0.8431, 0.6667, 0.3373, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_Fruit5"]
+material = SubResource("Material_wheat")
+radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 5
+
+[node name="ProduceBin" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.365, 0)
+shape = SubResource("Footprint")
+
+[node name="Leg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.14, -0.29)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.14, 0.29)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.14, -0.29)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.14, 0.29)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Bin" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.34, 0)
+mesh = SubResource("Mesh_Bin")
+
+[node name="Rail0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.47, -0.36)
+mesh = SubResource("Mesh_Rail0")
+
+[node name="Rail1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.47, 0.36)
+mesh = SubResource("Mesh_Rail0")
+
+[node name="Divider0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.61, 0.48, 0)
+mesh = SubResource("Mesh_Divider0")
+
+[node name="Divider1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.48, 0)
+mesh = SubResource("Mesh_Divider0")
+
+[node name="Divider2" type="MeshInstance3D" parent="."]
+position = Vector3(0.61, 0.48, 0)
+mesh = SubResource("Mesh_Divider0")
+
+[node name="Fruit0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.43, 0.55, -0.21)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit0")
+
+[node name="Leaf0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.395, 0.634, -0.21)
+rotation_degrees = Vector3(0, 0, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.305, 0.577, -0.11)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit0")
+
+[node name="Leaf1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.27, 0.661, -0.11)
+rotation_degrees = Vector3(0, 17, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit2" type="MeshInstance3D" parent="."]
+position = Vector3(-0.18, 0.604, -0.01)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit0")
+
+[node name="Leaf2" type="MeshInstance3D" parent="."]
+position = Vector3(-0.145, 0.688, -0.01)
+rotation_degrees = Vector3(0, 34, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.43, 0.55, 0.09)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit0")
+
+[node name="Leaf3" type="MeshInstance3D" parent="."]
+position = Vector3(-0.395, 0.634, 0.09)
+rotation_degrees = Vector3(0, 51, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit4" type="MeshInstance3D" parent="."]
+position = Vector3(-0.305, 0.577, 0.19)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit0")
+
+[node name="Leaf4" type="MeshInstance3D" parent="."]
+position = Vector3(-0.27, 0.661, 0.19)
+rotation_degrees = Vector3(0, 68, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit5" type="MeshInstance3D" parent="."]
+position = Vector3(0.4, 0.604, -0.21)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit5")
+
+[node name="Leaf5" type="MeshInstance3D" parent="."]
+position = Vector3(0.435, 0.688, -0.21)
+rotation_degrees = Vector3(0, 85, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit6" type="MeshInstance3D" parent="."]
+position = Vector3(0.15, 0.55, -0.11)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit5")
+
+[node name="Leaf6" type="MeshInstance3D" parent="."]
+position = Vector3(0.185, 0.634, -0.11)
+rotation_degrees = Vector3(0, 102, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit7" type="MeshInstance3D" parent="."]
+position = Vector3(0.275, 0.577, -0.01)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit5")
+
+[node name="Leaf7" type="MeshInstance3D" parent="."]
+position = Vector3(0.31, 0.661, -0.01)
+rotation_degrees = Vector3(0, 119, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit8" type="MeshInstance3D" parent="."]
+position = Vector3(0.4, 0.604, 0.09)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit5")
+
+[node name="Leaf8" type="MeshInstance3D" parent="."]
+position = Vector3(0.435, 0.688, 0.09)
+rotation_degrees = Vector3(0, 136, -16)
+mesh = SubResource("Mesh_Leaf0")
+
+[node name="Fruit9" type="MeshInstance3D" parent="."]
+position = Vector3(0.15, 0.55, 0.19)
+scale = Vector3(0.174, 0.157, 0.165)
+mesh = SubResource("Mesh_Fruit5")
+
+[node name="Leaf9" type="MeshInstance3D" parent="."]
+position = Vector3(0.185, 0.634, 0.19)
+rotation_degrees = Vector3(0, 153, -16)
+mesh = SubResource("Mesh_Leaf0")

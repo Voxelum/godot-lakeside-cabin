@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://art/field_cast/field_body.gd" id="Body"]
+[ext_resource type="Script" path="res://art/field_cast/field_looks.gd" id="Look"]
+
+[sub_resource type="CapsuleShape3D" id="StemAndMaw"]
+radius = 0.32
+height = 1.03
+
+[node name="RootMaw" type="CharacterBody3D"]
+script = ExtResource("Body")
+combat_target = true
+body_shape = SubResource("StemAndMaw")
+body_center = Vector3(0, 0.515, 0.058)
+
+[node name="Model" type="Node3D" parent="."]
+script = ExtResource("Look")
+look = 2

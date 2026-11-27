@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/structures/TavernStructure.scn" id="Structure"]
+[ext_resource type="PackedScene" path="res://world/interiors/structures/RoomPresentation.tscn" id="Shell"]
+[ext_resource type="PackedScene" path="res://world/interiors/DiningTable.tscn" id="Table"]
+[ext_resource type="PackedScene" path="res://world/interiors/DiningChair.tscn" id="Chair"]
+[ext_resource type="PackedScene" path="res://world/interiors/CastIronHearth.tscn" id="Hearth"]
+[ext_resource type="PackedScene" path="res://world/interiors/CrockerySideboard.tscn" id="Crockery"]
+[ext_resource type="PackedScene" path="res://world/interiors/LedgerDesk.tscn" id="Counter"]
+[ext_resource type="PackedScene" path="res://world/interiors/CellarCask.tscn" id="Cask"]
+[ext_resource type="PackedScene" path="res://world/interiors/StockCrate.tscn" id="Crate"]
+[ext_resource type="PackedScene" path="res://world/interiors/GrainSack.tscn" id="Sack"]
+[ext_resource type="PackedScene" path="res://world/interiors/WovenMat.tscn" id="Mat"]
+[ext_resource type="PackedScene" path="res://world/interiors/BreadTray.tscn" id="Tray"]
+
+[node name="TavernTaproom" instance=ExtResource("Shell")]
+
+[node name="Structure" parent="." instance=ExtResource("Structure")]
+
+[node name="Furnishing" type="Node3D" parent="."]
+
+[node name="CommonTable" parent="Furnishing" instance=ExtResource("Table")]
+position = Vector3(-1.66, 0, 1.61)
+
+[node name="BreadTray" parent="Furnishing/CommonTable/Tabletop" instance=ExtResource("Tray")]
+position = Vector3(-0.24, 0, 0.05)
+
+[node name="CommonSeat" parent="Furnishing" instance=ExtResource("Chair")]
+position = Vector3(-1.70, 0, 2.59)
+rotation_degrees = Vector3(0, 7, 0)
+
+[node name="AisleSeat" parent="Furnishing" instance=ExtResource("Chair")]
+position = Vector3(-0.55, 0, 1.61)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="Hearth" parent="Furnishing" instance=ExtResource("Hearth")]
+position = Vector3(-2.15, 0, 0.03)
+
+[node name="ServiceCounter" parent="Furnishing" instance=ExtResource("Counter")]
+position = Vector3(1.98, 0, 0.49)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="EntryMat" parent="Furnishing" instance=ExtResource("Mat")]
+position = Vector3(0.09, 0, 2.29)
+
+[node name="WestCask" parent="Furnishing" instance=ExtResource("Cask")]
+position = Vector3(-2.56, 0, -2.43)
+rotation_degrees = Vector3(0, -9, 0)
+
+[node name="EastCask" parent="Furnishing" instance=ExtResource("Cask")]
+position = Vector3(-1.72, 0, -2.43)
+rotation_degrees = Vector3(0, 13, 0)
+
+[node name="ServerDishes" parent="Furnishing" instance=ExtResource("Crockery")]
+position = Vector3(-0.20, 0, -2.44)
+
+[node name="PantryCrate" parent="Furnishing" instance=ExtResource("Crate")]
+position = Vector3(2.40, 0, -1.61)
+rotation_degrees = Vector3(0, -9, 0)
+
+[node name="BarleySack" parent="Furnishing" instance=ExtResource("Sack")]
+position = Vector3(2.53, 0, -2.56)
+rotation_degrees = Vector3(0, 19, 0)
+
+[editable path="Furnishing/CommonTable"]

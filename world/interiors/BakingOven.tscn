@@ -1,0 +1,153 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.72, 1.74, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_stone"]
+albedo_color = Color(0.6941, 0.6078, 0.5216, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_StoneFoot"]
+material = SubResource("Material_stone")
+size = Vector3(1.72, 0.24, 1)
+
+[sub_resource type="StandardMaterial3D" id="Material_brick"]
+albedo_color = Color(0.6706, 0.4000, 0.3333, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_StoveBody"]
+material = SubResource("Material_brick")
+size = Vector3(1.56, 1.31, 0.91)
+
+[sub_resource type="BoxMesh" id="Mesh_Throat"]
+material = SubResource("Material_brick")
+size = Vector3(0.59, 0.32, 0.49)
+
+[sub_resource type="BoxMesh" id="Mesh_Crown"]
+material = SubResource("Material_stone")
+size = Vector3(0.71, 0.12, 0.57)
+
+[sub_resource type="StandardMaterial3D" id="Material_black"]
+albedo_color = Color(0.2118, 0.1804, 0.1882, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Mouth"]
+material = SubResource("Material_black")
+size = Vector3(0.92, 0.56, 0.05)
+
+[sub_resource type="CylinderMesh" id="Mesh_MouthArch"]
+material = SubResource("Material_black")
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_Voussoir0"]
+material = SubResource("Material_stone")
+size = Vector3(0.2, 0.2, 0.16)
+
+[sub_resource type="BoxMesh" id="Mesh_HearthLip"]
+material = SubResource("Material_stone")
+size = Vector3(1.22, 0.13, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="Material_ember"]
+albedo_color = Color(0.7608, 0.4627, 0.2824, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_EmberBed"]
+material = SubResource("Material_ember")
+size = Vector3(0.57, 0.05, 0.047)
+
+[sub_resource type="BoxMesh" id="Mesh_StoveJoint0"]
+material = SubResource("Material_stone")
+size = Vector3(0.022, 0.15, 0.015)
+
+[node name="BakingOven" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.87, 0)
+shape = SubResource("Footprint")
+
+[node name="StoneFoot" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.12, 0)
+mesh = SubResource("Mesh_StoneFoot")
+
+[node name="StoveBody" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.87, -0.04)
+mesh = SubResource("Mesh_StoveBody")
+
+[node name="Throat" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.59, -0.23)
+mesh = SubResource("Mesh_Throat")
+
+[node name="Crown" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.76, -0.23)
+mesh = SubResource("Mesh_Crown")
+
+[node name="Mouth" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.82, 0.427)
+mesh = SubResource("Mesh_Mouth")
+
+[node name="MouthArch" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.07, 0.427)
+rotation_degrees = Vector3(90, 0, 0)
+scale = Vector3(0.92, 0.034, 0.63)
+mesh = SubResource("Mesh_MouthArch")
+
+[node name="Voussoir0" type="MeshInstance3D" parent="."]
+position = Vector3(0.513, 1.03, 0.447)
+rotation_degrees = Vector3(0, 0, -90)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="Voussoir1" type="MeshInstance3D" parent="."]
+position = Vector3(0.44427, 1.215, 0.447)
+rotation_degrees = Vector3(0, 0, -60)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="Voussoir2" type="MeshInstance3D" parent="."]
+position = Vector3(0.2565, 1.3504, 0.447)
+rotation_degrees = Vector3(0, 0, -30)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="Voussoir3" type="MeshInstance3D" parent="."]
+position = Vector3(3.1412e-17, 1.4, 0.447)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="Voussoir4" type="MeshInstance3D" parent="."]
+position = Vector3(-0.2565, 1.3504, 0.447)
+rotation_degrees = Vector3(0, 0, 30)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="Voussoir5" type="MeshInstance3D" parent="."]
+position = Vector3(-0.44427, 1.215, 0.447)
+rotation_degrees = Vector3(0, 0, 60)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="Voussoir6" type="MeshInstance3D" parent="."]
+position = Vector3(-0.513, 1.03, 0.447)
+rotation_degrees = Vector3(0, 0, 90)
+mesh = SubResource("Mesh_Voussoir0")
+
+[node name="HearthLip" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.55, 0.45)
+mesh = SubResource("Mesh_HearthLip")
+
+[node name="EmberBed" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.63, 0.459)
+mesh = SubResource("Mesh_EmberBed")
+
+[node name="StoveJoint0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.513, 0.34, 0.423)
+mesh = SubResource("Mesh_StoveJoint0")
+
+[node name="StoveJoint1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.34, 0.423)
+mesh = SubResource("Mesh_StoveJoint0")
+
+[node name="StoveJoint2" type="MeshInstance3D" parent="."]
+position = Vector3(0.513, 0.34, 0.423)
+mesh = SubResource("Mesh_StoveJoint0")

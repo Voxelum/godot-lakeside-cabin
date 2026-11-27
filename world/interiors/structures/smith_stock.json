@@ -1,0 +1,15 @@
+{
+  "building_id": "clearing.wellside.blacksmith", "room_id": "place.smith_stock", "kind": "smith",
+  "size": [4.16, 4.44], "center": [-1.99, -0.23], "wall_thickness": 0.15,
+  "wall_panel":"masonry_plinth", "floors": [0], "slab_thickness": 0.16,
+  "stoop_rise": 0.17, "stoop_landing": 0.42, "stoop_run": 0.84,
+  "eave_height": 2.56, "roof_rise": 1.35, "roof_profile": "hip", "ridge_axis": "x",
+  "attachment": "smith_bay", "chimney": "none", "seed": 17201, "entry_style": "arched", "floor_finish": "flags",
+  "style": {"facade":"d6bd99", "timber":"634737", "stone":"a0917e", "roof":"a05741", "door":"436860", "lining":"b6ab98", "interior_timber":"6d4f42", "floor":"8d8274", "glass":"8c9b9a"},
+  "openings": [
+    {"id":"stock_door", "kind":"door", "side":"south", "u":-0.16, "floor":0, "sill":0, "width":1.03, "height":1.96},
+    {"id":"front_sash", "kind":"window", "side":"south", "u":1.21, "floor":0, "sill":0.88, "width":0.64, "height":0.82, "component":"casement"},
+    {"id":"north_sash", "kind":"window", "side":"north", "u":0.10, "floor":0, "sill":0.86, "width":0.72, "height":0.87, "component":"shuttered_casement"},
+    {"id":"west_sash", "kind":"window", "side":"west", "u":0.10, "floor":0, "sill":0.86, "width":0.72, "height":0.87, "component":"shuttered_casement"}
+  ]
+}

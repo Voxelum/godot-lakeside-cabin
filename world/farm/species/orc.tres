@@ -1,0 +1,22 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Orc.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"rawhide_orc"
+title = "兽人"
+coats = PackedStringArray("生皮斧手", "铜冠护卫", "角披猎手")
+body_names = PackedStringArray("Rawhide", "CopperGuard", "HornMantle")
+tier = 2
+model_scene = ExtResource("Body")
+health = 52
+power = 13
+armor = 4
+speed = 1.72
+reach = 1.58
+notice = 4.55
+windup = 0.94
+recovery = 1.49
+follow_through = 0.46
+soil = Color(0.63, 0.46, 0.32, 1)
+cue_height = 2.30

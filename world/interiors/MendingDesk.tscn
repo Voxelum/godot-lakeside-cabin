@@ -1,0 +1,80 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/LedgerDesk.tscn" id="Desk"]
+
+[sub_resource type="StandardMaterial3D" id="Cloth"]
+albedo_color = Color(0.39, 0.53, 0.50, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Thread"]
+albedo_color = Color(0.68, 0.32, 0.35, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Bone"]
+albedo_color = Color(0.85, 0.73, 0.57, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="FoldedCloth"]
+material = SubResource("Cloth")
+size = Vector3(0.62, 0.062, 0.40)
+
+[sub_resource type="BoxMesh" id="ClothSelvage"]
+material = SubResource("Bone")
+size = Vector3(0.026, 0.012, 0.36)
+
+[sub_resource type="CylinderMesh" id="Bobbin"]
+material = SubResource("Thread")
+top_radius = 0.072
+bottom_radius = 0.072
+height = 0.11
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="BobbinCap"]
+material = SubResource("Bone")
+top_radius = 0.094
+bottom_radius = 0.094
+height = 0.024
+radial_segments = 10
+rings = 1
+
+[node name="MendingDesk" instance=ExtResource("Desk")]
+
+[node name="LedgerCover" parent="." index="8"]
+visible = false
+
+[node name="Page0" parent="." index="9"]
+visible = false
+
+[node name="Page1" parent="." index="10"]
+visible = false
+
+[node name="InkPot" parent="." index="11"]
+visible = false
+
+[node name="Quill" parent="." index="12"]
+visible = false
+
+[node name="FoldedCloth" type="MeshInstance3D" parent="." index="13"]
+position = Vector3(-0.15, 0.86, 0.026)
+mesh = SubResource("FoldedCloth")
+
+[node name="Selvage0" type="MeshInstance3D" parent="." index="14"]
+position = Vector3(-0.39, 0.895, 0.023)
+mesh = SubResource("ClothSelvage")
+
+[node name="Selvage1" type="MeshInstance3D" parent="." index="15"]
+position = Vector3(0.088, 0.895, 0.023)
+mesh = SubResource("ClothSelvage")
+
+[node name="Bobbin" type="MeshInstance3D" parent="." index="16"]
+position = Vector3(0.36, 0.906, -0.07)
+mesh = SubResource("Bobbin")
+
+[node name="SpoolFoot" type="MeshInstance3D" parent="." index="17"]
+position = Vector3(0.36, 0.842, -0.07)
+mesh = SubResource("BobbinCap")
+
+[node name="SpoolHead" type="MeshInstance3D" parent="." index="18"]
+position = Vector3(0.36, 0.968, -0.07)
+mesh = SubResource("BobbinCap")

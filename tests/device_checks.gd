@@ -120,13 +120,13 @@ func run() -> void:
 	mouse(MOUSE_BUTTON_LEFT, true, center, true)
 	drag()
 	mouse(MOUSE_BUTTON_LEFT, false, center, true)
-	check(not main.orbit.dragging and is_equal_approx(main.orbit.yaw_degrees, yaw) and attacks == 2, "normal Ctrl-drag does not rotate; left press attacks")
+	check(not main.orbit.dragging and is_equal_approx(main.orbit.yaw_degrees, yaw) and attacks == 1, "normal Ctrl-drag does not rotate or attack")
 	main.developer_camera = true
 	mouse(MOUSE_BUTTON_LEFT, true, center, true)
 	drag()
 	var rotated: bool = main.orbit.dragging and not is_equal_approx(main.orbit.yaw_degrees, yaw)
 	mouse(MOUSE_BUTTON_LEFT, false, center, true)
-	check(rotated and not main.orbit.dragging and attacks == 2, "developer Ctrl-drag rotates without attack")
+	check(rotated and not main.orbit.dragging and attacks == 1, "developer Ctrl-drag rotates without attack")
 	main.developer_camera = false
 	put_near_pickup()
 	pad(JOY_BUTTON_BACK, true)
@@ -153,6 +153,7 @@ func run() -> void:
 	check(not panel.visible and book.opened, "bindings returns to settings via mouse dispatch")
 	tap(KEY_ESCAPE)
 	# The same A button that uses an object in the world now belongs exclusively to the GUI.
+	var before_menu: Dictionary = session.state.inventory.duplicate()
 	pad(JOY_BUTTON_START, true); pad(JOY_BUTTON_START, false)
 	await frames(2)
 	check(book.opened and book._back.has_focus(), "pad Start opens settings with focus")
@@ -165,15 +166,15 @@ func run() -> void:
 	var focus := root.gui_get_focus_owner()
 	check(focus != null and focus != panel._close, "pad D-pad moves focus")
 	pad(JOY_BUTTON_A, true); pad(JOY_BUTTON_A, false)
-	check(panel._action != &"" and session.state.inventory.is_empty(), "pad A activates focused binding without using world target")
+	check(panel._action != &"" and session.state.inventory == before_menu, "pad A activates focused binding without using world target")
 	tap(KEY_ESCAPE)
 	pad(JOY_BUTTON_B, true); pad(JOY_BUTTON_B, false)
 	check(not panel.visible and book.opened, "pad B returns to settings")
 	pad(JOY_BUTTON_B, true); pad(JOY_BUTTON_B, false)
-	check(not session.is_modal() and session.state.inventory.is_empty(), "pad B closes settings without transfer")
+	check(not session.is_modal() and session.state.inventory == before_menu, "pad B closes settings without transfer")
 	put_near_pickup()
-	click(MOUSE_BUTTON_RIGHT, center)
-	check(not session.state.inventory.is_empty(), "right mouse transfers reachable pickup into inventory")
+	tap(KEY_F)
+	check(session.state.inventory != before_menu, "F transfers reachable pickup into inventory")
 	tap(KEY_TAB)
 	await frames(2)
 	var list: ItemList = hud.get_node("InventoryOverlay/Parchment/Items")
@@ -199,6 +200,9 @@ func modal_checks(label: String) -> void:
 	var clock = main.get_node("Pixels/Clearing/Almanac")
 	var sunbreak = main.get_node("Pixels/Clearing/Sunbreak")
 	var shown: bool = sunbreak.shown
+	# Freeze explicitly for this input-isolation check; Main now runs by default.
+	var was_halted: bool = clock.halted
+	clock.halted = true
 	var hour: float = clock.hour
 	key(KEY_W, true)
 	# A is also GUI confirm: when Close has focus it should close, not leak a
@@ -206,6 +210,7 @@ func modal_checks(label: String) -> void:
 	pad(JOY_BUTTON_X, true)
 	pad(JOY_BUTTON_X, false)
 	click(MOUSE_BUTTON_RIGHT, center)
+	tap(KEY_F)
 	tap(KEY_B)
 	tap(KEY_2)
 	tap(KEY_P)
@@ -216,6 +221,7 @@ func modal_checks(label: String) -> void:
 	check(actor.position.is_equal_approx(before) and actor.locked, label + " blocks movement")
 	check(attacks == prior and session.state.inventory == inventory, label + " blocks use/attack")
 	check(not clock.allow_fast_key and clock.halted and is_equal_approx(clock.hour, hour) and sunbreak.shown == shown, label + " blocks legacy light controls")
+	clock.halted = was_halted
 
 func native_checks() -> void:
 	var actor = main.field_actor
@@ -227,11 +233,12 @@ func native_checks() -> void:
 	check((actor.position - before).slide(Vector3.UP).length() > 0.15, "Win32 WM_KEYDOWN/UP moved actor")
 	check(attacks == 1, "Win32 WM_LBUTTONDOWN/UP requested attack")
 	put_near_pickup()
+	var before_menu: Dictionary = session.state.inventory.duplicate()
 	print("NATIVE_USE")
 	until = Time.get_ticks_msec() + 6000
-	while Time.get_ticks_msec() < until and session.state.inventory.is_empty():
+	while Time.get_ticks_msec() < until and session.state.inventory == before_menu:
 		await process_frame
-	check(not session.state.inventory.is_empty(), "Win32 WM_RBUTTONDOWN/UP transferred pickup")
+	check(session.state.inventory != before_menu, "Win32 WM_KEYDOWN/UP (F) transferred pickup")
 
 func physical_pad(ids: Array[int]) -> void:
 	# Optional, operator-driven. No parse_input_event/action_press in this mode;

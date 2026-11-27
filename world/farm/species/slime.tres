@@ -1,0 +1,20 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://world/farm/farm_species.gd" id="D"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Slime.tscn" id="Body"]
+[resource]
+script = ExtResource("D")
+id = &"reed_slime"
+title = "史莱姆"
+coats = PackedStringArray("苇胶", "琥珀伞胶", "晶簇胶")
+body_names = PackedStringArray("ReedSlime", "AmberCap", "Shardgel")
+model_scene = ExtResource("Body")
+health = 14
+power = 4
+armor = 7
+speed = 1.18
+reach = 1.24
+notice = 3.85
+windup = 0.67
+recovery = 1.21
+soil = Color(0.52, 0.57, 0.40, 1)
+cue_height = 1.14

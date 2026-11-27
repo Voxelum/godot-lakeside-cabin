@@ -1,0 +1,14 @@
+{
+  "building_id": "clearing.wellside.hay_barn", "room_id": "place.hay_barn", "kind": "barn",
+  "size": [5.86, 4.74], "wall_thickness": 0.15, "wall_panel":"board_batten",
+  "floors": [0], "slab_thickness": 0.16, "stoop_rise": 0.13,
+  "eave_height": 2.70, "roof_rise": 2.20, "roof_profile": "gambrel", "ridge_axis": "z",
+  "attachment": "barn_lean_to", "chimney": "none", "seed": 49199, "entry_style": "double", "floor_finish": "boards",
+  "style": {"facade":"9c7951", "timber":"5d4231", "stone":"a1957b", "roof":"876b4d", "door":"677257", "lining":"98785c", "interior_timber":"6d4934", "floor":"a18459"},
+  "openings": [
+    {"id":"cart_door", "kind":"door", "side":"south", "u":0, "floor":0, "sill":0, "width":2.42, "height":2.23},
+    {"id":"louver", "kind":"vent", "side":"south", "u":0, "floor":0, "sill":3.48, "width":0.90, "height":0.51, "gable":true, "component":"louver"},
+    {"id":"east_near", "kind":"window", "side":"east", "u":-1.16, "floor":0, "sill":1.19, "width":0.54, "height":0.59, "component":"casement"},
+    {"id":"east_back", "kind":"window", "side":"east", "u":1.10, "floor":0, "sill":1.19, "width":0.54, "height":0.59, "component":"casement"}
+  ]
+}

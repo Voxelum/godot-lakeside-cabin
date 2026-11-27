@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxShape3D" id="Footprint"]
+size = Vector3(1.35, 0.52, 0.51)
+
+[sub_resource type="StandardMaterial3D" id="Material_dark"]
+albedo_color = Color(0.3137, 0.2118, 0.1686, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Leg00"]
+material = SubResource("Material_dark")
+size = Vector3(0.105, 0.48, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="Material_edge"]
+albedo_color = Color(0.6549, 0.4667, 0.3020, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_Seat"]
+material = SubResource("Material_edge")
+size = Vector3(1.35, 0.084, 0.51)
+
+[sub_resource type="BoxMesh" id="Mesh_BootDeck"]
+material = SubResource("Material_dark")
+size = Vector3(1.22, 0.052, 0.48)
+
+[sub_resource type="BoxMesh" id="Mesh_BootAnkle0"]
+material = SubResource("Material_dark")
+size = Vector3(0.16, 0.233, 0.22)
+
+[sub_resource type="StandardMaterial3D" id="Material_oak"]
+albedo_color = Color(0.4627, 0.3216, 0.2353, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_BootToe0"]
+material = SubResource("Material_oak")
+size = Vector3(0.175, 0.09, 0.26)
+
+[sub_resource type="StandardMaterial3D" id="Material_linen"]
+albedo_color = Color(0.8000, 0.7020, 0.5255, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_FoldedSacking"]
+material = SubResource("Material_linen")
+size = Vector3(0.38, 0.075, 0.35)
+
+[node name="BootBench" type="Node3D"]
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+position = Vector3(0, 0.26, 0)
+shape = SubResource("Footprint")
+
+[node name="Leg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.24, -0.17)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.57, 0.24, 0.17)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.24, -0.17)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Leg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.57, 0.24, 0.17)
+mesh = SubResource("Mesh_Leg00")
+
+[node name="Seat" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.477, 0)
+mesh = SubResource("Mesh_Seat")
+
+[node name="BootDeck" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.15, 0)
+mesh = SubResource("Mesh_BootDeck")
+
+[node name="BootAnkle0" type="MeshInstance3D" parent="."]
+position = Vector3(0.06, 0.275, -0.03)
+mesh = SubResource("Mesh_BootAnkle0")
+
+[node name="BootToe0" type="MeshInstance3D" parent="."]
+position = Vector3(0.06, 0.187, 0.076)
+mesh = SubResource("Mesh_BootToe0")
+
+[node name="BootAnkle1" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 0.275, -0.03)
+mesh = SubResource("Mesh_BootAnkle0")
+
+[node name="BootToe1" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 0.187, 0.076)
+mesh = SubResource("Mesh_BootToe0")
+
+[node name="FoldedSacking" type="MeshInstance3D" parent="."]
+position = Vector3(-0.38, 0.55, -0.03)
+mesh = SubResource("Mesh_FoldedSacking")

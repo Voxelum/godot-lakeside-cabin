@@ -1,0 +1,258 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Mat_gold"]
+albedo_color = Color(0.8352941176470589, 0.6392156862745098, 0.3568627450980392, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_blue"]
+albedo_color = Color(0.2627450980392157, 0.4627450980392157, 0.4823529411764706, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_bread"]
+albedo_color = Color(0.7294117647058823, 0.4745098039215686, 0.25098039215686274, 1)
+roughness = 0.94
+
+[sub_resource type="BoxShape3D" id="Shape_381"]
+size = Vector3(1.62, 1.1, 1.25)
+
+[sub_resource type="StandardMaterial3D" id="Mat_887976"]
+albedo_color = Color(0.5333333333333333, 0.4745098039215686, 0.4627450980392157, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_382"]
+material = SubResource("Mat_887976")
+size = Vector3(1.65, 0.122, 1.27)
+
+[sub_resource type="StandardMaterial3D" id="Mat_iron"]
+albedo_color = Color(0.20784313725490197, 0.19607843137254902, 0.21568627450980393, 1)
+roughness = 0.94
+
+[sub_resource type="CylinderMesh" id="Mesh_383"]
+material = SubResource("Mat_iron")
+top_radius = 0.081
+bottom_radius = 0.105
+height = 0.25
+radial_segments = 8
+
+[sub_resource type="BoxMesh" id="Mesh_384"]
+material = SubResource("Mat_iron")
+size = Vector3(1.21, 0.66, 0.91)
+
+[sub_resource type="StandardMaterial3D" id="Mat_4b4240"]
+albedo_color = Color(0.29411764705882354, 0.25882352941176473, 0.25098039215686274, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_385"]
+material = SubResource("Mat_4b4240")
+size = Vector3(1.36, 0.098, 1.014)
+
+[sub_resource type="BoxMesh" id="Mesh_386"]
+material = SubResource("Mat_4b4240")
+size = Vector3(0.83, 0.5, 0.093)
+
+[sub_resource type="StandardMaterial3D" id="Mat_wine"]
+albedo_color = Color(0.45098039215686275, 0.2235294117647059, 0.21176470588235294, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_387"]
+material = SubResource("Mat_wine")
+size = Vector3(0.48, 0.268, 0.024)
+
+[sub_resource type="BoxMesh" id="Mesh_388"]
+material = SubResource("Mat_bread")
+size = Vector3(0.063, 0.09, 0.012)
+
+[sub_resource type="StandardMaterial3D" id="Mat_fire"]
+albedo_color = Color(1, 0.6274509803921569, 0.3058823529411765, 1)
+roughness = 0.94
+emission_enabled = true
+emission = Color(1, 0.6274509803921569, 0.3058823529411765, 1)
+emission_energy_multiplier = 0.85
+
+[sub_resource type="BoxMesh" id="Mesh_389"]
+material = SubResource("Mat_fire")
+size = Vector3(0.063, 0.142, 0.012)
+
+[sub_resource type="BoxMesh" id="Mesh_390"]
+material = SubResource("Mat_bread")
+size = Vector3(0.063, 0.194, 0.012)
+
+[sub_resource type="BoxMesh" id="Mesh_391"]
+material = SubResource("Mat_fire")
+size = Vector3(0.063, 0.09, 0.012)
+
+[sub_resource type="BoxMesh" id="Mesh_392"]
+material = SubResource("Mat_bread")
+size = Vector3(0.063, 0.142, 0.012)
+
+[sub_resource type="BoxMesh" id="Mesh_393"]
+material = SubResource("Mat_gold")
+size = Vector3(0.115, 0.04, 0.063)
+
+[sub_resource type="CylinderMesh" id="Mesh_394"]
+material = SubResource("Mat_iron")
+top_radius = 0.122
+bottom_radius = 0.132
+height = 2.13
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="Mesh_395"]
+material = SubResource("Mat_4b4240")
+top_radius = 0.16
+bottom_radius = 0.16
+height = 0.07
+radial_segments = 12
+
+[sub_resource type="SphereMesh" id="Mesh_396"]
+material = SubResource("Mat_blue")
+radius = 0.221
+height = 0.365
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="Mesh_397"]
+material = SubResource("Mat_iron")
+top_radius = 0.135
+bottom_radius = 0.145
+height = 0.05
+radial_segments = 12
+
+[sub_resource type="SphereMesh" id="Mesh_398"]
+material = SubResource("Mat_gold")
+radius = 0.051
+height = 0.077
+radial_segments = 12
+rings = 6
+
+[sub_resource type="BoxMesh" id="Mesh_399"]
+material = SubResource("Mat_blue")
+size = Vector3(0.23, 0.09, 0.08)
+
+[node name="CastIronHearth" type="Node3D"]
+
+[node name="StoveBlockBody" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.55, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="StoveBlockBody"]
+shape = SubResource("Shape_381")
+
+[node name="Hearthstone" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.061, -0.02)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_382")
+
+[node name="StoveFoot00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.47, 0.238, -0.35)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_383")
+
+[node name="StoveFoot01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.47, 0.238, 0.28)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_383")
+
+[node name="StoveFoot10" type="MeshInstance3D" parent="."]
+position = Vector3(0.47, 0.238, -0.35)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_383")
+
+[node name="StoveFoot11" type="MeshInstance3D" parent="."]
+position = Vector3(0.47, 0.238, 0.28)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_383")
+
+[node name="Firebox" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.64, -0.05)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_384")
+
+[node name="TopPlate" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.984, -0.05)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_385")
+
+[node name="DoorCasting" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.642, 0.43)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_386")
+
+[node name="ViewingPort" type="MeshInstance3D" parent="."]
+position = Vector3(-0.07, 0.67, 0.483)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_387")
+
+[node name="Ember0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.26, 0.61, 0.498)
+rotation_degrees = Vector3(0, 0, -9)
+mesh = SubResource("Mesh_388")
+
+[node name="Ember1" type="MeshInstance3D" parent="."]
+position = Vector3(-0.17, 0.645, 0.498)
+rotation_degrees = Vector3(0, 0, 12)
+mesh = SubResource("Mesh_389")
+
+[node name="Ember2" type="MeshInstance3D" parent="."]
+position = Vector3(-0.08, 0.68, 0.498)
+rotation_degrees = Vector3(0, 0, -9)
+mesh = SubResource("Mesh_390")
+
+[node name="Ember3" type="MeshInstance3D" parent="."]
+position = Vector3(0.01, 0.61, 0.498)
+rotation_degrees = Vector3(0, 0, 12)
+mesh = SubResource("Mesh_391")
+
+[node name="Ember4" type="MeshInstance3D" parent="."]
+position = Vector3(0.1, 0.645, 0.498)
+rotation_degrees = Vector3(0, 0, -9)
+mesh = SubResource("Mesh_392")
+
+[node name="Latch" type="MeshInstance3D" parent="."]
+position = Vector3(0.287, 0.68, 0.497)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_393")
+
+[node name="Flue" type="MeshInstance3D" parent="."]
+position = Vector3(0.31, 2.08, -0.34)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_394")
+
+[node name="PipeRing0" type="MeshInstance3D" parent="."]
+position = Vector3(0.31, 1.18, -0.34)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_395")
+
+[node name="PipeRing1" type="MeshInstance3D" parent="."]
+position = Vector3(0.31, 2.15, -0.34)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_395")
+
+[node name="PipeRing2" type="MeshInstance3D" parent="."]
+position = Vector3(0.31, 3.08, -0.34)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_395")
+
+[node name="Kettle" type="MeshInstance3D" parent="."]
+position = Vector3(-0.27, 1.198, -0.01)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_396")
+
+[node name="Lid" type="MeshInstance3D" parent="."]
+position = Vector3(-0.27, 1.383, -0.01)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_397")
+
+[node name="Knob" type="MeshInstance3D" parent="."]
+position = Vector3(-0.27, 1.435, -0.01)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_398")
+
+[node name="KettleSpout" type="MeshInstance3D" parent="."]
+position = Vector3(-0.48, 1.245, 0.03)
+rotation_degrees = Vector3(0, 0, -28)
+mesh = SubResource("Mesh_399")
+
+[node name="HearthGlow" type="OmniLight3D" parent="."]
+position = Vector3(-0.03, 0.92, 0.66)
+light_color = Color(1, 0.61, 0.34, 1)
+light_energy = 0.62
+omni_range = 3.2

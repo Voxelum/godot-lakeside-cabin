@@ -1,0 +1,29 @@
+{
+  "building_id": "clearing.market_court.inn", "room_id": "place.inn", "kind": "town", "sign": "inn",
+  "size": [7.40, 6.10], "wall_thickness": 0.16, "wall_panel": "framed_plaster",
+  "floors": [0, 2.46], "slab_thickness": 0.17, "stoop_rise": 0.18,
+  "eave_height": 4.57, "roof_rise": 1.91, "roof_profile": "sweep", "ridge_axis": "z",
+  "chimney": "left", "seed": 258211, "entry_style": "arched", "floor_finish": "boards",
+  "style": {"facade":"dfc49b", "timber":"654939", "stone":"a29583", "roof":"a35f48", "door":"88534e", "lining":"dcc5a6", "interior_timber":"7d5640", "floor":"ba9465", "shutter":"8b514b", "glass":"a6bec0"},
+  "openings": [
+    {"id":"inn_door", "kind":"door", "side":"south", "u":-0.90, "floor":0, "sill":0, "width":1.20, "height":2.04},
+    {"id":"lobby_sash", "kind":"window", "side":"south", "u":1.09, "floor":0, "sill":0.82, "width":1.45, "height":1.18, "component":"shuttered_triplet"},
+    {"id":"waiting_sash", "kind":"window", "side":"east", "u":1.76, "floor":0, "sill":0.96, "width":1.03, "height":1.04, "component":"casement"},
+    {"id":"desk_sash", "kind":"window", "side":"west", "u":-0.12, "floor":0, "sill":0.98, "width":1.27, "height":1.03, "component":"shuttered_triplet"},
+    {"id":"guest_south", "kind":"window", "side":"south", "u":-1.72, "floor":1, "sill":0.76, "width":1.40, "height":1.06, "component":"shuttered_triplet"},
+    {"id":"gallery_south", "kind":"window", "side":"south", "u":1.70, "floor":1, "sill":0.76, "width":1.12, "height":1.02, "component":"shuttered_casement"},
+    {"id":"guest_north", "kind":"window", "side":"north", "u":1.69, "floor":1, "sill":0.76, "width":1.36, "height":1.06, "component":"shuttered_triplet"},
+    {"id":"landing_sash", "kind":"window", "side":"east", "u":1.76, "floor":1, "sill":0.78, "width":1.01, "height":1.01, "component":"casement"}
+  ],
+  "stairs": {
+    "x": -0.58, "width": 1.08, "bottom_z": -0.90, "top_z": -3.76, "steps": 14,
+    "opening": {"min_x": -1.15, "max_x": -0.02, "min_z": -3.76, "max_z": -0.73}
+  },
+  "partitions": [
+    {"id":"guest_hall", "floor":1, "axis":"z", "at":0.18, "from":"min", "to":"max", "thickness":0.12, "passages":[
+      {"id":"north_guest", "u":-1.64, "width":1.06, "height":1.97},
+      {"id":"south_guest", "u":1.47, "width":1.06, "height":1.97}
+    ]},
+    {"id":"guest_divider", "floor":1, "axis":"x", "at":-0.12, "from":"min", "to":0.12, "thickness":0.12}
+  ]
+}

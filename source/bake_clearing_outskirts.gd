@@ -19,7 +19,7 @@ func _initialize() -> void:
 		track.append(Survey.ROUTE[i])
 		widths.append(Survey.WIDTH[i])
 	_strip("Cart_Lane_And_Stone_Street", track, widths)
-	_strip("Stone_Street_Alley", PackedVector2Array(Survey.ALLEY), PackedFloat32Array([1.62, 1.55, 1.36, 1.08]), true)
+	_strip("Stone_Street_Alley", PackedVector2Array(Survey.ALLEY), PackedFloat32Array(preload("res://world/outskirts/settlement_space.gd").ALLEY_WIDTH), true)
 	var alley_border := outline
 	# Old pavers end on a diagonal at z∼16.5. Sparse, gently lowered stone beyond
 	# their edge fades into the wheel-worn earth, not into a second road mesh.
@@ -39,6 +39,11 @@ func _initialize() -> void:
 		return rng.randf() < lerpf(.30,1.0,paving))
 	_habitats()
 	_wild_edges()
+	# Keep the original stone/furniture survey and RNG sequence intact. Extend
+	# the same material beyond its far rail, cutting out overlap with old setts.
+	_strip("Market_Court_Lane", PackedVector2Array(Survey.MARKET_ROUTE), PackedFloat32Array(Survey.MARKET_WIDTH), true)
+	for border: PackedVector2Array in Geometry2D.clip_polygons(outline, joined[0]):
+		_cut_setts(border, Rect2(23.6, 74.0, 7.0, 27.1), .76, .64, SETTS)
 	var target := OUTPUT
 	if FileAccess.file_exists(target) and not "--replace" in OS.get_cmdline_user_args():
 		target = Brush.unused_scene_path(OUTPUT.trim_suffix(".tscn"))
@@ -62,9 +67,10 @@ func _rolling_meadow() -> void:
 		xs.append(x)
 	xs.append_array(PackedFloat32Array([47., 53., 65.]))
 	var zs := PackedFloat32Array()
-	for z in range(int(Survey.JOIN_Z), 88):
+	# Sample at the survey's actual 1 m spacing through the market grade blend.
+	for z in range(int(Survey.JOIN_Z), 106):
 		zs.append(z)
-	zs.append_array(PackedFloat32Array([90., 94., 100., 111.]))
+	zs.append(111.0)
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var grid_points := PackedVector3Array()
@@ -94,23 +100,8 @@ func _rolling_meadow() -> void:
 	floor_hit.shape = shape
 	put(floor_hit)
 
-func _cross_section(path: PackedVector2Array, i: int, t: float) -> Vector2:
-	return path[i].cubic_interpolate(path[i+1], path[maxi(i-1,0)], path[mini(i+2,path.size()-1)], t)
-
-# Product of the survey centerline, not a row of tiles. Both the stroke and
-# chip cutters use the curve's tangent so the old road grows into a bend.
 func _stations(path: PackedVector2Array, widths: Array) -> Array[Vector4]:
-	var result: Array[Vector4] = []
-	for i in path.size()-1:
-		var steps := maxi(1, ceili(path[i].distance_to(path[i+1])/.43))
-		for j in range(steps + int(i == path.size()-2)):
-			var t := float(j)/steps
-			var p := _cross_section(path, i, t)
-			var heading := _cross_section(path, i, minf(t+.018,1.0)) - _cross_section(path,i,maxf(t-.018,0.0))
-			var half := lerpf(widths[i], widths[i+1], t)*.5
-			var edge := heading.normalized().orthogonal()*half
-			result.append(Vector4(p.x,p.y,edge.x,edge.y))
-	return result
+	return preload("res://world/outskirts/settlement_space.gd").stations(path,widths)
 
 func _outline(path: PackedVector2Array, widths: Array) -> PackedVector2Array:
 	var points := PackedVector2Array()

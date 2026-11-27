@@ -1,0 +1,121 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Mat_beam"]
+albedo_color = Color(0.34509803921568627, 0.2196078431372549, 0.17254901960784313, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_edge"]
+albedo_color = Color(0.4745098039215686, 0.3176470588235294, 0.23137254901960785, 1)
+roughness = 0.94
+
+[sub_resource type="BoxShape3D" id="Shape_360"]
+size = Vector3(1.54, 0.79, 1.17)
+
+[sub_resource type="StandardMaterial3D" id="Mat_bb8958"]
+albedo_color = Color(0.7333333333333333, 0.5372549019607843, 0.34509803921568627, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_361"]
+material = SubResource("Mat_bb8958")
+size = Vector3(1.58, 0.095, 0.287)
+
+[sub_resource type="StandardMaterial3D" id="Mat_a5754e"]
+albedo_color = Color(0.6470588235294118, 0.4588235294117647, 0.3058823529411765, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_362"]
+material = SubResource("Mat_a5754e")
+size = Vector3(1.58, 0.095, 0.287)
+
+[sub_resource type="BoxMesh" id="Mesh_363"]
+material = SubResource("Mat_beam")
+size = Vector3(0.12, 0.72, 0.12)
+
+[sub_resource type="BoxMesh" id="Mesh_364"]
+material = SubResource("Mat_edge")
+size = Vector3(0.145, 0.17, 0.145)
+
+[sub_resource type="BoxMesh" id="Mesh_365"]
+material = SubResource("Mat_edge")
+size = Vector3(1.37, 0.14, 0.09)
+
+[node name="DiningTable" type="Node3D"]
+
+[node name="Tabletop" type="Marker3D" parent="."]
+position = Vector3(0, 0.8, 0)
+
+[node name="TableBlockBody" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.395, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="TableBlockBody"]
+shape = SubResource("Shape_360")
+
+[node name="TableTop0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.775, -0.4395)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_361")
+
+[node name="TableTop1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.775, -0.1465)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_362")
+
+[node name="TableTop2" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.775, 0.1465)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_361")
+
+[node name="TableTop3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.775, 0.4395)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_362")
+
+[node name="TableLeg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.64, 0.36, -0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_363")
+
+[node name="Foot00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.64, 0.085, -0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_364")
+
+[node name="TableLeg01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.64, 0.36, 0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_363")
+
+[node name="Foot01" type="MeshInstance3D" parent="."]
+position = Vector3(-0.64, 0.085, 0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_364")
+
+[node name="TableLeg10" type="MeshInstance3D" parent="."]
+position = Vector3(0.64, 0.36, -0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_363")
+
+[node name="Foot10" type="MeshInstance3D" parent="."]
+position = Vector3(0.64, 0.085, -0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_364")
+
+[node name="TableLeg11" type="MeshInstance3D" parent="."]
+position = Vector3(0.64, 0.36, 0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_363")
+
+[node name="Foot11" type="MeshInstance3D" parent="."]
+position = Vector3(0.64, 0.085, 0.44)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_364")
+
+[node name="Apron0" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.67, -0.48)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_365")
+
+[node name="Apron1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.67, 0.48)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_365")

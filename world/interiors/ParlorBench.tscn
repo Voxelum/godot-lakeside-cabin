@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://world/interiors/BootBench.tscn" id="Bench"]
+
+[sub_resource type="StandardMaterial3D" id="Wool"]
+albedo_color = Color(0.53, 0.30, 0.31, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Seam"]
+albedo_color = Color(0.79, 0.59, 0.48, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Cushion"]
+material = SubResource("Wool")
+size = Vector3(1.23, 0.105, 0.448)
+
+[sub_resource type="BoxMesh" id="Piping"]
+material = SubResource("Seam")
+size = Vector3(1.195, 0.023, 0.018)
+
+[node name="ParlorBench" instance=ExtResource("Bench")]
+
+[node name="BootAnkle0" parent="." index="7"]
+visible = false
+
+[node name="BootToe0" parent="." index="8"]
+visible = false
+
+[node name="BootAnkle1" parent="." index="9"]
+visible = false
+
+[node name="BootToe1" parent="." index="10"]
+visible = false
+
+[node name="FoldedSacking" parent="." index="11"]
+visible = false
+
+[node name="Cushion" type="MeshInstance3D" parent="." index="12"]
+position = Vector3(0, 0.5675, 0)
+mesh = SubResource("Cushion")
+
+[node name="SeatPiping" type="MeshInstance3D" parent="." index="13"]
+position = Vector3(0, 0.593, 0.225)
+mesh = SubResource("Piping")

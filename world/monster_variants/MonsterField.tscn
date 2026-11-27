@@ -1,0 +1,156 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/monster_variants/monster_field.gd" id="Field"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Slime.tscn" id="Slime"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Goblin.tscn" id="Goblin"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Wolf.tscn" id="Wolf"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/GiantRat.tscn" id="GiantRat"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Skeleton.tscn" id="Skeleton"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/RootMaw.tscn" id="RootMaw"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Orc.tscn" id="Orc"]
+[ext_resource type="PackedScene" path="res://art/monster_variants/Zombie.tscn" id="Zombie"]
+
+[node name="MonsterField" type="Node3D"]
+script = ExtResource("Field")
+
+[node name="RatBank" type="Node3D" parent="."]
+
+[node name="Loamcap" parent="RatBank" instance=ExtResource("GiantRat")]
+position = Vector3(8.42, 0, 26.74)
+rotation_degrees = Vector3(0, 58, 0)
+variant = 1
+phase_offset = 1.15
+roam_radius = 0.21
+
+[node name="PatchEar" parent="RatBank" instance=ExtResource("GiantRat")]
+position = Vector3(10.60, 0, 26.72)
+rotation_degrees = Vector3(0, 47, 0)
+variant = 2
+phase_offset = 5.78
+roam_radius = 0.15
+
+[node name="ReedPocket" type="Node3D" parent="."]
+
+[node name="AmberCap" parent="ReedPocket" instance=ExtResource("Slime")]
+position = Vector3(17.35, 0, 34.59)
+rotation_degrees = Vector3(0, 38, 0)
+variant = 1
+phase_offset = 1.30
+roam_radius = 0.14
+
+[node name="Shardgel" parent="ReedPocket" instance=ExtResource("Slime")]
+position = Vector3(14.20, 0, 38.00)
+rotation_degrees = Vector3(0, 55, 0)
+variant = 2
+phase_offset = 5.57
+roam_radius = 0.19
+
+[node name="FernPocket" type="Node3D" parent="."]
+
+[node name="CopperPike" parent="FernPocket" instance=ExtResource("Goblin")]
+position = Vector3(9.07, 0, 43.42)
+rotation_degrees = Vector3(0, 49, 0)
+variant = 1
+phase_offset = 0.51
+roam_radius = 0.25
+
+[node name="BriarBuckler" parent="FernPocket" instance=ExtResource("Goblin")]
+position = Vector3(7.84, 0, 46.98)
+rotation_degrees = Vector3(0, 51, 0)
+variant = 2
+phase_offset = 6.10
+roam_radius = 0.23
+
+[node name="OrcShelf" type="Node3D" parent="."]
+
+[node name="Rawhide" parent="OrcShelf" instance=ExtResource("Orc")]
+position = Vector3(16.14, 0, 43.72)
+rotation_degrees = Vector3(0, 41, 0)
+variant = 0
+phase_offset = 0.30
+roam_radius = 0.29
+
+[node name="CopperGuard" parent="OrcShelf" instance=ExtResource("Orc")]
+position = Vector3(15.85, 0, 45.78)
+rotation_degrees = Vector3(0, 51, 0)
+variant = 1
+phase_offset = 2.65
+roam_radius = 0.28
+
+[node name="HornMantle" parent="OrcShelf" instance=ExtResource("Orc")]
+position = Vector3(15.40, 0, 47.30)
+rotation_degrees = Vector3(0, 43, 0)
+variant = 2
+phase_offset = 5.80
+roam_radius = 0.26
+
+[node name="MawPatch" type="Node3D" parent="."]
+
+[node name="ThornCrown" parent="MawPatch" instance=ExtResource("RootMaw")]
+position = Vector3(18.75, 0, 49.52)
+rotation_degrees = Vector3(0, 32, 0)
+variant = 1
+phase_offset = 0.81
+roam_radius = 0
+
+[node name="DuskOrchid" parent="MawPatch" instance=ExtResource("RootMaw")]
+position = Vector3(19.90, 0, 51.49)
+rotation_degrees = Vector3(0, 34, 0)
+variant = 2
+phase_offset = 5.71
+roam_radius = 0
+
+[node name="WolfGlade" type="Node3D" parent="."]
+
+[node name="FrostRuff" parent="WolfGlade" instance=ExtResource("Wolf")]
+position = Vector3(10.77, 0, 56.15)
+rotation_degrees = Vector3(0, 58, 0)
+variant = 1
+phase_offset = 1.30
+roam_radius = 0.25
+
+[node name="SickleTail" parent="WolfGlade" instance=ExtResource("Wolf")]
+position = Vector3(12.02, 0, 59.37)
+rotation_degrees = Vector3(0, 57, 0)
+variant = 2
+phase_offset = 6.10
+roam_radius = 0.27
+
+[node name="BoneShoulder" type="Node3D" parent="."]
+
+[node name="CopperRound" parent="BoneShoulder" instance=ExtResource("Skeleton")]
+position = Vector3(16.19, 0, 61.14)
+rotation_degrees = Vector3(0, 58, 0)
+variant = 1
+phase_offset = 1.52
+roam_radius = 0.16
+
+[node name="Ossuary" parent="BoneShoulder" instance=ExtResource("Skeleton")]
+position = Vector3(14.50, 0, 59.62)
+rotation_degrees = Vector3(0, 49, 0)
+variant = 2
+phase_offset = 5.84
+roam_radius = 0.18
+
+[node name="DitchVerge" type="Node3D" parent="."]
+
+[node name="Ragged" parent="DitchVerge" instance=ExtResource("Zombie")]
+position = Vector3(16.44, 0, 63.32)
+rotation_degrees = Vector3(0, 43, 0)
+variant = 0
+phase_offset = 1.28
+roam_radius = 0.26
+
+[node name="Shroud" parent="DitchVerge" instance=ExtResource("Zombie")]
+position = Vector3(15.36, 0, 65.94)
+rotation_degrees = Vector3(0, 37, 0)
+variant = 1
+phase_offset = 3.80
+roam_radius = 0.26
+
+[node name="PeatHelm" parent="DitchVerge" instance=ExtResource("Zombie")]
+position = Vector3(14.88, 0, 68.00)
+rotation_degrees = Vector3(0, 43, 0)
+variant = 2
+phase_offset = 5.96
+roam_radius = 0.25

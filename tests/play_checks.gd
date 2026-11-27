@@ -103,7 +103,7 @@ func _cross() -> bool:
 			locked = locked and source == main.field_actor.global_position and guest == main.room_actor.global_position
 		if not phases.has(phase):
 			phases[phase] = true
-			_mouse(MOUSE_BUTTON_RIGHT); _mouse(MOUSE_BUTTON_LEFT)
+			_key(KEY_F); _mouse(MOUSE_BUTTON_LEFT)
 			for code in [KEY_TAB, KEY_F2, KEY_F5, KEY_F6, KEY_F9]: _key(code)
 		source = main.field_actor.global_position; guest = main.room_actor.global_position; previous = phase
 		await process_frame
@@ -127,24 +127,34 @@ func _door_write() -> void:
 	var rare = main.get_node("Pixels/Clearing/AmberB")
 	rare.definition = State.SAMPLE.duplicate()
 	rare.definition.rarity += 1
-	_mouse(MOUSE_BUTTON_RIGHT)
+	_key(KEY_F)
 	_check(_count() == 1 and rare.amount(state) == 0 and not rare.visible, "actual use picks only the rarer source")
 	rare.definition = State.SAMPLE
 	if not await _cross(): return
-	_mouse(MOUSE_BUTTON_RIGHT); _mouse(MOUSE_BUTTON_RIGHT)
+	_key(KEY_F); _key(KEY_F)
 	_check(_count() == 4 and state.remaining("cabin.entry_chest", 3) == 0, "Guest takes whole chest once only")
 	if not await _cross(): return
 	_check(_count() == 4 and main.active_actor() == main.field_actor, "Traveler sees same pack")
 	if not await _cross(): return
 	_check(not FileAccess.file_exists(slot), "three crossings did not save")
-	_mouse(MOUSE_BUTTON_RIGHT)
+	_key(KEY_F)
 	_check(_count() == 4 and main.get_node("RoomPixels/Interior/EntryChest/LidHinge").rotation.x < -1.0, "empty on return, lid open")
 	# A restored position must not simply be the standard door arrival.
-	_steer(Vector3.RIGHT); await _ticks(13)
+	_steer(Vector3.FORWARD); await _ticks(13)
 	_steer(Vector3.ZERO); await _ticks(3)
 	_check((main.room_actor.global_position - main.room_entry.global_position).slide(Vector3.UP).length() > 0.25, "save away from entry")
+	_key(KEY_TAB)
+	var card: Panel = session.hud.get_node("InventoryOverlay/Parchment")
+	var entries: ItemList = card.get_node("Items")
+	for i in entries.item_count:
+		if entries.get_item_text(i).begins_with("长枪"):
+			entries.select(i)
+			entries.item_selected.emit(i)
+	_click(card.get_node("EquipmentAction"))
+	_key(KEY_TAB)
 	_key(KEY_F5)
 	_check(FileAccess.file_exists(slot), "explicit F5 saved")
+	await _ticks(3) # Let the post-menu held-input gate observe neutral movement.
 	if not await _cross(): return
 	_key(KEY_F9)
 	_door_read()
@@ -153,8 +163,9 @@ func _door_read() -> void:
 	_check(main.indoors and main.active_actor() == main.room_actor and state.location_id == "place.cabin", "restore active indoor place")
 	var disk := State.new()
 	_check(disk.load_slot(slot).is_empty() and main.room_actor.global_position.distance_to(disk.position) < 0.03 and (disk.position - main.room_entry.global_position).slide(Vector3.UP).length() > 0.25, "restore saved feet, not the default entry")
+	_check(disk.loaded_building_revision.length() == 64 and state.equipment == {"main_hand": "item.spear"} and not state.inventory.has("item.spear") and main.room_actor.combat.weapon == &"spear" and not main.room_actor.combat.drawn, "indoor revision and undrawn equipment restore without duplicate")
 	_check(_count() == 4 and state.remaining("bank.sample_b", 1) == 0 and state.remaining("cabin.entry_chest", 3) == 0, "restore stack and depleted sources")
-	_mouse(MOUSE_BUTTON_RIGHT)
+	_key(KEY_F)
 	_check(_count() == 4 and not main.crossing, "restored box refuses second transfer without cutscene")
 
 func _walk_region(dest: String) -> bool:
@@ -234,10 +245,10 @@ func _table_menu() -> void:
 	_check(chest.get_node("LidHinge").rotation.x > -0.01, "walking away recloses unlooted chest")
 	var tip_text: String = tip.get_child(0).text
 	_check(tip.is_visible_in_tree() and tip_text.begins_with("◆ 茶杯") and tip_text.contains("面包"), "rendered table tag lists both real items: " + tip_text)
-	var cup = main.get_node("RoomPixels/Interior/Dining/CupPickup")
-	var bread = main.get_node("RoomPixels/Interior/Dining/BreadPickup")
-	_mouse(MOUSE_BUTTON_RIGHT)
-	_check(not cup.visible and is_instance_valid(cup._flight) and state.inventory == {"item.cup": 1}, "first actual use sends cup flying, owns it immediately")
+	var cup = main.get_node("RoomPixels/Interior/Dining/Tabletop/CabinSetting/CupPickup")
+	var bread = main.get_node("RoomPixels/Interior/Dining/Tabletop/CabinSetting/BreadPickup")
+	_key(KEY_F)
+	_check(not cup.visible and is_instance_valid(cup._flight) and state.inventory == {"item.cup": 1, "item.sword": 1, "item.spear": 1}, "first actual use sends cup flying, owns it immediately")
 	if is_instance_valid(cup._flight):
 		var start: Vector3 = cup._flight.global_position
 		var torso := actor.to_global(Vector3(0, 1.05, 0))
@@ -247,27 +258,27 @@ func _table_menu() -> void:
 	_check(book.opened and actor.locked and not tip.is_visible_in_tree(), "book locks player and hides anchored tag")
 	_click(book._save)
 	_check(FileAccess.file_exists(slot) and not book._load.disabled, "save while first pickup is in flight")
-	_click(book._back); _mouse(MOUSE_BUTTON_RIGHT)
-	_check(not bread.visible and is_instance_valid(bread._flight) and not tip.is_visible_in_tree() and state.inventory.size() == 2, "next use picks bread; exhausted table has no tag")
+	_click(book._back); _key(KEY_F)
+	_check(not bread.visible and is_instance_valid(bread._flight) and not tip.is_visible_in_tree() and state.inventory.size() == 4, "next use picks bread; exhausted table has no tag")
 	_key(KEY_TAB)
 	var items: ItemList = session.hud.get_node("InventoryOverlay/Parchment/Items")
-	_check(items.item_count == 2 and items.get_item_icon(0) != items.get_item_icon(1), "two distinct inventory icons")
+	_check(items.item_count == 4 and items.get_item_icon(0) != items.get_item_icon(1), "two distinct inventory icons")
 	_key(KEY_ESCAPE); _key(KEY_ESCAPE)
 	_click(book._load)
-	_check(state.inventory.size() == 2 and book.opened, "load awaits confirmation")
+	_check(state.inventory.size() == 4 and book.opened, "load awaits confirmation")
 	_click(book._load)
-	_check(not book.opened and not is_instance_valid(bread._flight) and bread.visible and not cup.visible and state.inventory == {"item.cup":1}, "load restores just cup; no ghost or double delivery")
+	_check(not book.opened and not is_instance_valid(bread._flight) and bread.visible and not cup.visible and state.inventory == {"item.cup": 1, "item.sword": 1, "item.spear": 1}, "load restores just cup; no ghost or double delivery")
 	_check(tip.is_visible_in_tree() and tip.get_child(0).text.contains("面包") and not tip.get_child(0).text.contains("茶杯"), "restored paper tag matches authority")
 	# A confirmed click is required before replacing a slot. A bad read is
 	# reported inside the open book without changing the live table or bag.
-	_mouse(MOUSE_BUTTON_RIGHT); _key(KEY_ESCAPE)
+	_key(KEY_F); _key(KEY_ESCAPE)
 	var before := FileAccess.get_sha256(slot)
 	_click(book._save); _key(KEY_ESCAPE)
 	_check(book.opened and book._confirm.is_empty() and FileAccess.get_sha256(slot) == before, "cancel overwrite keeps previous slot")
 	_click(book._save); _click(book._save)
 	var disk := State.new()
-	_check(disk.load_slot(slot).is_empty() and disk.inventory == state.inventory and disk.inventory.size() == 2, "confirmed overwrite saved both items")
+	_check(disk.load_slot(slot).is_empty() and disk.inventory == state.inventory and disk.inventory.size() == 4, "confirmed overwrite saved both items")
 	var bad := FileAccess.open(slot, FileAccess.WRITE)
 	bad.close() # empty, isolated test file (not the player's slot)
 	_click(book._load); _click(book._load)
-	_check(book.opened and actor.locked and not book._status.text.is_empty() and state.inventory.size() == 2 and not bread.visible, "bad read stays in book and leaves live state intact")
+	_check(book.opened and actor.locked and not book._status.text.is_empty() and state.inventory.size() == 4 and not bread.visible, "bad read stays in book and leaves live state intact")

@@ -1,0 +1,98 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Oak"]
+albedo_color = Color(0.39, 0.25, 0.17, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Edge"]
+albedo_color = Color(0.59, 0.39, 0.24, 1)
+roughness = 0.90
+
+[sub_resource type="StandardMaterial3D" id="Parchment"]
+albedo_color = Color(0.92, 0.79, 0.55, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Ink"]
+albedo_color = Color(0.43, 0.29, 0.20, 1)
+roughness = 0.93
+
+[sub_resource type="StandardMaterial3D" id="Seal"]
+albedo_color = Color(0.59, 0.23, 0.18, 1)
+roughness = 0.79
+
+[sub_resource type="BoxMesh" id="Board"]
+material = SubResource("Oak")
+size = Vector3(1.72, 0.97, 0.09)
+
+[sub_resource type="BoxMesh" id="Rail"]
+material = SubResource("Edge")
+size = Vector3(1.79, 0.065, 0.11)
+
+[sub_resource type="BoxMesh" id="Sheet"]
+material = SubResource("Parchment")
+size = Vector3(0.32, 0.41, 0.015)
+
+[sub_resource type="BoxMesh" id="Line"]
+material = SubResource("Ink")
+size = Vector3(0.22, 0.021, 0.008)
+
+[sub_resource type="CylinderMesh" id="Wax"]
+material = SubResource("Seal")
+top_radius = 0.043
+bottom_radius = 0.045
+height = 0.022
+radial_segments = 8
+
+[node name="NoticeBoard" type="Node3D"]
+
+[node name="Back" type="MeshInstance3D" parent="."]
+mesh = SubResource("Board")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.459, 0)
+mesh = SubResource("Rail")
+
+[node name="Sill" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.459, 0.008)
+mesh = SubResource("Rail")
+
+[node name="LeftSheet" type="MeshInstance3D" parent="."]
+position = Vector3(-0.49, 0.115, 0.055)
+rotation_degrees = Vector3(0, 0, 9)
+mesh = SubResource("Sheet")
+
+[node name="Ink" type="MeshInstance3D" parent="LeftSheet"]
+position = Vector3(0, 0.097, 0.01)
+mesh = SubResource("Line")
+
+[node name="Wax" type="MeshInstance3D" parent="LeftSheet"]
+position = Vector3(0.068, -0.111, 0.019)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Wax")
+
+[node name="CenterSheet" type="MeshInstance3D" parent="."]
+position = Vector3(-0.058, -0.062, 0.052)
+rotation_degrees = Vector3(0, 0, -4)
+mesh = SubResource("Sheet")
+
+[node name="Title" type="MeshInstance3D" parent="CenterSheet"]
+position = Vector3(0, 0.083, 0.01)
+mesh = SubResource("Line")
+
+[node name="Ink" type="MeshInstance3D" parent="CenterSheet"]
+position = Vector3(-0.02, 0.027, 0.01)
+mesh = SubResource("Line")
+
+[node name="RightSheet" type="MeshInstance3D" parent="."]
+position = Vector3(0.455, 0.085, 0.052)
+rotation_degrees = Vector3(0, 0, -11)
+mesh = SubResource("Sheet")
+
+[node name="Ink" type="MeshInstance3D" parent="RightSheet"]
+position = Vector3(0.018, 0.073, 0.01)
+mesh = SubResource("Line")
+
+[node name="Wax" type="MeshInstance3D" parent="RightSheet"]
+position = Vector3(0.052, -0.114, 0.019)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Wax")

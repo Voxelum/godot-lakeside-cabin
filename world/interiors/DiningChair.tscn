@@ -1,0 +1,89 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="Mat_beam"]
+albedo_color = Color(0.34509803921568627, 0.2196078431372549, 0.17254901960784313, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_edge"]
+albedo_color = Color(0.4745098039215686, 0.3176470588235294, 0.23137254901960785, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_gold"]
+albedo_color = Color(0.8352941176470589, 0.6392156862745098, 0.3568627450980392, 1)
+roughness = 0.94
+
+[sub_resource type="BoxShape3D" id="Shape_366"]
+size = Vector3(0.58, 0.64, 0.59)
+
+[sub_resource type="BoxMesh" id="Mesh_367"]
+material = SubResource("Mat_gold")
+size = Vector3(0.57, 0.105, 0.55)
+
+[sub_resource type="BoxMesh" id="Mesh_368"]
+material = SubResource("Mat_edge")
+size = Vector3(0.075, 0.44, 0.075)
+
+[sub_resource type="BoxMesh" id="Mesh_369"]
+material = SubResource("Mat_edge")
+size = Vector3(0.075, 1.07, 0.075)
+
+[sub_resource type="BoxMesh" id="Mesh_370"]
+material = SubResource("Mat_beam")
+size = Vector3(0.57, 0.095, 0.102)
+
+[sub_resource type="BoxMesh" id="Mesh_371"]
+material = SubResource("Mat_gold")
+size = Vector3(0.038, 0.48, 0.043)
+
+[node name="DiningChair" type="Node3D"]
+
+[node name="ChairBlockBody" type="StaticBody3D" parent="."]
+position = Vector3(0, 0.32, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="ChairBlockBody"]
+shape = SubResource("Shape_366")
+
+[node name="ChairSeat" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.44, 0)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_367")
+
+[node name="ChairLeg00" type="MeshInstance3D" parent="."]
+position = Vector3(-0.22, 0.22, -0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_368")
+
+[node name="ChairLeg02" type="MeshInstance3D" parent="."]
+position = Vector3(-0.22, 0.535, 0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_369")
+
+[node name="ChairLeg20" type="MeshInstance3D" parent="."]
+position = Vector3(0.22, 0.22, -0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_368")
+
+[node name="ChairLeg22" type="MeshInstance3D" parent="."]
+position = Vector3(0.22, 0.535, 0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_369")
+
+[node name="ChairCrest" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.035, 0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_370")
+
+[node name="ChairSpindle0" type="MeshInstance3D" parent="."]
+position = Vector3(-0.125, 0.755, 0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_371")
+
+[node name="ChairSpindle1" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.755, 0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_371")
+
+[node name="ChairSpindle2" type="MeshInstance3D" parent="."]
+position = Vector3(0.125, 0.755, 0.205)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_371")

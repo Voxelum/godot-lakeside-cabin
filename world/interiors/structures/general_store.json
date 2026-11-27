@@ -1,0 +1,14 @@
+{
+  "building_id": "clearing.market_court.general_store", "room_id": "place.general_store", "kind": "shop", "sign": "general_store",
+  "size": [5.40, 4.40], "wall_thickness": 0.15, "wall_panel": "plaster_posts",
+  "floors": [0], "slab_thickness": 0.16, "stoop_rise": 0.16,
+  "eave_height": 2.97, "roof_rise": 1.38, "roof_profile": "clipped", "ridge_axis": "x",
+  "attachment": "awning", "chimney": "none", "seed": 561378, "entry_style": "square", "floor_finish": "flags",
+  "style": {"facade":"c2c6a4", "timber":"61513c", "stone":"9e9d8b", "roof":"80674e", "door":"537565", "lining":"d3c7a6", "interior_timber":"76533c", "floor":"a19b83", "shutter":"5c7661", "glass":"b4b88e"},
+  "openings": [
+    {"id":"market_door", "kind":"door", "side":"south", "u":0.96, "floor":0, "sill":0, "width":1.12, "height":2.02},
+    {"id":"market_display", "kind":"window", "side":"south", "u":-1.02, "floor":0, "sill":0.69, "width":2.16, "height":1.17, "component":"shop_display"},
+    {"id":"weighing_sash", "kind":"window", "side":"east", "u":0.19, "floor":0, "sill":0.98, "width":1.26, "height":1.12, "component":"shop_display"},
+    {"id":"stock_sash", "kind":"window", "side":"north", "u":-1.37, "floor":0, "sill":1.21, "width":1.02, "height":0.96, "component":"casement"}
+  ]
+}

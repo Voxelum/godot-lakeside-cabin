@@ -3,6 +3,7 @@ extends SceneTree
 ## the itinerary, including return travel, landings, and the two grade sides.
 const MAIN := preload("res://Main.tscn")
 const Survey := preload("res://world/outskirts/outskirts_profile.gd")
+const Catalog := preload("res://world/interiors/room_catalog.gd")
 const ACTIONS := [&"walk_left", &"walk_right", &"walk_up", &"walk_down"]
 var main
 var actor: CharacterBody3D
@@ -101,13 +102,7 @@ func key(code: Key) -> void:
 		Input.flush_buffered_events()
 
 func take_sample() -> void:
-	for press: bool in [true,false]:
-		var e := InputEventMouseButton.new()
-		e.pressed = press; e.button_index = MOUSE_BUTTON_RIGHT
-		e.position = Vector2(root.size)*.5
-		e.global_position = e.position
-		Input.parse_input_event(e)
-		Input.flush_buffered_events()
+	key(KEY_F)
 
 func ground(p: Vector2) -> Dictionary:
 	var query := PhysicsRayQueryParameters3D.create(Vector3(p.x,4.,p.y),Vector3(p.x,-2.,p.y))
@@ -128,7 +123,7 @@ func _run() -> void:
 	check(Survey.xz(actor.global_position).distance_to(Survey.ROUTE[0])<.001 and actor.is_on_floor(),"untouched, dry original spawn")
 	take_sample()
 	key(KEY_F6)
-	check(state.inventory=={"item.sample":1},"picked one original ground stack")
+	check(state.inventory.get("item.sample", 0)==1 and state.remaining("bank.sample_a",1)+state.remaining("bank.sample_b",1)==1,"picked exactly one original ground stack alongside the starting equipment")
 	check(state.simulated_until==1 and state.stock("region.bank")==11 and state.stock("region.rise")==1,"original abstract interval still works")
 	var bag: Dictionary = state.inventory.duplicate()
 	var left := state.remaining("bank.sample_a",1) as int
@@ -153,8 +148,10 @@ func _itinerary() -> bool:
 		if i in [14,17,20]:
 			var j := [14,17,20].find(i)
 			check(await walk(Survey.PULLOUTS[j],"viewing shoulder %d"%j,false),"walk off the trail to exhibit %d" %j)
-			var specimen: Node3D = site.get_node("Habitats").get_child(j)
-			check(specimen.get_world_3d()==actor.get_world_3d() and specimen.find_children("*","CollisionObject3D",true,false).is_empty(),"specimen %d is presentation only in the same 3D world"%j)
+			var clear_shoulder := true
+			for foe in main.session.farm.fighters:
+				if Survey.xz(foe.actor.global_position).distance_to(Survey.PULLOUTS[j]) < 3.0: clear_shoulder = false
+			check(clear_shoulder and main.session.farm.opponent == null,"former exhibit %d is now peaceful; combat belongs in the farm"%j)
 			if not await walk(Survey.ROUTE[i],"rejoin after exhibit %d"%j,false): return false
 	print("Survey from old spawn to stone street: %.2f m" % run_length)
 	var a := ground(Vector2(15.82,39.86)); var b := ground(Vector2(15.68,40.16))
@@ -178,30 +175,50 @@ func _itinerary() -> bool:
 		if not await walk(Survey.ROUTE[i],"return from alley onto main street",false): return false
 		check(true,"alley through the two narrow houses and back out")
 	street = Survey.ROUTE[23]
-	for lot in site.get_node("Lots").get_children():
-		if lot.archetype==1 or lot.archetype==2:
-			if not await doorfront(lot): return false
+	for lot_name in ["CopperLoft", "SillHouse", "Bakery"]:
+		if not await doorfront(site.get_node("Lots/"+lot_name)): return false
 	if not await walk(street,"town mouth after the lots"): return false
 	for i in range(22,-1,-1):
 		if not await walk(Survey.ROUTE[i],"return station %d"%i): return false
+		if i==15:
+			if not await doorfront(site.get_node("Lots/HayBarn")): return false
+			if not await walk(Survey.ROUTE[i],"barn shoulder to lane"): return false
+		if i==12:
+			if not await doorfront(site.get_node("Lots/Blacksmith")): return false
+			if not await walk(Survey.ROUTE[i],"smithy back to lane"): return false
 		if i!=10: continue
-		for lot in site.get_node("Lots").get_children():
-			if lot.archetype in [0,3] and not await doorfront(lot): return false
+		for lot_name in ["LimeHouse", "OrchardHouse"]:
+			if not await doorfront(site.get_node("Lots/"+lot_name)): return false
 		if not await walk(Survey.ROUTE[i],"well to old lane"): return false
 	return true
 
 func doorfront(lot: Node3D) -> bool:
 	var approach: Marker3D = lot.marker("Approach")
 	var landing: Marker3D = lot.marker("Landing")
-	if not approach or not landing:
+	var door: Marker3D = lot.marker("DoorAnchor")
+	if not approach or not landing or not door:
 		check(false,"missing approach on "+lot.name)
 		return false
 	var trail := Survey.nearest_track(Survey.xz(approach.global_position))
+	# Stay outside the new directed door plane; interior_door_checks covers
+	# walking onward across it. This itinerary must remain entirely outdoors.
+	var stoop_front := Survey.xz(door.to_global(Vector3(0, 0, .52)))
 	if not await walk(trail,lot.name+" road link") \
 		or not await walk(Survey.xz(approach.global_position),lot.name+" approach",false) \
-		or not await walk(Survey.xz(landing.global_position),lot.name+" landing",false):
+		or not await walk(stoop_front,lot.name+" stoop front",false):
 		return false
 	await ticks(4)
-	check(absf(actor.global_position.y-landing.global_position.y)<.035,"level foot on %s stoop"%lot.name)
-	check(await wall_probe(-Survey.xz(approach.global_basis.z).normalized(),34,"/ShellAndLanding"),"%s remains a closed exterior shell"%lot.name)
+	# A short ray below the overhead eave tests the landing proper.
+	var ray := PhysicsRayQueryParameters3D.create(landing.global_position + Vector3.UP * .18, landing.global_position - Vector3.UP * .16)
+	ray.exclude = [actor.get_rid()]
+	var support := actor.get_world_3d().direct_space_state.intersect_ray(ray)
+	check(not support.is_empty() and absf(support.position.y-landing.global_position.y)<.035,"level support on %s stoop"%lot.name)
+	# The leaf now opens on approach. At the landing the portal centre must
+	# be physically clear without having triggered the directed threshold.
+	await ticks(16)
+	var hinge := Catalog.outdoor_hinge(lot)
+	var shell_ray := PhysicsRayQueryParameters3D.create(door.to_global(Vector3(0, .85, .44)), door.to_global(Vector3(0, .85, -.52)))
+	shell_ray.exclude = [actor.get_rid()]
+	var shell := actor.get_world_3d().direct_space_state.intersect_ray(shell_ray)
+	check(hinge != null and hinge.is_clear() and shell.is_empty() and not main.indoors and not main.crossing,"%s opened at its old landing without an iris"%lot.name)
 	return await walk(Survey.xz(approach.global_position),lot.name+" descend",false) and await walk(trail,lot.name+" back to road",false)

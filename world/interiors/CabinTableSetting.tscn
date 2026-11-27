@@ -1,0 +1,155 @@
+[gd_scene format=3]
+
+[ext_resource type="Resource" path="res://scripts/foundation/bread.tres" id="BreadItem"]
+[ext_resource type="Resource" path="res://scripts/foundation/cup.tres" id="CupItem"]
+
+[ext_resource type="Script" path="res://scripts/interaction/stack_target.gd" id="TableStack"]
+[sub_resource type="StandardMaterial3D" id="Mat_beam"]
+albedo_color = Color(0.34509803921568627, 0.2196078431372549, 0.17254901960784313, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_edge"]
+albedo_color = Color(0.4745098039215686, 0.3176470588235294, 0.23137254901960785, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_blue"]
+albedo_color = Color(0.2627450980392157, 0.4627450980392157, 0.4823529411764706, 1)
+roughness = 0.94
+
+[sub_resource type="StandardMaterial3D" id="Mat_red"]
+albedo_color = Color(0.6549019607843137, 0.2784313725490196, 0.21176470588235294, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_373"]
+material = SubResource("Mat_red")
+size = Vector3(0.46, 0.014, 1.129)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cream"]
+albedo_color = Color(0.9529411764705882, 0.8509803921568627, 0.6745098039215687, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_374"]
+material = SubResource("Mat_cream")
+size = Vector3(0.455, 0.005, 0.021)
+
+[sub_resource type="CylinderMesh" id="Mesh_375"]
+material = SubResource("Mat_edge")
+top_radius = 0.238
+bottom_radius = 0.22
+height = 0.031
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="Mat_bread"]
+albedo_color = Color(0.7294117647058823, 0.4745098039215686, 0.25098039215686274, 1)
+roughness = 0.94
+
+[sub_resource type="SphereMesh" id="Mesh_376"]
+material = SubResource("Mat_bread")
+radius = 0.163
+height = 0.126
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="Mat_crust"]
+albedo_color = Color(0.9176470588235294, 0.7254901960784313, 0.4549019607843137, 1)
+roughness = 0.94
+
+[sub_resource type="BoxMesh" id="Mesh_377"]
+material = SubResource("Mat_crust")
+size = Vector3(0.016, 0.009, 0.12)
+
+[sub_resource type="CylinderMesh" id="Mesh_378"]
+material = SubResource("Mat_blue")
+top_radius = 0.085
+bottom_radius = 0.062
+height = 0.17
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="Mesh_379"]
+material = SubResource("Mat_cream")
+top_radius = 0.09
+bottom_radius = 0.088
+height = 0.023
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="Mesh_380"]
+material = SubResource("Mat_beam")
+top_radius = 0.066
+bottom_radius = 0.066
+height = 0.005
+radial_segments = 12
+
+[node name="CabinTableSetting" type="Node3D"]
+
+[node name="Runner" type="MeshInstance3D" parent="."]
+position = Vector3(0.03, 0.025, 0)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_373")
+
+[node name="RunnerStripe0" type="MeshInstance3D" parent="."]
+position = Vector3(0.03, 0.034, -0.52)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_374")
+
+[node name="RunnerStripe1" type="MeshInstance3D" parent="."]
+position = Vector3(0.03, 0.034, -0.46)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_374")
+
+[node name="RunnerStripe2" type="MeshInstance3D" parent="."]
+position = Vector3(0.03, 0.034, 0.46)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_374")
+
+[node name="RunnerStripe3" type="MeshInstance3D" parent="."]
+position = Vector3(0.03, 0.034, 0.52)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_374")
+
+[node name="BreadBoard" type="MeshInstance3D" parent="."]
+position = Vector3(-0.31, 0.045, -0.09)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_375")
+
+[node name="BreadPickup" type="Node3D" parent="." groups=["test_stack_source"]]
+position = Vector3(-0.31, 0.119, -0.09)
+script = ExtResource("TableStack")
+reach_drop = 0.65
+instance_id = "cabin.dining.bread.01"
+definition = ExtResource("BreadItem")
+
+[node name="Loaf" type="MeshInstance3D" parent="BreadPickup"]
+mesh = SubResource("Mesh_376")
+
+[node name="LoafScore0" type="MeshInstance3D" parent="BreadPickup"]
+position = Vector3(-0.08, 0.051, 0)
+rotation_degrees = Vector3(0, -26, 0)
+mesh = SubResource("Mesh_377")
+
+[node name="LoafScore1" type="MeshInstance3D" parent="BreadPickup"]
+position = Vector3(-0.002, 0.051, 0)
+rotation_degrees = Vector3(0, -26, 0)
+mesh = SubResource("Mesh_377")
+
+[node name="LoafScore2" type="MeshInstance3D" parent="BreadPickup"]
+position = Vector3(0.076, 0.051, 0)
+rotation_degrees = Vector3(0, -26, 0)
+mesh = SubResource("Mesh_377")
+
+[node name="CupPickup" type="Node3D" parent="." groups=["test_stack_source"]]
+position = Vector3(0.27, 0.12, 0.05)
+script = ExtResource("TableStack")
+reach_drop = 0.65
+instance_id = "cabin.dining.cup.01"
+definition = ExtResource("CupItem")
+
+[node name="Cup" type="MeshInstance3D" parent="CupPickup"]
+mesh = SubResource("Mesh_378")
+
+[node name="CupRim" type="MeshInstance3D" parent="CupPickup"]
+position = Vector3(0, 0.09, 0)
+mesh = SubResource("Mesh_379")
+
+[node name="Tea" type="MeshInstance3D" parent="CupPickup"]
+position = Vector3(0, 0.102, 0)
+mesh = SubResource("Mesh_380")
